@@ -21,35 +21,21 @@
 
 *{
     box-sizing:border-box;
-}
-
-:root{
-    --bg:#f5f5f7;
-    --card:#fff;
-    --text:#111;
-    --muted:#777;
-    --border:#e3e3e8;
-    --blue:#007AFF;
-    --blueDark:#0064d6;
-    --danger:#ff3b30;
+    -webkit-tap-highlight-color:transparent;
 }
 
 html,
 body{
     margin:0;
+    padding:0;
     min-height:100%;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    background:#f5f5f7;
+    color:#151515;
 }
 
 body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Arial,
-        sans-serif;
+    min-height:100vh;
 }
 
 button,
@@ -66,922 +52,633 @@ button{
     display:none!important;
 }
 
-.center{
-    text-align:center;
+.app{
+    width:min(720px,100%);
+    margin:auto;
+    padding:18px;
+    padding-bottom:40px;
 }
 
 
-/* =====================================================
-   HEADER
-===================================================== */
+/* =========================================================
+HEADER
+========================================================= */
 
-header{
-    height:70px;
+.header{
     display:flex;
     align-items:center;
     justify-content:space-between;
-
-    padding:0 22px;
-
-    background:rgba(255,255,255,.88);
-
-    border-bottom:1px solid var(--border);
-
-    backdrop-filter:blur(18px);
-
-    position:sticky;
-    top:0;
-    z-index:100;
+    margin-bottom:25px;
 }
 
 .brand{
-    font-size:24px;
+    font-size:25px;
     font-weight:900;
     letter-spacing:-1px;
 }
 
 .brand span{
-    color:var(--blue);
+    color:#007aff;
 }
 
 .headerProfile{
-    width:46px;
-    height:46px;
-
     border:0;
-    border-radius:50%;
-
-    background:#fff;
-
-    box-shadow:
-        0 3px 15px rgba(0,0,0,.12);
-
+    background:white;
+    width:52px;
+    height:52px;
+    border-radius:17px;
     position:relative;
-    overflow:hidden;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
 }
 
 .pHead{
     position:absolute;
-
-    width:18px;
-    height:18px;
-
+    width:22px;
+    height:22px;
     border-radius:50%;
-
-    left:50%;
-    top:7px;
-
-    transform:translateX(-50%);
-
-    background:#007AFF;
+    background:var(--character-color,#007aff);
+    left:15px;
+    top:8px;
 }
 
 .pBody{
     position:absolute;
-
-    width:29px;
-    height:21px;
-
-    border-radius:
-        16px 16px 8px 8px;
-
-    left:50%;
-    bottom:6px;
-
-    transform:translateX(-50%);
-
-    background:#007AFF;
+    width:31px;
+    height:19px;
+    border-radius:15px 15px 9px 9px;
+    background:var(--character-color,#007aff);
+    left:10px;
+    bottom:7px;
 }
 
 
-/* =====================================================
-   APP
-===================================================== */
+/* =========================================================
+HOME
+========================================================= */
 
-#app{
-    width:100%;
-    max-width:680px;
-
-    margin:auto;
-
-    padding:
-        24px
-        16px
-        60px;
+.center{
+    text-align:center;
 }
-
-.screen{
-    display:none;
-}
-
-.screen.active{
-    display:block;
-}
-
-
-/* =====================================================
-   HOME
-===================================================== */
 
 .homeHero{
-    padding:35px 0;
+    padding:25px 0 15px;
 }
 
 .homeHero h1{
+    margin:18px 0 5px;
     font-size:42px;
-    margin:20px 0 8px;
-
     letter-spacing:-2px;
 }
 
 .homeHero p{
-    color:var(--muted);
     margin:0;
+    color:#777;
 }
 
 .homeCharacter{
     width:130px;
-    height:130px;
-
+    height:160px;
     position:relative;
-
     margin:auto;
+    animation:floatCharacter 3s ease-in-out infinite;
+}
+
+.characterHead,
+.characterBody{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    background:var(--character-color,#007aff);
 }
 
 .characterHead{
-    width:50px;
-    height:50px;
-
+    width:78px;
+    height:78px;
     border-radius:50%;
-
-    position:absolute;
-
-    top:12px;
-    left:40px;
-
-    background:#007AFF;
+    top:5px;
 }
 
 .characterBody{
-    width:80px;
-    height:57px;
-
-    border-radius:
-        45px 45px
-        15px 15px;
-
-    position:absolute;
-
-    bottom:12px;
-    left:25px;
-
-    background:#007AFF;
+    width:105px;
+    height:68px;
+    border-radius:50px 50px 25px 25px;
+    bottom:10px;
 }
 
 .characterEye{
-    width:8px;
-    height:11px;
-
-    border-radius:50%;
-
     position:absolute;
-
-    top:34px;
-
-    background:#fff;
+    width:11px;
+    height:17px;
+    background:white;
+    border-radius:50%;
+    top:36px;
+    z-index:2;
+    animation:blink 4.7s infinite;
 }
 
 .characterEye.one{
-    left:56px;
+    left:48px;
 }
 
 .characterEye.two{
-    left:68px;
+    right:48px;
+}
+
+@keyframes floatCharacter{
+
+    0%,100%{
+        transform:translateY(0) rotate(-1deg);
+    }
+
+    50%{
+        transform:translateY(-8px) rotate(1deg);
+    }
+
+}
+
+@keyframes blink{
+
+    0%,43%,47%,100%{
+        transform:scaleY(1);
+    }
+
+    45%{
+        transform:scaleY(.08);
+    }
+
 }
 
 .homeButtons{
     display:grid;
     gap:12px;
+    margin-top:25px;
 }
 
 .actionButton{
-    width:100%;
-
-    border:1px solid var(--border);
-
-    background:#fff;
-
-    border-radius:18px;
-
+    border:0;
+    background:white;
     padding:18px;
-
+    border-radius:20px;
     text-align:left;
-
-    display:grid;
-
-    grid-template-columns:38px 1fr;
-
-    grid-template-rows:auto auto;
-
-    column-gap:10px;
-
-    box-shadow:
-        0 3px 14px rgba(0,0,0,.04);
-
-    transition:.15s;
+    position:relative;
+    box-shadow:0 6px 22px rgba(0,0,0,.06);
+    transition:.18s;
 }
 
-.actionButton:hover{
-    transform:translateY(-2px);
+.actionButton:active{
+    transform:scale(.98);
+}
+
+.actionButton.primary{
+    background:#007aff;
+    color:white;
 }
 
 .actionButton .arrow{
-    grid-row:1 / 3;
-
-    font-size:32px;
-
-    color:var(--blue);
-
-    align-self:center;
+    position:absolute;
+    right:20px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:30px;
 }
 
-.actionButton strong{
-    font-size:18px;
+.actionButton strong,
+.actionButton small{
+    display:block;
+    padding-right:35px;
 }
 
 .actionButton small{
-    color:var(--muted);
+    margin-top:4px;
+    opacity:.65;
 }
 
 
-/* =====================================================
-   NAV
-===================================================== */
+/* =========================================================
+NAV
+========================================================= */
 
 .nav{
     display:flex;
     align-items:center;
-
-    gap:12px;
-
-    margin-bottom:18px;
+    justify-content:space-between;
+    margin-bottom:16px;
 }
 
 .back{
     border:0;
-
     background:transparent;
-
-    padding:8px 0;
-
-    color:var(--blue);
-
     font-weight:700;
+    padding:8px 0;
 }
 
 .badge{
-    background:#e8f2ff;
-
-    color:var(--blue);
-
-    padding:6px 12px;
-
-    border-radius:999px;
-
+    display:inline-flex;
+    align-items:center;
+    padding:7px 12px;
+    background:#e9e9ed;
+    border-radius:99px;
     font-size:13px;
-
     font-weight:800;
 }
 
 
-/* =====================================================
-   CARD
-===================================================== */
+/* =========================================================
+CARDS
+========================================================= */
 
 .card{
-    background:var(--card);
-
-    border:1px solid var(--border);
-
-    border-radius:20px;
-
+    background:white;
+    border-radius:22px;
     padding:20px;
-
     margin-bottom:14px;
-
-    box-shadow:
-        0 3px 15px rgba(0,0,0,.04);
+    box-shadow:0 6px 25px rgba(0,0,0,.055);
 }
 
 .cardTitle{
-    font-size:19px;
-
-    font-weight:800;
-
+    font-size:20px;
+    font-weight:900;
     margin-bottom:15px;
 }
 
 .description{
-    color:var(--muted);
-
-    font-size:14px;
-
-    line-height:1.5;
-
-    margin:10px 0 18px;
+    color:#777;
+    line-height:1.45;
+    margin-bottom:18px;
 }
 
 .small{
-    color:var(--muted);
-
-    font-size:13px;
+    color:#777;
+    font-size:14px;
+    line-height:1.45;
 }
 
-
-/* =====================================================
-   FORM
-===================================================== */
-
 .field{
-    margin-bottom:18px;
+    margin:18px 0;
 }
 
 .field label{
     display:block;
-
-    font-size:14px;
-
-    font-weight:700;
-
-    margin-bottom:7px;
+    font-weight:800;
+    margin-bottom:8px;
 }
 
 select,
 .textInput{
     width:100%;
-
-    border:1px solid var(--border);
-
+    border:1px solid #ddd;
+    border-radius:14px;
+    padding:13px 14px;
     background:#fafafa;
-
-    border-radius:12px;
-
-    padding:13px;
-
     outline:none;
 }
 
 select:focus,
 .textInput:focus{
-    border-color:var(--blue);
+    border-color:#007aff;
+}
+
+.primaryButton,
+.secondaryButton,
+.dangerButton{
+    border:0;
+    border-radius:15px;
+    padding:14px 18px;
+    width:100%;
+    font-weight:850;
+}
+
+.primaryButton{
+    background:#007aff;
+    color:white;
+}
+
+.secondaryButton{
+    background:#ececf0;
+    color:#111;
+}
+
+.dangerButton{
+    background:#ff3b30;
+    color:white;
+}
+
+.inlineButton{
+    width:auto;
+    padding:8px 12px;
 }
 
 .toggleRow{
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
     gap:15px;
+    padding:8px 0;
 }
 
-.toggleText{
-    display:flex;
-
-    flex-direction:column;
-
-    gap:3px;
+.toggleText strong,
+.toggleText span{
+    display:block;
 }
 
 .toggleText span{
-    color:var(--muted);
-
+    color:#777;
     font-size:13px;
+    margin-top:3px;
 }
 
 .switch{
     position:relative;
-
-    width:50px;
-    height:30px;
-
+    width:52px;
+    height:31px;
     flex-shrink:0;
 }
 
 .switch input{
-    opacity:0;
-
-    width:0;
-    height:0;
+    display:none;
 }
 
 .slider{
     position:absolute;
-
     inset:0;
-
-    background:#d1d1d6;
-
-    border-radius:30px;
-
+    background:#ddd;
+    border-radius:99px;
     transition:.2s;
 }
 
 .slider:before{
     content:"";
-
     position:absolute;
-
-    width:24px;
-    height:24px;
-
+    width:25px;
+    height:25px;
     left:3px;
     top:3px;
-
-    background:#fff;
-
+    background:white;
     border-radius:50%;
-
-    box-shadow:
-        0 2px 5px rgba(0,0,0,.2);
-
+    box-shadow:0 2px 6px rgba(0,0,0,.2);
     transition:.2s;
 }
 
 .switch input:checked + .slider{
-    background:var(--blue);
+    background:#34c759;
 }
 
 .switch input:checked + .slider:before{
-    transform:translateX(20px);
+    transform:translateX(21px);
 }
 
 
-/* =====================================================
-   BUTTONS
-===================================================== */
-
-.primaryButton,
-.secondaryButton,
-.dangerButton{
-    width:100%;
-
-    border:0;
-
-    border-radius:13px;
-
-    padding:13px 16px;
-
-    font-weight:800;
-}
-
-.primaryButton{
-    background:var(--blue);
-
-    color:white;
-}
-
-.primaryButton:hover{
-    background:var(--blueDark);
-}
-
-.secondaryButton{
-    background:#f1f1f4;
-
-    color:#111;
-}
-
-.dangerButton{
-    background:#fff0ef;
-
-    color:var(--danger);
-}
-
-.inlineButton{
-    width:auto;
-}
-
-
-/* =====================================================
-   ROOM
-===================================================== */
+/* =========================================================
+ROOM
+========================================================= */
 
 .roomCode{
-    font-size:40px;
-
-    font-weight:900;
-
+    font-size:36px;
+    font-weight:950;
     letter-spacing:7px;
-
     margin:10px 0 20px;
+    word-break:break-all;
+}
+
+.roomLink{
+    background:#f5f5f7;
+    padding:12px;
+    border-radius:13px;
+    font-size:13px;
+    color:#666;
+    word-break:break-all;
+    margin-bottom:12px;
 }
 
 .players{
-    display:flex;
-
-    flex-direction:column;
-
-    gap:8px;
+    display:grid;
+    gap:9px;
 }
 
 .playerRow{
     display:flex;
-
     align-items:center;
-
     gap:10px;
-
     padding:10px;
-
-    background:#f7f7f8;
-
-    border-radius:12px;
+    border-radius:13px;
+    background:#f5f5f7;
 }
 
-.playerDot{
-    width:17px;
-    height:17px;
-
-    border-radius:50%;
-
-    flex-shrink:0;
-}
-
-.playerName{
-    font-weight:700;
-}
-
-
-/* =====================================================
-   MINI CHARACTER OTHER PLAYERS
-===================================================== */
-
-.otherPlayerCharacter{
+.miniCharacter{
     width:38px;
     height:38px;
-
     position:relative;
-
     flex-shrink:0;
 }
 
-.otherPlayerHead{
+.miniCharacter .head{
     position:absolute;
-
-    width:15px;
-    height:15px;
-
+    width:21px;
+    height:21px;
     border-radius:50%;
-
-    left:11px;
+    left:8px;
     top:1px;
+    background:var(--c);
 }
 
-.otherPlayerBody{
+.miniCharacter .body{
     position:absolute;
-
-    width:25px;
+    width:30px;
     height:18px;
-
-    border-radius:
-        15px 15px
-        5px 5px;
-
-    left:5px;
+    border-radius:15px 15px 8px 8px;
+    left:3px;
     bottom:1px;
+    background:var(--c);
 }
 
-.otherPlayerEye{
-    position:absolute;
-
-    width:3px;
-    height:5px;
-
-    background:#fff;
-
-    border-radius:50%;
-
-    top:7px;
+.playerInfo{
+    flex:1;
 }
 
-.otherPlayerEye.a{
-    left:15px;
+.playerInfo strong{
+    display:block;
 }
 
-.otherPlayerEye.b{
-    left:20px;
+.playerInfo span{
+    font-size:12px;
+    color:#777;
 }
 
 
-/* =====================================================
-   GAME
-===================================================== */
+/* =========================================================
+GAME
+========================================================= */
 
 .roundHeader{
     display:flex;
-
     align-items:center;
-
     gap:10px;
-
-    margin-bottom:12px;
+    margin-bottom:10px;
 }
 
 .roundText{
-    font-size:14px;
-
-    font-weight:600;
+    font-weight:800;
+    flex:1;
 }
 
 .progress{
-    width:100%;
-
-    height:7px;
-
-    background:#e5e5e7;
-
-    border-radius:20px;
-
+    height:6px;
+    background:#ddd;
+    border-radius:99px;
     overflow:hidden;
-
-    margin-bottom:20px;
+    margin-bottom:15px;
 }
 
 .progressBar{
-    height:100%;
-
     width:100%;
-
-    background:var(--blue);
-
-    transition:width .2s linear;
+    height:100%;
+    background:#007aff;
+    transform-origin:left;
 }
 
 .timer{
-    font-size:34px;
-
-    font-weight:900;
-
-    margin:15px 0 20px;
+    font-size:40px;
+    font-weight:950;
+    margin:15px 0;
 }
 
 .targetColor{
-    width:100%;
-
     height:180px;
-
-    border-radius:18px;
-
+    border-radius:20px;
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     overflow:hidden;
 }
 
 .targetHex{
-    background:rgba(0,0,0,.55);
-
-    color:#fff;
-
     padding:8px 12px;
-
     border-radius:10px;
-
-    font-weight:800;
+    background:rgba(255,255,255,.78);
+    font-weight:900;
 }
 
 .camera{
     width:100%;
-
-    aspect-ratio:4 / 3;
-
-    border-radius:16px;
-
+    aspect-ratio:4/3;
+    border-radius:18px;
     overflow:hidden;
-
     background:#111;
 }
 
-.camera video{
+.camera video,
+.photo{
     width:100%;
     height:100%;
-
     object-fit:cover;
+    display:block;
 }
 
 .cameraHint{
-    color:var(--muted);
-
+    color:#777;
     font-size:14px;
-
     margin-top:10px;
 }
 
-.photo{
-    width:100%;
+.waitingIcon{
+    width:50px;
+    height:50px;
+    margin:0 auto 15px;
+    border-radius:50%;
+    border:5px solid #ddd;
+    border-top-color:#007aff;
+    animation:spin 1s linear infinite;
+}
 
-    display:block;
+@keyframes spin{
 
-    border-radius:15px;
+    to{
+        transform:rotate(360deg);
+    }
+
 }
 
 .scoreBig{
-    font-size:52px;
-
-    font-weight:900;
-
-    margin:12px 0;
+    font-size:55px;
+    font-weight:950;
+    letter-spacing:-3px;
+    margin:10px 0;
 }
 
 .resultMessage{
-    font-weight:700;
-
+    font-weight:800;
     margin-bottom:18px;
 }
 
 .resultGrid{
     display:grid;
-
     grid-template-columns:1fr 1fr;
-
     gap:10px;
 }
 
 .resultItem{
     background:#f5f5f7;
-
     padding:12px;
+    border-radius:13px;
+}
 
-    border-radius:12px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:4px;
+.resultItem span,
+.resultItem strong{
+    display:block;
 }
 
 .resultItem span{
-    color:var(--muted);
-
+    color:#777;
     font-size:12px;
 }
 
 .resultItem strong{
-    font-size:14px;
-}
-
-
-/* =====================================================
-   WAITING
-===================================================== */
-
-.waitingIcon{
-    width:55px;
-    height:55px;
-
-    border:6px solid #ddd;
-
-    border-top-color:var(--blue);
-
-    border-radius:50%;
-
-    animation:spin 1s linear infinite;
-
-    margin:0 auto 18px;
-}
-
-@keyframes spin{
-    to{
-        transform:rotate(360deg);
-    }
-}
-
-
-/* =====================================================
-   FIN
-===================================================== */
-
-.finalTitle{
-    font-size:25px;
-
-    font-weight:900;
+    margin-top:3px;
 }
 
 .podium{
-    display:flex;
-
-    flex-direction:column;
-
+    display:grid;
     gap:10px;
 }
 
-.podiumRow{
+.podiumItem{
     display:flex;
-
-    flex-direction:column;
-
-    gap:12px;
-
-    padding:14px;
-
-    border-radius:16px;
-
-    background:#f6f6f7;
-}
-
-.podiumTop{
-    display:flex;
-
     align-items:center;
-
-    gap:10px;
+    gap:12px;
+    padding:14px;
+    border-radius:16px;
+    background:#f5f5f7;
 }
 
-.podiumScore{
-    margin-left:auto;
-
-    font-size:20px;
-
-    font-weight:900;
-}
-
-.finalPlayerCharacter{
-    width:55px;
-    height:55px;
-
-    position:relative;
-
+.podiumRank{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:white;
+    display:grid;
+    place-items:center;
+    font-weight:950;
     flex-shrink:0;
 }
 
-.finalPlayerHead{
-    position:absolute;
-
-    width:22px;
-    height:22px;
-
-    border-radius:50%;
-
-    top:3px;
-    left:17px;
+.podiumInfo{
+    flex:1;
 }
 
-.finalPlayerBody{
-    position:absolute;
-
-    width:38px;
-    height:27px;
-
-    border-radius:
-        22px 22px
-        7px 7px;
-
-    bottom:3px;
-    left:8px;
+.podiumInfo strong,
+.podiumInfo span{
+    display:block;
 }
 
-.finalPlayerEye{
-    position:absolute;
-
-    width:5px;
-    height:7px;
-
-    background:#fff;
-
-    border-radius:50%;
-
-    top:11px;
-}
-
-.finalPlayerEye.a{
-    left:23px;
-}
-
-.finalPlayerEye.b{
-    left:31px;
-}
-
-.finalPhoto{
-    width:100%;
-
-    max-height:350px;
-
-    object-fit:contain;
-
-    border-radius:12px;
-
-    background:#111;
+.podiumInfo span{
+    color:#777;
+    font-size:13px;
 }
 
 
-/* =====================================================
-   CHARACTER
-===================================================== */
+/* =========================================================
+CHARACTER
+========================================================= */
 
 .characterEditor{
     text-align:center;
@@ -989,159 +686,97 @@ select:focus,
 
 .bigCharacter{
     width:180px;
-    height:190px;
-
-    margin:15px auto 25px;
-
+    height:230px;
     position:relative;
+    margin:0 auto 25px;
+    animation:floatCharacter 3s ease-in-out infinite;
 }
 
 .bigCharacter .head{
     position:absolute;
-
-    width:70px;
-    height:70px;
-
+    width:115px;
+    height:115px;
     border-radius:50%;
-
-    top:15px;
-    left:55px;
-
-    background:#007AFF;
+    top:10px;
+    left:32px;
+    background:var(--character-color,#007aff);
 }
 
 .bigCharacter .body{
     position:absolute;
-
-    width:115px;
-    height:80px;
-
-    border-radius:
-        60px 60px
-        18px 18px;
-
-    bottom:10px;
-    left:32px;
-
-    background:#007AFF;
+    width:155px;
+    height:100px;
+    border-radius:80px 80px 35px 35px;
+    bottom:0;
+    left:12px;
+    background:var(--character-color,#007aff);
 }
 
-.bigCharacter .eye{
+.eye{
     position:absolute;
-
-    width:9px;
-    height:13px;
-
+    width:15px;
+    height:24px;
+    background:white;
     border-radius:50%;
-
-    background:#fff;
-
-    top:43px;
+    top:62px;
+    z-index:2;
+    animation:blink 4.5s infinite;
 }
 
-.bigCharacter .eye.a{
-    left:76px;
+.eye.a{
+    left:65px;
 }
 
-.bigCharacter .eye.b{
-    left:94px;
+.eye.b{
+    left:105px;
 }
 
 .colorInput{
-    width:80px;
-    height:50px;
-
+    width:100%;
+    height:55px;
     border:0;
-
-    padding:0;
-
-    background:transparent;
-
-    cursor:pointer;
-}
-
-.colorSpectrum{
-    height:20px;
-
-    border-radius:20px;
-
-    margin:15px 0;
-
-    background:
-        linear-gradient(
-            90deg,
-            #ff0000,
-            #ffff00,
-            #00ff00,
-            #00ffff,
-            #0000ff,
-            #ff00ff,
-            #ff0000
-        );
+    background:white;
 }
 
 .colorValue{
     font-size:20px;
-
     font-weight:900;
+    margin-top:5px;
 }
 
 
-/* =====================================================
-   TOAST
-===================================================== */
+/* =========================================================
+TOAST
+========================================================= */
 
 #toast{
     position:fixed;
-
     left:50%;
-    bottom:25px;
-
-    transform:
-        translate(-50%,20px);
-
+    bottom:20px;
+    transform:translate(-50%,20px);
     background:#111;
-
-    color:#fff;
-
-    padding:12px 17px;
-
-    border-radius:12px;
-
-    font-size:14px;
-
+    color:white;
+    padding:12px 18px;
+    border-radius:14px;
+    font-weight:700;
     opacity:0;
-
     pointer-events:none;
-
-    transition:.2s;
-
-    z-index:500;
+    transition:.25s;
+    z-index:999;
+    max-width:90%;
+    text-align:center;
 }
 
 #toast.show{
     opacity:1;
-
-    transform:
-        translate(-50%,0);
+    transform:translate(-50%,0);
 }
 
 
-/* =====================================================
-   MOBILE
-===================================================== */
-
 @media(max-width:500px){
 
-    header{
-        padding:0 15px;
-    }
-
-    #app{
-        padding:
-            18px
-            12px
-            40px;
+    .app{
+        padding:14px;
     }
 
     .homeHero h1{
@@ -1149,7 +784,11 @@ select:focus,
     }
 
     .targetColor{
-        height:150px;
+        height:145px;
+    }
+
+    .timer{
+        font-size:34px;
     }
 
 }
@@ -1161,1314 +800,1103 @@ select:focus,
 
 <body>
 
+<div class="app">
 
-<header>
+<header class="header">
 
-    <div class="brand">
-        Color<span>Hunt</span>
-    </div>
+<div class="brand">
+Color<span>Hunt</span>
+</div>
 
+<button
+class="headerProfile"
+onclick="openCharacter()"
+id="headerProfile">
 
-    <button
-        class="headerProfile"
-        onclick="openCharacter()"
-        id="headerProfile">
+<div class="pHead"></div>
+<div class="pBody"></div>
 
-        <div class="pHead"></div>
-        <div class="pBody"></div>
-
-    </button>
+</button>
 
 </header>
 
 
-<main id="app">
-
-
 <!-- =====================================================
-     HOME
+HOME
 ===================================================== -->
 
-<section
-    id="home"
-    class="screen active">
+<section id="screen-home">
 
-    <div class="homeHero center">
+<div class="homeHero center">
 
-        <div class="homeCharacter">
+<div class="homeCharacter">
 
-            <div
-                id="homeCharacterHead"
-                class="characterHead">
-            </div>
+<div
+id="homeCharacterHead"
+class="characterHead">
+</div>
 
-            <div
-                id="homeCharacterBody"
-                class="characterBody">
-            </div>
+<div
+id="homeCharacterBody"
+class="characterBody">
+</div>
 
-            <div class="characterEye one"></div>
-            <div class="characterEye two"></div>
+<div class="characterEye one"></div>
+<div class="characterEye two"></div>
 
-        </div>
+</div>
 
+<h1>
+Color Hunt
+</h1>
 
-        <h1>
-            Color Hunt
-        </h1>
+<p>
+Trouve la couleur. Capture-la. Score.
+</p>
 
-
-        <p>
-            Trouve la couleur. Capture-la. Score.
-        </p>
-
-    </div>
+</div>
 
 
-    <div class="homeButtons">
+<div class="homeButtons">
 
-        <button
-            class="actionButton primary"
-            onclick="openSolo()">
+<button
+class="actionButton primary"
+onclick="openSolo()">
 
-            <span class="arrow">
-                ›
-            </span>
+<span class="arrow">›</span>
 
-            <strong>
-                Solo
-            </strong>
+<strong>
+Solo
+</strong>
 
-            <small>
-                Joue seul
-            </small>
+<small>
+Joue seul
+</small>
 
-        </button>
+</button>
 
 
-        <button
-            class="actionButton"
-            onclick="openMulti()">
+<button
+class="actionButton"
+onclick="openMulti()">
 
-            <span class="arrow">
-                ›
-            </span>
+<span class="arrow">›</span>
 
-            <strong>
-                Multijoueur
-            </strong>
+<strong>
+Multijoueur
+</strong>
 
-            <small>
-                Crée ou rejoins une partie
-            </small>
+<small>
+Crée ou rejoins une partie
+</small>
 
-        </button>
+</button>
 
 
-        <button
-            class="actionButton"
-            onclick="openCharacter()">
+<button
+class="actionButton"
+onclick="openCharacter()">
 
-            <span class="arrow">
-                ›
-            </span>
+<span class="arrow">›</span>
 
-            <strong>
-                Personnage
-            </strong>
+<strong>
+Personnage
+</strong>
 
-            <small>
-                Choisis ta couleur et ton pseudo
-            </small>
+<small>
+Choisis ta couleur et ton pseudo
+</small>
 
-        </button>
+</button>
 
-    </div>
+</div>
 
 </section>
 
 
 <!-- =====================================================
-     SOLO
+SOLO
 ===================================================== -->
 
-<section
-    id="solo"
-    class="screen">
+<section id="screen-solo" class="hidden">
 
-    <div class="nav">
+<div class="nav">
 
-        <button
-            class="back"
-            onclick="showScreen('home')">
+<button
+class="back"
+onclick="showScreen('home')">
 
-            ← Retour
+← Retour
 
-        </button>
+</button>
 
-        <span class="badge">
-            Solo
-        </span>
+<span class="badge">
+Solo
+</span>
 
-    </div>
+</div>
 
 
-    <div class="card">
+<div class="card">
 
-        <div class="cardTitle">
-            Partie
-        </div>
+<div class="cardTitle">
+Partie
+</div>
 
 
-        <div class="field">
+<div class="field">
 
-            <label>
-                Mode
-            </label>
+<label>
+Mode
+</label>
 
+<select
+id="soloMode"
+onchange="updateModeDescription('solo')">
 
-            <select
-                id="soloMode"
-                onchange="updateModeDescription('solo')">
+<option value="classic">
+Classique
+</option>
 
-                <option value="classic">
-                    Classique
-                </option>
+<option value="memory">
+Mémoire
+</option>
 
-                <option value="memory">
-                    Mémoire
-                </option>
+<option value="reverse">
+Reverse
+</option>
 
-                <option value="reverse">
-                    Reverse
-                </option>
+</select>
 
-            </select>
+</div>
 
-        </div>
 
+<div
+id="soloModeDescription"
+class="description">
 
-        <div
-            id="soloModeDescription"
-            class="description">
+La couleur reste visible pendant toute la manche.
 
-            La couleur reste visible pendant toute la manche.
+</div>
 
-        </div>
 
+<div class="field">
 
-        <div class="field">
+<label>
+Nombre de manches
+</label>
 
-            <label>
-                Nombre de manches
-            </label>
+<select id="soloRounds">
 
+<option value="1">1</option>
+<option value="3">3</option>
+<option value="5" selected>5</option>
+<option value="7">7</option>
+<option value="10">10</option>
+<option value="15">15</option>
+<option value="20">20</option>
 
-            <select id="soloRounds">
+</select>
 
-                <option value="1">
-                    1
-                </option>
+</div>
 
-                <option value="3">
-                    3
-                </option>
 
-                <option value="5" selected>
-                    5
-                </option>
+<div class="field">
 
-                <option value="7">
-                    7
-                </option>
+<label>
+Temps par manche
+</label>
 
-                <option value="10">
-                    10
-                </option>
+<select id="soloTime">
 
-                <option value="15">
-                    15
-                </option>
+<option value="10">10 secondes</option>
+<option value="15">15 secondes</option>
+<option value="20">20 secondes</option>
+<option value="30" selected>30 secondes</option>
+<option value="45">45 secondes</option>
+<option value="60">1 minute</option>
+<option value="120">2 minutes</option>
+<option value="infinite">Infini</option>
 
-                <option value="20">
-                    20
-                </option>
+</select>
 
-            </select>
+</div>
 
-        </div>
 
+<div class="toggleRow">
 
-        <div class="field">
+<div class="toggleText">
 
-            <label>
-                Temps par manche
-            </label>
+<strong>
+Photo automatique
+</strong>
 
+<span>
+Capture automatiquement à la fin
+</span>
 
-            <select id="soloTime">
+</div>
 
-                <option value="10">
-                    10 secondes
-                </option>
+<label class="switch">
 
-                <option value="15">
-                    15 secondes
-                </option>
+<input
+id="soloAutoPhoto"
+type="checkbox"
+checked>
 
-                <option value="20">
-                    20 secondes
-                </option>
+<span class="slider"></span>
 
-                <option value="30" selected>
-                    30 secondes
-                </option>
+</label>
 
-                <option value="45">
-                    45 secondes
-                </option>
+</div>
 
-                <option value="60">
-                    1 minute
-                </option>
+</div>
 
-                <option value="120">
-                    2 minutes
-                </option>
 
-                <option value="infinite">
-                    Infini
-                </option>
+<button
+class="primaryButton"
+onclick="startSolo()">
 
-            </select>
+Commencer
 
-        </div>
-
-
-        <div class="toggleRow">
-
-            <div class="toggleText">
-
-                <strong>
-                    Photo automatique
-                </strong>
-
-                <span>
-                    Capture automatiquement à la fin
-                </span>
-
-            </div>
-
-
-            <label class="switch">
-
-                <input
-                    id="soloAutoPhoto"
-                    type="checkbox"
-                    checked>
-
-                <span class="slider"></span>
-
-            </label>
-
-        </div>
-
-    </div>
-
-
-    <button
-        class="primaryButton"
-        onclick="startSolo()">
-
-        Commencer
-
-    </button>
+</button>
 
 </section>
 
 
 <!-- =====================================================
-     MULTI
+MULTI
 ===================================================== -->
 
-<section
-    id="multi"
-    class="screen">
+<section id="screen-multi" class="hidden">
 
-    <div class="nav">
+<div class="nav">
 
-        <button
-            class="back"
-            onclick="showScreen('home')">
+<button
+class="back"
+onclick="showScreen('home')">
 
-            ← Retour
+← Retour
 
-        </button>
+</button>
 
-        <span class="badge">
-            Multijoueur
-        </span>
+<span class="badge">
+Multijoueur
+</span>
 
-    </div>
+</div>
 
 
-    <div class="card">
+<div class="card">
 
-        <div class="cardTitle">
-            Créer une partie
-        </div>
+<div class="cardTitle">
+Créer une partie
+</div>
 
+<p class="description">
+Crée une room et partage son code à 5 caractères ou son lien.
+</p>
 
-        <p class="description">
-            Crée une room et partage son code.
-        </p>
+<button
+class="primaryButton"
+onclick="createRoom()">
 
+Créer une room
 
-        <button
-            class="primaryButton"
-            onclick="createRoom()">
+</button>
 
-            Créer une room
-
-        </button>
-
-    </div>
+</div>
 
 
-    <div class="card">
+<div class="card">
 
-        <div class="cardTitle">
-            Rejoindre
-        </div>
+<div class="cardTitle">
+Rejoindre
+</div>
 
+<input
+id="joinCode"
+class="textInput"
+maxlength="5"
+placeholder="Ex. K7P4Q"
+autocomplete="off"
+style="text-transform:uppercase;letter-spacing:4px;font-weight:900;text-align:center;">
 
-        <input
-            id="joinCode"
-            class="textInput"
-            maxlength="8"
-            placeholder="Code de room"
-            autocomplete="off">
+<br><br>
 
+<button
+class="primaryButton"
+onclick="joinRoom()">
 
-        <br><br>
+Rejoindre
 
+</button>
 
-        <button
-            class="primaryButton"
-            onclick="joinRoom()">
-
-            Rejoindre
-
-        </button>
-
-    </div>
+</div>
 
 </section>
 
 
 <!-- =====================================================
-     ROOM
+ROOM
 ===================================================== -->
 
-<section
-    id="room"
-    class="screen">
+<section id="screen-room" class="hidden">
 
-    <div class="nav">
+<div class="nav">
 
-        <button
-            class="back"
-            onclick="leaveRoom()">
+<button
+class="back"
+onclick="leaveRoom()">
 
-            ← Quitter
+← Quitter
 
-        </button>
+</button>
 
+<span class="badge">
+Room
+</span>
 
-        <span class="badge">
-            Room
-        </span>
+</div>
 
-    </div>
 
+<div class="card center">
 
-    <div class="card center">
+<div class="cardTitle">
+Code de la room
+</div>
 
-        <div class="cardTitle">
-            Code
-        </div>
+<div
+id="roomCodeDisplay"
+class="roomCode">
 
+-----
 
-        <div
-            id="roomCodeDisplay"
-            class="roomCode">
+</div>
 
-            ------
+<div
+id="roomLinkDisplay"
+class="roomLink">
 
-        </div>
+Lien de la room
 
+</div>
 
-        <button
-            class="secondaryButton"
-            onclick="shareRoom()">
+<button
+class="secondaryButton"
+onclick="shareRoom()">
 
-            Partager
+Partager le lien
 
-        </button>
+</button>
 
-    </div>
+<br><br>
 
+<button
+class="secondaryButton"
+onclick="copyRoomCode()">
 
-    <div class="card">
+Copier le code
 
-        <div class="cardTitle">
-            Joueurs
-        </div>
+</button>
 
+</div>
 
-        <div
-            id="playersList"
-            class="players">
-        </div>
 
-    </div>
+<div class="card">
 
+<div class="cardTitle">
+Joueurs
+</div>
 
-    <div
-        id="hostConfig"
-        class="card">
+<div
+id="playersList"
+class="players">
+</div>
 
-        <div class="cardTitle">
-            Configuration
-        </div>
+</div>
 
 
-        <div class="field">
+<div
+id="hostConfig"
+class="card hidden">
 
-            <label>
-                Mode
-            </label>
+<div class="cardTitle">
+Configuration
+</div>
 
 
-            <select
-                id="multiMode"
-                onchange="updateModeDescription('multi')">
+<div class="field">
 
-                <option value="classic">
-                    Classique
-                </option>
+<label>
+Mode
+</label>
 
-                <option value="memory">
-                    Mémoire
-                </option>
+<select
+id="multiMode"
+onchange="updateModeDescription('multi')">
 
-                <option value="reverse">
-                    Reverse
-                </option>
+<option value="classic">
+Classique
+</option>
 
-            </select>
+<option value="memory">
+Mémoire
+</option>
 
-        </div>
+<option value="reverse">
+Reverse
+</option>
 
+</select>
 
-        <div
-            id="multiModeDescription"
-            class="description">
+</div>
 
-            La couleur reste visible pendant toute la manche.
 
-        </div>
+<div
+id="multiModeDescription"
+class="description">
 
+La couleur reste visible pendant toute la manche.
 
-        <div class="field">
+</div>
 
-            <label>
-                Nombre de manches
-            </label>
 
+<div class="field">
 
-            <select id="multiRounds">
+<label>
+Nombre de manches
+</label>
 
-                <option value="1">
-                    1
-                </option>
+<select id="multiRounds">
 
-                <option value="3">
-                    3
-                </option>
+<option value="1">1</option>
+<option value="3">3</option>
+<option value="5" selected>5</option>
+<option value="7">7</option>
+<option value="10">10</option>
+<option value="15">15</option>
+<option value="20">20</option>
 
-                <option value="5" selected>
-                    5
-                </option>
+</select>
 
-                <option value="7">
-                    7
-                </option>
+</div>
 
-                <option value="10">
-                    10
-                </option>
 
-                <option value="15">
-                    15
-                </option>
+<div class="field">
 
-                <option value="20">
-                    20
-                </option>
+<label>
+Temps par manche
+</label>
 
-            </select>
+<select id="multiTime">
 
-        </div>
+<option value="10">10 secondes</option>
+<option value="15">15 secondes</option>
+<option value="20">20 secondes</option>
+<option value="30" selected>30 secondes</option>
+<option value="45">45 secondes</option>
+<option value="60">1 minute</option>
+<option value="120">2 minutes</option>
+<option value="infinite">Infini</option>
 
+</select>
 
-        <div class="field">
+</div>
 
-            <label>
-                Temps par manche
-            </label>
 
+<div class="toggleRow">
 
-            <select id="multiTime">
+<div class="toggleText">
 
-                <option value="10">
-                    10 secondes
-                </option>
+<strong>
+Photo automatique
+</strong>
 
-                <option value="15">
-                    15 secondes
-                </option>
+<span>
+Capture à la fin du compte à rebours
+</span>
 
-                <option value="20">
-                    20 secondes
-                </option>
+</div>
 
-                <option value="30" selected>
-                    30 secondes
-                </option>
+<label class="switch">
 
-                <option value="45">
-                    45 secondes
-                </option>
+<input
+id="multiAutoPhoto"
+type="checkbox"
+checked>
 
-                <option value="60">
-                    1 minute
-                </option>
+<span class="slider"></span>
 
-                <option value="120">
-                    2 minutes
-                </option>
+</label>
 
-                <option value="infinite">
-                    Infini
-                </option>
+</div>
 
-            </select>
+<br>
 
-        </div>
+<button
+class="primaryButton"
+onclick="startMulti()">
 
+Lancer la partie
 
-        <div class="toggleRow">
+</button>
 
-            <div class="toggleText">
-
-                <strong>
-                    Photo automatique
-                </strong>
-
-                <span>
-                    Capture à la fin du compte à rebours
-                </span>
-
-            </div>
-
-
-            <label class="switch">
-
-                <input
-                    id="multiAutoPhoto"
-                    type="checkbox"
-                    checked>
-
-                <span class="slider"></span>
-
-            </label>
-
-        </div>
-
-
-        <br>
-
-
-        <button
-            class="primaryButton"
-            onclick="startMulti()">
-
-            Lancer la partie
-
-        </button>
-
-    </div>
+</div>
 
 </section>
 
 
 <!-- =====================================================
-     GAME
+GAME
 ===================================================== -->
 
-<section
-    id="game"
-    class="screen">
+<section id="screen-game" class="hidden">
 
+<div class="roundHeader">
 
-    <div class="roundHeader">
+<span
+id="gameModeBadge"
+class="badge">
 
-        <span
-            id="gameModeBadge"
-            class="badge">
+Solo
 
-            Solo
+</span>
 
-        </span>
+<span class="roundText">
 
+Manche
+<strong id="roundNumber">1</strong>
+/
+<strong id="roundTotal">5</strong>
 
-        <span class="roundText">
+</span>
 
-            Manche
-            <strong id="roundNumber">1</strong>
-            /
-            <strong id="roundTotal">5</strong>
+<button
+class="secondaryButton inlineButton"
+onclick="quitGame()">
 
-        </span>
+Quitter
 
+</button>
 
-        <button
-            class="secondaryButton inlineButton"
-            onclick="quitGame()"
-            style="
-                margin-left:auto;
-                padding:8px 12px;
-            ">
+</div>
 
-            Quitter
 
-        </button>
+<div class="progress">
 
-    </div>
+<div
+id="roundProgress"
+class="progressBar">
+</div>
 
+</div>
 
-    <div class="progress">
 
-        <div
-            id="roundProgress"
-            class="progressBar">
-        </div>
+<div
+id="timer"
+class="timer center">
+</div>
 
-    </div>
 
+<div
+id="targetPanel"
+class="card">
 
-    <div
-        id="timer"
-        class="timer center">
-    </div>
+<div class="cardTitle center">
+Couleur cible
+</div>
 
+<div
+id="targetColor"
+class="targetColor">
 
-    <div
-        id="targetPanel"
-        class="card">
+<span
+id="targetHex"
+class="targetHex">
 
-        <div class="cardTitle center">
-            Couleur cible
-        </div>
+#FFFFFF
 
+</span>
 
-        <div
-            id="targetColor"
-            class="targetColor">
+</div>
 
-            <span
-                id="targetHex"
-                class="targetHex">
+<div
+id="targetCountdown"
+class="center"
+style="margin-top:12px;font-size:20px;font-weight:700;">
+</div>
 
-                #FFFFFF
+</div>
 
-            </span>
 
-        </div>
+<div
+id="cameraPanel"
+class="card">
 
+<div class="cardTitle">
+Photo
+</div>
 
-        <div
-            id="targetCountdown"
-            class="center"
-            style="
-                margin-top:12px;
-                font-size:20px;
-                font-weight:700;
-            ">
-        </div>
+<div class="camera">
 
-    </div>
+<video
+id="camera"
+autoplay
+playsinline>
+</video>
 
+</div>
 
-    <div
-        id="cameraPanel"
-        class="card">
+<div
+id="cameraHint"
+class="cameraHint">
 
-        <div class="cardTitle">
-            Photo
-        </div>
+Trouve la couleur puis prends ta photo.
 
+</div>
 
-        <div class="camera">
+<br>
 
-            <video
-                id="camera"
-                autoplay
-                playsinline>
-            </video>
+<button
+class="primaryButton"
+onclick="takePhoto()">
 
-        </div>
+Prendre la photo
 
+</button>
 
-        <div
-            id="cameraHint"
-            class="cameraHint">
+</div>
 
-            Trouve la couleur puis prends ta photo.
 
-        </div>
+<div
+id="previewPanel"
+class="card hidden">
 
+<div class="cardTitle">
+Aperçu
+</div>
 
-        <br>
+<canvas
+id="photoCanvas"
+class="photo">
+</canvas>
 
+<br>
 
-        <button
-            class="primaryButton"
-            onclick="takePhoto()">
+<div
+style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
 
-            Prendre la photo
+<button
+class="secondaryButton"
+onclick="retakePhoto()">
 
-        </button>
+Refaire
 
-    </div>
+</button>
 
+<button
+class="primaryButton"
+onclick="analyzePhoto()">
 
-    <div
-        id="previewPanel"
-        class="card hidden">
+Analyser
 
-        <div class="cardTitle">
-            Aperçu
-        </div>
+</button>
 
+</div>
 
-        <canvas
-            id="photoCanvas"
-            class="photo">
-        </canvas>
+</div>
 
 
-        <br>
+<div
+id="waitingRoundPanel"
+class="card hidden center">
 
+<div class="waitingIcon"></div>
 
-        <div
-            style="
-                display:grid;
-                grid-template-columns:1fr 1fr;
-                gap:8px;
-            ">
+<div class="cardTitle">
+Manche terminée
+</div>
 
-            <button
-                class="secondaryButton"
-                onclick="retakePhoto()">
+<div
+id="waitingRoundText"
+style="font-size:18px;font-weight:800;">
 
-                Refaire
+En attente des autres joueurs...
 
-            </button>
+</div>
 
+<p class="small">
+La prochaine manche commencera lorsque tout le monde aura terminé.
+</p>
 
-            <button
-                class="primaryButton"
-                onclick="analyzePhoto()">
+<div
+id="roundReadyList"
+class="players"
+style="margin-top:15px;text-align:left;">
+</div>
 
-                Analyser
+</div>
 
-            </button>
 
-        </div>
+<div
+id="noPhotoPanel"
+class="card hidden center">
 
-    </div>
+<div class="cardTitle">
+Résultat
+</div>
 
+<div
+style="font-size:18px;font-weight:700;margin-bottom:7px;">
 
-    <div
-        id="waitingRoundPanel"
-        class="card hidden center">
+Aucune photo
 
-        <div class="waitingIcon"></div>
+</div>
 
+<div class="small">
+Le temps est écoulé.
+</div>
 
-        <div class="cardTitle">
-            Manche terminée
-        </div>
+</div>
 
 
-        <div
-            id="waitingRoundText"
-            style="
-                font-size:18px;
-                font-weight:800;
-            ">
+<div
+id="reversePanel"
+class="card hidden center">
 
-            En attente des autres joueurs...
+<div class="cardTitle">
+Pixel sélectionné
+</div>
 
-        </div>
+<div
+id="reverseZoom"
+style="
+width:190px;
+height:190px;
+border-radius:18px;
+margin:15px auto;
+background-size:cover;
+background-position:center;
+">
+</div>
 
+<div
+id="reversePixelColor"
+style="
+font-size:20px;
+font-weight:900;
+margin:10px;
+">
 
-        <p class="small">
-            La prochaine manche commencera lorsque tout le monde aura terminé.
-        </p>
+#FFFFFF
 
+</div>
 
-        <div
-            id="roundReadyList"
-            class="players"
-            style="
-                margin-top:15px;
-                text-align:left;
-            ">
-        </div>
+<p class="small">
+Retrouve cette couleur dans ton environnement.
+</p>
 
-    </div>
+<button
+class="primaryButton"
+onclick="reverseContinue()">
 
+J'ai mémorisé
 
-    <div
-        id="noPhotoPanel"
-        class="card hidden center">
+</button>
 
-        <div class="cardTitle">
-            Résultat
-        </div>
+</div>
 
 
-        <div
-            style="
-                font-size:18px;
-                font-weight:700;
-                margin-bottom:7px;
-            ">
+<div
+id="resultPanel"
+class="card hidden">
 
-            Aucune photo
+<div class="cardTitle center">
+Résultat
+</div>
 
-        </div>
+<div class="camera">
 
+<canvas
+id="resultCanvas"
+class="photo">
+</canvas>
 
-        <div class="small">
+</div>
 
-            Aucun cliché n'a été pris pour cette manche.
+<div
+id="scoreValue"
+class="scoreBig center">
 
-        </div>
+0 %
 
+</div>
 
-        <br>
+<div
+id="resultText"
+class="resultMessage center">
+</div>
 
+<div class="resultGrid">
 
-        <button
-            class="primaryButton"
-            onclick="validateNoPhoto()">
+<div class="resultItem">
 
-            Terminer la manche
+<span>
+Cible
+</span>
 
-        </button>
+<strong id="resultTarget">
+#FFFFFF
+</strong>
 
-    </div>
+</div>
 
+<div class="resultItem">
 
-    <div
-        id="reversePanel"
-        class="card hidden center">
+<span>
+Pixel trouvé
+</span>
 
-        <div class="cardTitle">
-            Pixel sélectionné
-        </div>
+<strong id="resultPixel">
+#FFFFFF
+</strong>
 
+</div>
 
-        <div
-            id="reverseZoom"
-            style="
-                width:190px;
-                height:190px;
-                border-radius:18px;
-                margin:15px auto;
-                background-size:100% 100%;
-                background-position:center;
-            ">
-        </div>
+</div>
 
-
-        <div
-            id="reversePixelColor"
-            style="
-                font-size:20px;
-                font-weight:900;
-                margin:10px;
-            ">
-
-            #FFFFFF
-
-        </div>
-
-
-        <p class="small">
-            Retrouve cette couleur dans ton environnement.
-        </p>
-
-
-        <button
-            class="primaryButton"
-            onclick="reverseContinue()">
-
-            J'ai mémorisé
-
-        </button>
-
-    </div>
-
-
-    <div
-        id="resultPanel"
-        class="card hidden">
-
-        <div class="cardTitle center">
-            Résultat
-        </div>
-
-
-        <div class="camera">
-
-            <canvas
-                id="resultCanvas"
-                class="photo">
-            </canvas>
-
-        </div>
-
-
-        <div
-            id="scoreValue"
-            class="scoreBig center">
-
-            0 %
-
-        </div>
-
-
-        <div
-            id="resultText"
-            class="resultMessage center">
-        </div>
-
-
-        <div class="resultGrid">
-
-            <div class="resultItem">
-
-                <span>
-                    Cible
-                </span>
-
-                <strong
-                    id="resultTarget">
-
-                    #FFFFFF
-
-                </strong>
-
-            </div>
-
-
-            <div class="resultItem">
-
-                <span>
-                    Pixel trouvé
-                </span>
-
-                <strong
-                    id="resultPixel">
-
-                    #FFFFFF
-
-                </strong>
-
-            </div>
-
-        </div>
-
-    </div>
+</div>
 
 </section>
 
 
 <!-- =====================================================
-     WAITING
+WAITING
 ===================================================== -->
 
-<section
-    id="waiting"
-    class="screen">
+<section id="screen-waiting" class="hidden">
 
-    <div class="card center">
+<div class="card center">
 
-        <div class="waitingIcon"></div>
+<div class="waitingIcon"></div>
 
+<div class="cardTitle">
+En attente
+</div>
 
-        <div class="cardTitle">
-            En attente
-        </div>
+<div
+style="font-size:20px;font-weight:700;">
 
+Photo validée
 
-        <div
-            style="
-                font-size:20px;
-                font-weight:700;
-            ">
+</div>
 
-            Photo validée
+<p class="small">
+Les autres joueurs doivent terminer.
+</p>
 
-        </div>
-
-
-        <p class="small">
-            Les autres joueurs doivent terminer.
-
-        </p>
-
-    </div>
+</div>
 
 
-    <div class="card">
+<div class="card">
 
-        <div class="cardTitle">
-            Progression
-        </div>
+<div class="cardTitle">
+Progression
+</div>
+
+<div
+id="waitingPlayers"
+class="players">
+</div>
+
+</div>
 
 
-        <div
-            id="waitingPlayers"
-            class="players">
-        </div>
+<button
+class="dangerButton"
+onclick="quitGame()">
 
-    </div>
+Quitter la partie
 
-
-    <button
-        class="dangerButton"
-        onclick="quitGame()">
-
-        Quitter la partie
-
-    </button>
+</button>
 
 </section>
 
 
 <!-- =====================================================
-     FIN
+FINAL
 ===================================================== -->
 
-<section
-    id="finish"
-    class="screen">
+<section id="screen-final" class="hidden">
 
-    <div class="card center">
+<div class="card center">
 
-        <div class="cardTitle">
-            Fin de partie
-        </div>
+<div class="cardTitle">
+Fin de partie
+</div>
 
+<div
+id="finalTitle"
+class="finalTitle">
 
-        <div
-            id="finalTitle"
-            class="finalTitle">
+Résultats
 
-            Résultats
+</div>
 
-        </div>
+<div
+id="finalScore"
+class="scoreBig">
 
+0 %
 
-        <div
-            id="finalScore"
-            class="scoreBig">
+</div>
 
-            0 %
-
-        </div>
-
-    </div>
+</div>
 
 
-    <div
-        id="podiumPanel"
-        class="card">
+<div class="card">
 
-        <div class="cardTitle center">
-            Résultats
-        </div>
+<div class="cardTitle center">
+Résultats
+</div>
 
+<div
+id="podium"
+class="podium">
+</div>
 
-        <div
-            id="podium"
-            class="podium">
-        </div>
-
-    </div>
+</div>
 
 
-    <button
-        class="primaryButton"
-        onclick="playAgain()">
+<button
+class="primaryButton"
+onclick="playAgain()">
 
-        Rejouer
+Rejouer
 
-    </button>
+</button>
 
+<br><br>
 
-    <br><br>
+<button
+class="secondaryButton"
+onclick="goHome()">
 
+Accueil
 
-    <button
-        class="secondaryButton"
-        onclick="goHome()">
-
-        Accueil
-
-    </button>
+</button>
 
 </section>
 
 
 <!-- =====================================================
-     CHARACTER
+CHARACTER
 ===================================================== -->
 
-<section
-    id="character"
-    class="screen">
+<section id="screen-character" class="hidden">
 
-    <div class="nav">
+<div class="nav">
 
-        <button
-            class="back"
-            onclick="showScreen('home')">
+<button
+class="back"
+onclick="showScreen('home')">
 
-            ← Retour
+← Retour
 
-        </button>
+</button>
 
+<span class="badge">
+Personnage
+</span>
 
-        <span class="badge">
-            Personnage
-        </span>
-
-    </div>
+</div>
 
 
-    <div class="card characterEditor">
+<div class="card characterEditor">
 
-        <div class="cardTitle">
-            Personnage
-        </div>
-
-
-        <div class="bigCharacter">
-
-            <div
-                id="bigCharacterHead"
-                class="head">
-            </div>
+<div class="cardTitle">
+Personnage
+</div>
 
 
-            <div
-                id="bigCharacterBody"
-                class="body">
-            </div>
+<div class="bigCharacter">
+
+<div
+id="bigCharacterHead"
+class="head">
+</div>
+
+<div
+id="bigCharacterBody"
+class="body">
+</div>
+
+<div class="eye a"></div>
+<div class="eye b"></div>
+
+</div>
 
 
-            <div class="eye a"></div>
-            <div class="eye b"></div>
+<div class="field">
 
-        </div>
+<label>
+Pseudo
+</label>
 
+<input
+id="playerName"
+class="textInput"
+type="text"
+maxlength="16"
+placeholder="Ton pseudo"
+autocomplete="off">
 
-        <div class="field">
-
-            <label>
-                Pseudo
-            </label>
-
-
-            <input
-                id="playerName"
-                class="textInput"
-                type="text"
-                maxlength="16"
-                placeholder="Ton pseudo"
-                autocomplete="off">
-
-        </div>
+</div>
 
 
-        <div class="field">
+<div class="field">
 
-            <label>
-                Couleur
-            </label>
+<label>
+Couleur
+</label>
 
+<input
+id="characterColor"
+class="colorInput"
+type="color"
+value="#007AFF"
+oninput="changeCharacterColor(this.value)">
 
-            <input
-                id="characterColor"
-                class="colorInput"
-                type="color"
-                value="#007AFF"
-                oninput="changeCharacterColor(this.value)">
-
-        </div>
-
-
-        <div
-            id="colorSpectrum"
-            class="colorSpectrum">
-        </div>
+</div>
 
 
-        <div
-            id="characterHex"
-            class="colorValue">
+<div
+id="characterHex"
+class="colorValue">
 
-            #007AFF
+#007AFF
 
-        </div>
+</div>
+
+<p class="small">
+Choisis ton pseudo et la couleur de ton personnage.
+</p>
+
+</div>
 
 
-        <p class="small">
-            Choisis ton pseudo et la couleur de ton personnage.
-        </p>
+<button
+class="primaryButton"
+onclick="saveCharacter()">
 
-    </div>
+Enregistrer
 
-
-    <button
-        class="primaryButton"
-        onclick="saveCharacter()">
-
-        Enregistrer
-
-    </button>
+</button>
 
 </section>
 
-
-</main>
+</div>
 
 
 <div id="toast"></div>
@@ -2476,292 +1904,213 @@ select:focus,
 
 <script>
 
-/* =====================================================
-   PROFIL
-===================================================== */
-
-let playerName =
-    localStorage.getItem(
-        "colorhunt_name"
-    ) || "Joueur";
+/* =========================================================
+COLOR HUNT
+========================================================= */
 
 
-let characterColor =
-    localStorage.getItem(
-        "colorhunt_color"
-    ) || "#007AFF";
-
-
-/* =====================================================
-   GAME
-===================================================== */
-
-let currentScreen = "home";
-
-let gameType = "solo";
-
-let gameMode = "classic";
-
-let currentRound = 1;
-
-let totalRounds = 5;
-
-let roundTime = 30;
-
-let currentTarget = "#FFFFFF";
-
-let roundScores = [];
-
-let timerInterval = null;
-
-let cameraStream = null;
-
-let currentPhotoData = null;
-
-let reverseColor = null;
-
-let reverseFirstPhoto = null;
-
-
-/* =====================================================
-   MULTI
-===================================================== */
-
-let peer = null;
-
-let roomCode = null;
-
-let isHost = false;
-
-let connections = [];
-
-let roomPlayers = [];
-
-let playerReady = {};
-
-let playerRoundData = {};
-
-let hostRoundTimerDone = false;
-
-let hostRoundEnding = false;
-
-
-/* =====================================================
-   UTILITAIRES
-===================================================== */
+/* =========================================================
+DOM
+========================================================= */
 
 function $(id){
     return document.getElementById(id);
 }
 
 
-function showToast(text){
+function showScreen(name){
 
-    const toast = $("toast");
+    document
+        .querySelectorAll("[id^='screen-']")
+        .forEach(el=>{
+            el.classList.add("hidden");
+        });
 
-    toast.textContent = text;
+    const screen = $("screen-"+name);
 
-    toast.classList.add("show");
+    if(screen){
+        screen.classList.remove("hidden");
+    }
 
-    setTimeout(() => {
-        toast.classList.remove("show");
+}
+
+
+function toast(message){
+
+    const el = $("toast");
+
+    el.textContent = message;
+
+    el.classList.add("show");
+
+    clearTimeout(toast.timer);
+
+    toast.timer = setTimeout(()=>{
+        el.classList.remove("show");
     },2200);
 
 }
 
 
-function randomColor(){
+/* =========================================================
+PLAYER
+========================================================= */
+
+const player = {
+
+    id:
+        localStorage.getItem("colorhunt_player_id")
+        || crypto.randomUUID(),
+
+    name:
+        localStorage.getItem("colorhunt_name")
+        || "Joueur",
+
+    color:
+        localStorage.getItem("colorhunt_color")
+        || "#007AFF"
+
+};
+
+
+localStorage.setItem(
+    "colorhunt_player_id",
+    player.id
+);
+
+
+/* =========================================================
+GAME STATE
+========================================================= */
+
+let game = {
+
+    type:"solo",
+
+    mode:"classic",
+
+    round:1,
+
+    totalRounds:5,
+
+    duration:30,
+
+    target:"#FFFFFF",
+
+    startAt:0,
+
+    endAt:0,
+
+    active:false,
+
+    finished:false,
+
+    photoTaken:false,
+
+    analyzed:false,
+
+    reversePhase:false,
+
+    score:0,
+
+    rounds:[],
+
+    players:{},
+
+    roomCode:"",
+
+    hostId:""
+
+};
+
+
+let peer = null;
+let peerReady = false;
+let isHost = false;
+let connections = {};
+let cameraStream = null;
+
+let timerInterval = null;
+let memoryTimeout = null;
+let nextRoundTimeout = null;
+
+
+/* =========================================================
+ROOM CODE
+========================================================= */
+
+/*
+    Caractères volontairement faciles à lire.
+    On retire O / I / 1 / 0 pour éviter les confusions.
+*/
+
+function generateRoomCode(){
 
     const chars =
-        "0123456789ABCDEF";
+        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
-    let color = "#";
+    let code = "";
 
-    for(let i=0;i<6;i++){
+    for(let i=0;i<5;i++){
 
-        color +=
+        code +=
             chars[
                 Math.floor(
-                    Math.random()*16
+                    Math.random()*chars.length
                 )
             ];
 
     }
 
-    return color;
+    return code;
 
 }
 
 
-function hexToRgb(hex){
+/* =========================================================
+ROOM LINK
+========================================================= */
 
-    hex =
-        hex
-        .replace("#","")
-        .padEnd(6,"0");
+function getRoomLink(){
 
-    return {
-
-        r:parseInt(
-            hex.substring(0,2),
-            16
-        ),
-
-        g:parseInt(
-            hex.substring(2,4),
-            16
-        ),
-
-        b:parseInt(
-            hex.substring(4,6),
-            16
-        )
-
-    };
-
-}
-
-
-function rgbToHex(r,g,b){
-
-    return "#" +
-        [
-            r,
-            g,
-            b
-        ]
-        .map(
-            value =>
-                Math.max(
-                    0,
-                    Math.min(
-                        255,
-                        Math.round(value)
-                    )
-                )
-                .toString(16)
-                .padStart(2,"0")
-        )
-        .join("")
-        .toUpperCase();
-
-}
-
-
-function colorDistance(a,b){
-
-    const c1 =
-        hexToRgb(a);
-
-    const c2 =
-        hexToRgb(b);
-
-
-    const dr =
-        c1.r-c2.r;
-
-    const dg =
-        c1.g-c2.g;
-
-    const db =
-        c1.b-c2.b;
-
-
-    const distance =
-        Math.sqrt(
-            dr*dr+
-            dg*dg+
-            db*db
-        );
-
-
-    const max =
-        Math.sqrt(
-            255*255*3
-        );
-
-
-    return Math.round(
-        Math.max(
-            0,
-            100-
-            (distance/max)*100
-        )
+    return (
+        window.location.origin +
+        window.location.pathname +
+        "#room=" +
+        game.roomCode
     );
 
 }
 
 
-function escapeHtml(value){
+function updateRoomLink(){
 
-    return String(value)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
+    if(!$("roomLinkDisplay"))
+        return;
+
+    $("roomLinkDisplay")
+        .textContent =
+        getRoomLink();
 
 }
 
 
-/* =====================================================
-   NAVIGATION
-===================================================== */
+/* =========================================================
+CHARACTER
+========================================================= */
 
-function showScreen(id){
+function updateCharacter(){
 
-    document
-        .querySelectorAll(".screen")
-        .forEach(
-            screen =>
-                screen.classList.remove(
-                    "active"
-                )
+    document.documentElement
+        .style
+        .setProperty(
+            "--character-color",
+            player.color
         );
 
-
-    const target =
-        $(id);
-
-
-    if(target){
-
-        target.classList.add(
-            "active"
-        );
-
-        currentScreen =
-            id;
-
-    }
-
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-
-}
-
-
-function openSolo(){
-
-    showScreen("solo");
-
-    updateModeDescription(
-        "solo"
-    );
-
-}
-
-
-function openMulti(){
-
-    showScreen("multi");
-
-    updateModeDescription(
-        "multi"
-    );
+    $("characterHex")
+        .textContent =
+        player.color.toUpperCase();
 
 }
 
@@ -2769,217 +2118,267 @@ function openMulti(){
 function openCharacter(){
 
     $("playerName").value =
-        playerName;
+        player.name;
 
     $("characterColor").value =
-        characterColor;
+        player.color;
 
-    $("characterHex").textContent =
-        characterColor.toUpperCase();
-
-    updateCharacterPreview();
+    updateCharacter();
 
     showScreen("character");
 
 }
 
 
-function goHome(){
-
-    clearTimer();
-
-    stopCamera();
-
-    showScreen("home");
-
-}
-
-
-function playAgain(){
-
-    if(gameType === "solo"){
-
-        showScreen("solo");
-
-    }else{
-
-        showScreen("room");
-
-    }
-
-}
-
-
-/* =====================================================
-   MODES
-===================================================== */
-
-function updateModeDescription(type){
-
-    const select =
-        $(type === "solo"
-            ? "soloMode"
-            : "multiMode");
-
-
-    const description =
-        $(type === "solo"
-            ? "soloModeDescription"
-            : "multiModeDescription");
-
-
-    if(!select || !description)
-        return;
-
-
-    if(
-        select.value ===
-        "classic"
-    ){
-
-        description.textContent =
-            "La couleur reste visible pendant toute la manche.";
-
-    }
-
-
-    if(
-        select.value ===
-        "memory"
-    ){
-
-        description.textContent =
-            "Mémorise la couleur avant qu'elle disparaisse.";
-
-    }
-
-
-    if(
-        select.value ===
-        "reverse"
-    ){
-
-        description.textContent =
-            "Un pixel d'une photo est choisi. Retrouve exactement cette couleur.";
-
-    }
-
-}
-
-
-/* =====================================================
-   PERSONNAGE
-===================================================== */
-
 function changeCharacterColor(color){
 
-    characterColor =
-        color;
-
-    $("characterHex")
-        .textContent =
+    player.color =
         color.toUpperCase();
 
-    updateCharacterPreview();
-
-}
-
-
-function updateCharacterPreview(){
-
-    const ids = [
-
-        "bigCharacterHead",
-        "bigCharacterBody",
-        "homeCharacterHead",
-        "homeCharacterBody"
-
-    ];
-
-
-    ids.forEach(
-        id => {
-
-            const element =
-                $(id);
-
-            if(element){
-
-                element.style.background =
-                    characterColor;
-
-            }
-
-        }
-    );
-
-
-    document
-        .querySelectorAll(
-            ".pHead,.pBody"
-        )
-        .forEach(
-            element =>
-                element.style.background =
-                    characterColor
-        );
+    updateCharacter();
 
 }
 
 
 function saveCharacter(){
 
-    const value =
+    const name =
         $("playerName")
-        .value
-        .trim();
+            .value
+            .trim();
 
+    player.name =
+        name || "Joueur";
 
-    playerName =
-        value || "Joueur";
-
-
-    characterColor =
+    player.color =
         $("characterColor")
-        .value;
-
+            .value
+            .toUpperCase();
 
     localStorage.setItem(
         "colorhunt_name",
-        playerName
+        player.name
     );
-
 
     localStorage.setItem(
         "colorhunt_color",
-        characterColor
+        player.color
     );
 
+    updateCharacter();
 
-    updateCharacterPreview();
+    /*
+        Si le joueur est dans une room,
+        on actualise également son personnage.
+    */
 
-    showToast(
-        "Profil enregistré"
-    );
+    if(
+        game.type === "multi" &&
+        game.players[player.id]
+    ){
+
+        game.players[player.id].name =
+            player.name;
+
+        game.players[player.id].color =
+            player.color;
+
+        if(isHost){
+
+            broadcastRoom();
+
+        }else{
+
+            sendToHost({
+
+                type:"PLAYER_UPDATE",
+
+                player:createPlayerData(player)
+
+            });
+
+        }
+
+    }
+
+    toast("Personnage enregistré");
+
+    setTimeout(()=>{
+        showScreen("home");
+    },300);
+
+}
 
 
-    setTimeout(
-        () =>
-            showScreen("home"),
-        300
+/* =========================================================
+NAVIGATION
+========================================================= */
+
+function openSolo(){
+    showScreen("solo");
+}
+
+
+function openMulti(){
+
+    showScreen("multi");
+
+    /*
+        Si un lien room a été détecté,
+        on garde le code.
+    */
+
+}
+
+
+function goHome(){
+
+    stopCamera();
+
+    clearTimers();
+
+    game.active = false;
+
+    showScreen("home");
+
+}
+
+
+/* =========================================================
+MODE
+========================================================= */
+
+function updateModeDescription(type){
+
+    const mode =
+        $(type+"Mode").value;
+
+    const descriptions = {
+
+        classic:
+            "La couleur reste visible pendant toute la manche.",
+
+        memory:
+            "Mémorise la couleur : elle disparaît après quelques secondes.",
+
+        reverse:
+            "Prends une photo, mémorise le pixel choisi, puis retrouve cette couleur."
+
+    };
+
+    $(type+"ModeDescription")
+        .textContent =
+        descriptions[mode];
+
+}
+
+
+/* =========================================================
+COLORS
+========================================================= */
+
+function randomColor(){
+
+    return "#" +
+        Math.floor(
+            Math.random()*0xFFFFFF
+        )
+        .toString(16)
+        .padStart(6,"0")
+        .toUpperCase();
+
+}
+
+
+function rgbToHex(r,g,b){
+
+    return "#" +
+        [r,g,b]
+        .map(v=>
+            Math.max(
+                0,
+                Math.min(
+                    255,
+                    Math.round(v)
+                )
+            )
+            .toString(16)
+            .padStart(2,"0")
+        )
+        .join("")
+        .toUpperCase();
+
+}
+
+
+function hexToRgb(hex){
+
+    const h =
+        hex.replace("#","");
+
+    return {
+
+        r:parseInt(h.slice(0,2),16),
+
+        g:parseInt(h.slice(2,4),16),
+
+        b:parseInt(h.slice(4,6),16)
+
+    };
+
+}
+
+
+function colorScore(target,pixel){
+
+    const a =
+        hexToRgb(target);
+
+    const b =
+        hexToRgb(pixel);
+
+    const distance =
+        Math.sqrt(
+            Math.pow(a.r-b.r,2) +
+            Math.pow(a.g-b.g,2) +
+            Math.pow(a.b-b.b,2)
+        );
+
+    const max =
+        Math.sqrt(
+            255*255*3
+        );
+
+    return Math.round(
+        Math.max(
+            0,
+            100 -
+            (distance/max)*100
+        )
     );
 
 }
 
 
-/* =====================================================
-   CAMÉRA
-===================================================== */
+/* =========================================================
+CAMERA
+========================================================= */
 
 async function startCamera(){
 
-    stopCamera();
+    if(cameraStream)
+        return;
 
+    if(
+        !navigator.mediaDevices ||
+        !navigator.mediaDevices.getUserMedia
+    ){
+
+        toast("Caméra non disponible");
+
+        return;
+
+    }
 
     try{
 
@@ -2998,18 +2397,15 @@ async function startCamera(){
 
                 });
 
-
-        $("camera")
-            .srcObject =
+        $("camera").srcObject =
             cameraStream;
-
 
     }catch(error){
 
         console.error(error);
 
-        showToast(
-            "Impossible d'accéder à la caméra"
+        toast(
+            "Autorise la caméra pour jouer"
         );
 
     }
@@ -3019,423 +2415,294 @@ async function startCamera(){
 
 function stopCamera(){
 
-    if(cameraStream){
+    if(!cameraStream)
+        return;
 
-        cameraStream
-            .getTracks()
-            .forEach(
-                track =>
-                    track.stop()
-            );
+    cameraStream
+        .getTracks()
+        .forEach(track=>{
+            track.stop();
+        });
 
-        cameraStream = null;
-
-    }
+    cameraStream = null;
 
 }
 
 
-/* =====================================================
-   SOLO
-===================================================== */
+/* =========================================================
+SOLO
+========================================================= */
 
 function startSolo(){
 
-    gameType =
-        "solo";
+    clearTimers();
 
+    game.type = "solo";
 
-    gameMode =
-        $("soloMode")
-        .value;
+    game.mode =
+        $("soloMode").value;
 
+    game.round = 1;
 
-    totalRounds =
-        parseInt(
-            $("soloRounds")
-            .value
+    game.totalRounds =
+        Number(
+            $("soloRounds").value
         );
 
+    const time =
+        $("soloTime").value;
 
-    roundTime =
-        $("soloTime")
-        .value === "infinite"
+    game.duration =
+        time === "infinite"
             ? Infinity
-            : parseInt(
-                $("soloTime")
-                .value
-            );
+            : Number(time);
 
+    game.rounds = [];
 
-    currentRound =
-        1;
+    game.active = true;
 
+    game.finished = false;
 
-    roundScores = [];
+    game.players = {};
 
-
-    startGame();
-
-}
-
-
-function startGame(){
-
-    clearTimer();
+    game.target =
+        randomColor();
 
     showScreen("game");
 
-    $("gameModeBadge")
-        .textContent =
-        gameType === "solo"
-            ? "Solo"
-            : "Multijoueur";
-
-
-    $("roundTotal")
-        .textContent =
-        totalRounds;
-
-
-    $("roundNumber")
-        .textContent =
-        currentRound;
-
-
-    startCamera();
-
-    setupRound();
-
-}
-
-
-/* =====================================================
-   MANCHE
-===================================================== */
-
-function setupRound(){
-
-    clearTimer();
-
-
-    currentPhotoData =
-        null;
-
-
-    reverseColor =
-        null;
-
-
-    reverseFirstPhoto =
-        null;
-
-
-    $("targetPanel")
-        .classList.remove(
-            "hidden"
-        );
-
-
-    $("cameraPanel")
-        .classList.remove(
-            "hidden"
-        );
-
-
-    $("previewPanel")
-        .classList.add(
-            "hidden"
-        );
-
-
-    $("resultPanel")
-        .classList.add(
-            "hidden"
-        );
-
-
-    $("waitingRoundPanel")
-        .classList.add(
-            "hidden"
-        );
-
-
-    $("noPhotoPanel")
-        .classList.add(
-            "hidden"
-        );
-
-
-    $("reversePanel")
-        .classList.add(
-            "hidden"
-        );
-
-
-    $("cameraHint")
-        .textContent =
-        "Trouve la couleur puis prends ta photo.";
-
-
-    currentTarget =
-        randomColor();
-
-
-    $("targetColor")
-        .style.background =
-        currentTarget;
-
-
-    $("targetHex")
-        .textContent =
-        currentTarget;
-
-
-    if(gameMode === "memory"){
-
-        setupMemoryRound();
-
-    }else{
-
-        if(gameMode === "reverse"){
-
-            $("targetPanel")
-                .classList.add(
-                    "hidden"
-                );
-
-        }
-
-        startRoundTimer();
-
-    }
-
-
-    if(gameType === "multi"){
-
-        resetLocalRoundState();
-
-    }
-
-}
-
-
-/* =====================================================
-   MÉMOIRE
-===================================================== */
-
-function setupMemoryRound(){
-
-    $("targetCountdown")
-        .textContent =
-        "Mémorise !";
-
-
-    setTimeout(
-        () => {
-
-            if(
-                currentScreen !==
-                "game"
-            )
-                return;
-
-
-            $("targetColor")
-                .style.background =
-                "#777";
-
-
-            $("targetHex")
-                .textContent =
-                "???";
-
-
-            $("targetCountdown")
-                .textContent =
-                "La couleur a disparu";
-
-        },
-        3000
+    startRound(
+        game.target,
+        game.round
     );
 
-
-    startRoundTimer();
-
 }
 
 
-/* =====================================================
-   RESET MULTI ROUND
-===================================================== */
+/* =========================================================
+PEERJS
+========================================================= */
 
-function resetLocalRoundState(){
+function createPeer(customId=null){
 
-    if(!isHost){
-
+    if(peer)
         return;
 
-    }
+    /*
+        Pour l'hôte :
+        PeerJS reçoit directement le code court.
+
+        Pour un joueur :
+        PeerJS génère un ID privé normal.
+    */
+
+    peer =
+        customId
+        ? new Peer(customId)
+        : new Peer();
 
 
-    playerReady = {};
+    peer.on("open",id=>{
 
-    playerRoundData = {};
+        peerReady = true;
 
-    hostRoundTimerDone = false;
+        console.log(
+            "Peer ID:",
+            id
+        );
 
-    hostRoundEnding = false;
+    });
 
 
-    roomPlayers.forEach(
-        player => {
+    peer.on("connection",connection=>{
 
-            player.ready =
-                false;
+        setupConnection(connection);
 
-            player.roundScore =
-                null;
+    });
+
+
+    peer.on("error",error=>{
+
+        console.error(
+            "PeerJS:",
+            error
+        );
+
+        /*
+            Le code existe déjà.
+            On recrée automatiquement
+            une nouvelle room.
+        */
+
+        if(
+            isHost &&
+            error.type === "unavailable-id"
+        ){
+
+            toast(
+                "Code déjà utilisé, nouveau code..."
+            );
+
+            try{
+                peer.destroy();
+            }catch(e){}
+
+            peer = null;
+            peerReady = false;
+
+            setTimeout(()=>{
+                createRoom();
+            },400);
+
+            return;
 
         }
-    );
-
-
-    playerReady[playerName] =
-        false;
-
-}
-
-
-/* =====================================================
-   TIMER
-===================================================== */
-
-function startRoundTimer(){
-
-    clearTimer();
-
-
-    if(
-        roundTime === Infinity
-    ){
-
-        $("timer")
-            .textContent =
-            "∞";
-
-        return;
-
-    }
-
-
-    let remaining =
-        roundTime;
-
-
-    $("timer")
-        .textContent =
-        remaining+" s";
-
-
-    const start =
-        Date.now();
-
-
-    timerInterval =
-        setInterval(
-            () => {
-
-                const elapsed =
-                    Math.floor(
-                        (
-                            Date.now()-
-                            start
-                        )/1000
-                    );
-
-
-                remaining =
-                    Math.max(
-                        0,
-                        roundTime-elapsed
-                    );
-
-
-                $("timer")
-                    .textContent =
-                    remaining+" s";
-
-
-                $("roundProgress")
-                    .style.width =
-                    (
-                        remaining/
-                        roundTime*
-                        100
-                    )+"%";
-
-
-                if(
-                    remaining <= 0
-                ){
-
-                    clearTimer();
-
-                    timerFinished();
-
-                }
-
-            },
-            200
-        );
-
-}
-
-
-function clearTimer(){
-
-    if(timerInterval){
-
-        clearInterval(
-            timerInterval
-        );
-
-        timerInterval =
-            null;
-
-    }
-
-}
-
-
-/* =====================================================
-   TIMER TERMINÉ
-===================================================== */
-
-function timerFinished(){
-
-    if(
-        gameType === "solo"
-    ){
-
-        const auto =
-            $("soloAutoPhoto")
-            .checked;
 
 
         if(
-            auto &&
-            cameraStream
+            error.type === "peer-unavailable"
         ){
 
-            takePhoto();
+            toast(
+                "Room introuvable"
+            );
 
-        }else{
-
-            showNoPhoto();
+            return;
 
         }
 
+
+        toast("Erreur réseau");
+
+    });
+
+}
+
+
+/* =========================================================
+CREATE ROOM
+========================================================= */
+
+function createRoom(){
+
+    /*
+        Nettoyage d'une ancienne connexion.
+    */
+
+    if(peer){
+
+        try{
+            peer.destroy();
+        }catch(e){}
+
+        peer = null;
+        peerReady = false;
+
+    }
+
+
+    isHost = true;
+
+    game.type = "multi";
+
+    game.players = {};
+
+
+    /*
+        Création du code court.
+    */
+
+    const roomCode =
+        generateRoomCode();
+
+
+    /*
+        IMPORTANT :
+        le code court devient l'ID PeerJS
+        de l'hôte.
+    */
+
+    createPeer(roomCode);
+
+
+    const wait =
+        setInterval(()=>{
+
+            if(!peerReady)
+                return;
+
+            clearInterval(wait);
+
+
+            game.roomCode =
+                peer.id;
+
+            game.hostId =
+                peer.id;
+
+
+            game.players[player.id] =
+                createPlayerData(player);
+
+
+            $("roomCodeDisplay")
+                .textContent =
+                game.roomCode;
+
+
+            updateRoomLink();
+
+
+            $("hostConfig")
+                .classList
+                .remove("hidden");
+
+
+            renderPlayers();
+
+            showScreen("room");
+
+
+            toast(
+                "Room créée : "+
+                game.roomCode
+            );
+
+        },100);
+
+}
+
+
+/* =========================================================
+JOIN ROOM
+========================================================= */
+
+function joinRoom(codeFromLink=null){
+
+    const code =
+        (
+            codeFromLink ||
+            $("joinCode").value
+        )
+        .trim()
+        .toUpperCase();
+
+
+    if(!code){
+
+        toast(
+            "Entre le code de la room"
+        );
+
+        return;
+
+    }
+
+
+    if(!/^[A-Z0-9]{5}$/.test(code)){
+
+        toast(
+            "Le code doit faire 5 caractères"
+        );
 
         return;
 
@@ -3443,90 +2710,1070 @@ function timerFinished(){
 
 
     /*
-       MULTI :
-
-       Le chrono est terminé.
-       Le joueur est automatiquement
-       considéré comme terminé s'il
-       n'a pas encore envoyé de photo.
+        Nettoyage d'une ancienne connexion.
     */
 
-    if(
-        !currentPhotoData
-    ){
+    if(peer){
 
-        submitNoPhoto();
+        try{
+            peer.destroy();
+        }catch(e){}
+
+        peer = null;
+        peerReady = false;
 
     }
 
 
-    if(isHost){
+    isHost = false;
 
-        hostRoundTimerDone =
-            true;
+    game.type = "multi";
 
-        checkHostRoundReady();
+    game.roomCode = code;
+
+    game.hostId = code;
+
+
+    /*
+        Le joueur possède son propre PeerJS ID.
+    */
+
+    createPeer();
+
+
+    const wait =
+        setInterval(()=>{
+
+            if(!peerReady)
+                return;
+
+            clearInterval(wait);
+
+
+            const connection =
+                peer.connect(
+                    code,
+                    {
+                        reliable:true
+                    }
+                );
+
+
+            setupConnection(connection);
+
+
+            connection.on("open",()=>{
+
+                game.hostId = code;
+
+
+                $("roomCodeDisplay")
+                    .textContent =
+                    code;
+
+
+                updateRoomLink();
+
+
+                $("hostConfig")
+                    .classList
+                    .add("hidden");
+
+
+                showScreen("room");
+
+
+                sendTo(
+                    connection,
+                    {
+
+                        type:"JOIN",
+
+                        player:
+                            createPlayerData(
+                                player
+                            )
+
+                    }
+                );
+
+
+                toast(
+                    "Room rejointe"
+                );
+
+            });
+
+
+            connection.on("error",()=>{
+
+                toast(
+                    "Impossible de rejoindre cette room"
+                );
+
+            });
+
+        },100);
+
+}
+
+
+/* =========================================================
+PLAYER DATA
+========================================================= */
+
+function createPlayerData(p){
+
+    return {
+
+        id:p.id,
+
+        name:p.name,
+
+        color:p.color,
+
+        connected:true,
+
+        ready:false,
+
+        score:0,
+
+        roundScore:0,
+
+        results:[]
+
+    };
+
+}
+
+
+/* =========================================================
+CONNECTION
+========================================================= */
+
+function setupConnection(connection){
+
+    if(!connection)
+        return;
+
+
+    connections[
+        connection.peer
+    ] = connection;
+
+
+    connection.on("open",()=>{
+
+        console.log(
+            "Connexion ouverte",
+            connection.peer
+        );
+
+    });
+
+
+    connection.on("data",data=>{
+
+        handleMessage(
+            connection,
+            data
+        );
+
+    });
+
+
+    connection.on("close",()=>{
+
+        playerDisconnected(
+            connection.peer
+        );
+
+    });
+
+
+    connection.on("error",()=>{
+
+        playerDisconnected(
+            connection.peer
+        );
+
+    });
+
+}
+
+
+function sendTo(connection,data){
+
+    if(
+        connection &&
+        connection.open
+    ){
+
+        try{
+
+            connection.send(data);
+
+        }catch(error){
+
+            console.error(error);
+
+        }
 
     }
 
 }
 
 
-/* =====================================================
-   PAS DE PHOTO
-===================================================== */
+function broadcast(data){
 
-function showNoPhoto(){
+    Object
+        .values(connections)
+        .forEach(connection=>{
+
+            sendTo(
+                connection,
+                data
+            );
+
+        });
+
+}
+
+
+function sendToHost(data){
+
+    if(isHost)
+        return;
+
+    const connection =
+        connections[game.hostId]
+        ||
+        Object.values(
+            connections
+        )[0];
+
+    if(connection){
+
+        sendTo(
+            connection,
+            data
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+MESSAGES
+========================================================= */
+
+function handleMessage(connection,data){
+
+    if(!data || !data.type)
+        return;
+
+
+    switch(data.type){
+
+        case "JOIN":
+
+            hostReceivedJoin(
+                connection,
+                data
+            );
+
+            break;
+
+
+        case "PLAYER_UPDATE":
+
+            hostReceivedPlayerUpdate(
+                data
+            );
+
+            break;
+
+
+        case "ROOM_STATE":
+
+            receiveRoomState(
+                data
+            );
+
+            break;
+
+
+        case "GAME_START":
+
+            receiveGameStart(
+                data
+            );
+
+            break;
+
+
+        case "ROUND_READY":
+
+            hostReceivedReady(
+                connection,
+                data
+            );
+
+            break;
+
+
+        case "ROUND_STATE":
+
+            receiveRoundState(
+                data
+            );
+
+            break;
+
+
+        case "PLAYER_LEFT":
+
+            playerDisconnected(
+                data.playerId
+            );
+
+            break;
+
+
+        case "FINAL":
+
+            receiveFinal(
+                data
+            );
+
+            break;
+
+    }
+
+}
+
+
+/* =========================================================
+HOST JOIN
+========================================================= */
+
+function hostReceivedJoin(
+    connection,
+    data
+){
+
+    if(!isHost)
+        return;
+
+
+    const p =
+        data.player;
+
+
+    if(!p || !p.id)
+        return;
+
+
+    game.players[p.id] =
+        createPlayerData(p);
+
+
+    /*
+        Envoie immédiatement l'état
+        complet de la room au nouveau joueur.
+    */
+
+    sendTo(
+        connection,
+        {
+
+            type:"ROOM_STATE",
+
+            hostId:player.id,
+
+            roomCode:game.roomCode,
+
+            players:game.players
+
+        }
+    );
+
+
+    broadcastRoom();
+
+    renderPlayers();
+
+}
+
+
+/* =========================================================
+HOST PLAYER UPDATE
+========================================================= */
+
+function hostReceivedPlayerUpdate(data){
+
+    if(!isHost)
+        return;
+
+
+    const p =
+        data.player;
+
+
+    if(
+        !p ||
+        !game.players[p.id]
+    )
+        return;
+
+
+    game.players[p.id].name =
+        p.name;
+
+    game.players[p.id].color =
+        p.color;
+
+
+    broadcastRoom();
+
+    renderPlayers();
+
+}
+
+
+/* =========================================================
+BROADCAST ROOM
+========================================================= */
+
+function broadcastRoom(){
+
+    broadcast({
+
+        type:"ROOM_STATE",
+
+        hostId:player.id,
+
+        roomCode:game.roomCode,
+
+        players:game.players
+
+    });
+
+
+    renderPlayers();
+
+}
+
+
+/* =========================================================
+ROOM STATE
+========================================================= */
+
+function receiveRoomState(data){
+
+    game.hostId =
+        data.hostId;
+
+    game.roomCode =
+        data.roomCode;
+
+    game.players =
+        data.players || {};
+
+
+    $("roomCodeDisplay")
+        .textContent =
+        game.roomCode;
+
+
+    updateRoomLink();
+
+
+    if(game.hostId === player.id){
+
+        isHost = true;
+
+        $("hostConfig")
+            .classList
+            .remove("hidden");
+
+    }else{
+
+        isHost = false;
+
+        $("hostConfig")
+            .classList
+            .add("hidden");
+
+    }
+
+
+    renderPlayers();
+
+}
+
+
+/* =========================================================
+RENDER PLAYERS
+========================================================= */
+
+function renderPlayers(){
+
+    const list =
+        $("playersList");
+
+    if(!list)
+        return;
+
+
+    list.innerHTML = "";
+
+
+    Object
+        .values(game.players)
+        .filter(
+            p=>p.connected !== false
+        )
+        .forEach(p=>{
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+
+            row.className =
+                "playerRow";
+
+
+            row.innerHTML = `
+
+                <div
+                    class="miniCharacter"
+                    style="--c:${p.color}">
+
+                    <div class="head"></div>
+                    <div class="body"></div>
+
+                </div>
+
+                <div class="playerInfo">
+
+                    <strong>
+                        ${escapeHTML(p.name)}
+                        ${p.id === player.id ? " (toi)" : ""}
+                    </strong>
+
+                    <span>
+                        ${
+                            p.ready
+                            ? "✓ Manche terminée"
+                            : "Prêt"
+                        }
+                    </span>
+
+                </div>
+
+            `;
+
+
+            list.appendChild(row);
+
+        });
+
+}
+
+
+/* =========================================================
+ESCAPE
+========================================================= */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================================================
+START MULTI
+========================================================= */
+
+function startMulti(){
+
+    if(!isHost){
+
+        toast(
+            "Seul l'hôte peut lancer la partie"
+        );
+
+        return;
+
+    }
+
+
+    const active =
+        Object
+            .values(game.players)
+            .filter(
+                p=>p.connected !== false
+            );
+
+
+    if(active.length === 0){
+
+        toast(
+            "Aucun joueur"
+        );
+
+        return;
+
+    }
+
+
+    game.mode =
+        $("multiMode").value;
+
+
+    game.totalRounds =
+        Number(
+            $("multiRounds").value
+        );
+
+
+    const time =
+        $("multiTime").value;
+
+
+    game.duration =
+        time === "infinite"
+            ? Infinity
+            : Number(time);
+
+
+    game.round = 1;
+
+    game.target =
+        randomColor();
+
+    game.active = true;
+
+    game.finished = false;
+
+
+    active.forEach(p=>{
+
+        p.ready = false;
+
+        p.score = 0;
+
+        p.roundScore = 0;
+
+        p.results = [];
+
+    });
+
+
+    /*
+        Timestamp commun.
+    */
+
+    const startAt =
+        Date.now()+1500;
+
+
+    game.startAt =
+        startAt;
+
+
+    broadcast({
+
+        type:"GAME_START",
+
+        hostId:player.id,
+
+        mode:game.mode,
+
+        totalRounds:game.totalRounds,
+
+        duration:game.duration,
+
+        round:1,
+
+        target:game.target,
+
+        startAt:startAt
+
+    });
+
+
+    startRound(
+        game.target,
+        1,
+        startAt
+    );
+
+}
+
+
+/* =========================================================
+RECEIVE GAME START
+========================================================= */
+
+function receiveGameStart(data){
+
+    game.type = "multi";
+
+    game.hostId =
+        data.hostId;
+
+    game.mode =
+        data.mode;
+
+    game.totalRounds =
+        data.totalRounds;
+
+    game.duration =
+        data.duration;
+
+    game.round =
+        data.round;
+
+    game.target =
+        data.target;
+
+    game.active = true;
+
+    game.finished = false;
+
+
+    startRound(
+        data.target,
+        data.round,
+        data.startAt
+    );
+
+}
+
+
+/* =========================================================
+ROUND
+========================================================= */
+
+function startRound(
+    target,
+    round,
+    startAt=null
+){
+
+    clearTimers();
+
+
+    game.round =
+        round;
+
+    game.target =
+        target;
+
+    game.finished = false;
+
+    game.photoTaken = false;
+
+    game.analyzed = false;
+
+    game.reversePhase = false;
+
+    game.score = 0;
+
+
+    game.startAt =
+        startAt ||
+        Date.now();
+
+
+    game.endAt =
+        game.duration === Infinity
+        ? Infinity
+        : game.startAt +
+          game.duration*1000;
+
+
+    $("roundNumber")
+        .textContent =
+        game.round;
+
+
+    $("roundTotal")
+        .textContent =
+        game.totalRounds;
+
+
+    $("gameModeBadge")
+        .textContent =
+        game.mode;
+
+
+    $("targetColor")
+        .style.background =
+        target;
+
+
+    $("targetHex")
+        .textContent =
+        target;
+
+
+    $("targetCountdown")
+        .textContent =
+        "";
+
+
+    $("targetPanel")
+        .classList
+        .remove("hidden");
+
 
     $("cameraPanel")
-        .classList.add(
-            "hidden"
-        );
+        .classList
+        .remove("hidden");
+
+
+    $("previewPanel")
+        .classList
+        .add("hidden");
+
+
+    $("resultPanel")
+        .classList
+        .add("hidden");
+
+
+    $("waitingRoundPanel")
+        .classList
+        .add("hidden");
 
 
     $("noPhotoPanel")
-        .classList.remove(
-            "hidden"
+        .classList
+        .add("hidden");
+
+
+    $("reversePanel")
+        .classList
+        .add("hidden");
+
+
+    $("cameraHint")
+        .textContent =
+        "Trouve la couleur puis prends ta photo.";
+
+
+    showScreen("game");
+
+
+    startCamera();
+
+
+    if(game.mode === "memory"){
+
+        memoryTimeout =
+            setTimeout(()=>{
+
+                if(game.finished)
+                    return;
+
+
+                $("targetColor")
+                    .style.background =
+                    "#777";
+
+
+                $("targetHex")
+                    .textContent =
+                    "???";
+
+
+                $("targetCountdown")
+                    .textContent =
+                    "Couleur mémorisée";
+
+            },3000);
+
+    }
+
+
+    if(game.mode === "reverse"){
+
+        $("cameraHint")
+            .textContent =
+            "Prends une photo pour sélectionner un pixel.";
+
+    }
+
+
+    updateTimer();
+
+
+    timerInterval =
+        setInterval(
+            updateTimer,
+            100
         );
 
 }
 
 
-function validateNoPhoto(){
+/* =========================================================
+TIMER
+========================================================= */
+
+function updateTimer(){
+
+    if(game.finished)
+        return;
+
 
     if(
-        gameType === "solo"
+        game.startAt &&
+        Date.now() < game.startAt
     ){
 
-        roundScores.push(0);
+        const wait =
+            Math.ceil(
+                (game.startAt-Date.now())/1000
+            );
 
-        nextSoloRound();
+
+        $("timer")
+            .textContent =
+            wait > 0
+            ? "Départ "+wait
+            : "GO !";
+
+
+        $("roundProgress")
+            .style.transform =
+            "scaleX(1)";
+
 
         return;
 
     }
 
 
-    submitNoPhoto();
+    if(game.duration === Infinity){
+
+        $("timer")
+            .textContent =
+            "∞";
+
+
+        $("roundProgress")
+            .style.transform =
+            "scaleX(1)";
+
+
+        return;
+
+    }
+
+
+    const remaining =
+        Math.max(
+            0,
+            game.endAt-Date.now()
+        );
+
+
+    const seconds =
+        Math.ceil(
+            remaining/1000
+        );
+
+
+    $("timer")
+        .textContent =
+        seconds+" s";
+
+
+    const progress =
+        Math.max(
+            0,
+            Math.min(
+                1,
+                remaining/
+                (game.duration*1000)
+            )
+        );
+
+
+    $("roundProgress")
+        .style.transform =
+        `scaleX(${progress})`;
+
+
+    if(remaining <= 0){
+
+        clearInterval(
+            timerInterval
+        );
+
+        timerInterval = null;
+
+        timeOver();
+
+    }
 
 }
 
 
-/* =====================================================
-   PHOTO
-===================================================== */
+/* =========================================================
+TIME OVER
+========================================================= */
+
+function timeOver(){
+
+    if(game.finished)
+        return;
+
+
+    if(game.photoTaken){
+
+        const result =
+            calculatePhotoScore();
+
+
+        finishLocalRound(
+            result.score,
+            result.pixel
+        );
+
+    }else{
+
+        finishLocalRound(
+            0,
+            null
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+TAKE PHOTO
+========================================================= */
 
 function takePhoto(){
 
-    if(!cameraStream){
-
-        showToast(
-            "Caméra indisponible"
-        );
-
+    if(game.finished)
         return;
-
-    }
 
 
     const video =
@@ -3537,27 +3784,34 @@ function takePhoto(){
         $("photoCanvas");
 
 
-    const width =
-        video.videoWidth ||
-        640;
+    if(
+        !video.videoWidth ||
+        !video.videoHeight
+    ){
 
+        toast(
+            "Caméra pas encore prête"
+        );
 
-    const height =
-        video.videoHeight ||
-        480;
+        return;
+
+    }
 
 
     canvas.width =
-        width;
+        video.videoWidth;
 
 
     canvas.height =
-        height;
+        video.videoHeight;
 
 
     const ctx =
         canvas.getContext(
-            "2d"
+            "2d",
+            {
+                willReadFrequently:true
+            }
         );
 
 
@@ -3565,184 +3819,189 @@ function takePhoto(){
         video,
         0,
         0,
-        width,
-        height
+        canvas.width,
+        canvas.height
     );
 
 
-    currentPhotoData =
-        canvas.toDataURL(
-            "image/jpeg",
-            .78
-        );
-
-
-    clearTimer();
+    game.photoTaken = true;
 
 
     $("cameraPanel")
-        .classList.add(
-            "hidden"
-        );
-
-
-    if(
-        gameMode ===
-        "reverse"
-    ){
-
-        analyzeReversePhoto();
-
-    }else{
-
-        $("previewPanel")
-            .classList.remove(
-                "hidden"
-            );
-
-    }
-
-}
-
-
-/* =====================================================
-   RETAKE
-===================================================== */
-
-function retakePhoto(){
-
-    currentPhotoData =
-        null;
+        .classList
+        .add("hidden");
 
 
     $("previewPanel")
-        .classList.add(
-            "hidden"
-        );
-
-
-    $("cameraPanel")
-        .classList.remove(
-            "hidden"
-        );
-
-
-    startRoundTimer();
+        .classList
+        .remove("hidden");
 
 }
 
 
-/* =====================================================
-   ANALYSE
-===================================================== */
+/* =========================================================
+RETAKE
+========================================================= */
+
+function retakePhoto(){
+
+    if(game.finished)
+        return;
+
+
+    game.photoTaken = false;
+
+
+    $("previewPanel")
+        .classList
+        .add("hidden");
+
+
+    $("cameraPanel")
+        .classList
+        .remove("hidden");
+
+}
+
+
+/* =========================================================
+ANALYZE
+========================================================= */
 
 function analyzePhoto(){
 
-    const canvas =
-        $("photoCanvas");
+    if(
+        game.finished ||
+        !game.photoTaken
+    )
+        return;
 
 
-    const ctx =
-        canvas.getContext(
-            "2d"
-        );
+    /*
+        REVERSE :
+        première analyse = choix du pixel.
+    */
 
-
-    const image =
-        ctx.getImageData(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-
-
-    let bestColor =
-        "#000000";
-
-
-    let bestScore =
-        -1;
-
-
-    const step =
-        Math.max(
-            3,
-            Math.floor(
-                Math.min(
-                    canvas.width,
-                    canvas.height
-                )/70
-            )
-        );
-
-
-    for(
-        let y=0;
-        y<canvas.height;
-        y+=step
+    if(
+        game.mode === "reverse" &&
+        !game.reversePhase
     ){
 
-        for(
-            let x=0;
-            x<canvas.width;
-            x+=step
-        ){
-
-            const index =
-                (
-                    y*
-                    canvas.width+
-                    x
-                )*4;
+        const canvas =
+            $("photoCanvas");
 
 
-            const color =
-                rgbToHex(
-                    image.data[index],
-                    image.data[index+1],
-                    image.data[index+2]
-                );
+        const ctx =
+            canvas.getContext(
+                "2d",
+                {
+                    willReadFrequently:true
+                }
+            );
 
 
-            const score =
-                colorDistance(
-                    currentTarget,
-                    color
-                );
+        const pixel =
+            chooseRandomPixel(
+                canvas,
+                ctx
+            );
 
 
-            if(
-                score >
-                bestScore
-            ){
+        game.target =
+            pixel;
 
-                bestScore =
-                    score;
 
-                bestColor =
-                    color;
+        game.reversePhase =
+            true;
 
-            }
 
-        }
+        $("reversePixelColor")
+            .textContent =
+            pixel;
+
+
+        $("targetColor")
+            .style.background =
+            pixel;
+
+
+        $("targetHex")
+            .textContent =
+            pixel;
+
+
+        $("reverseZoom")
+            .style.backgroundImage =
+            `url(${canvas.toDataURL("image/jpeg",.9)})`;
+
+
+        $("previewPanel")
+            .classList
+            .add("hidden");
+
+
+        $("reversePanel")
+            .classList
+            .remove("hidden");
+
+
+        game.photoTaken =
+            false;
+
+
+        return;
 
     }
 
 
-    finishLocalPhoto(
-        bestColor,
-        bestScore
+    const result =
+        calculatePhotoScore();
+
+
+    finishLocalRound(
+        result.score,
+        result.pixel
     );
 
 }
 
 
-/* =====================================================
-   REVERSE
-===================================================== */
+/* =========================================================
+REVERSE CONTINUE
+========================================================= */
 
-function analyzeReversePhoto(){
+function reverseContinue(){
+
+    if(game.finished)
+        return;
+
+
+    $("reversePanel")
+        .classList
+        .add("hidden");
+
+
+    $("cameraPanel")
+        .classList
+        .remove("hidden");
+
+
+    $("cameraHint")
+        .textContent =
+        "Retrouve cette couleur et prends ta photo.";
+
+
+    game.photoTaken =
+        false;
+
+}
+
+
+/* =========================================================
+PHOTO SCORE
+========================================================= */
+
+function calculatePhotoScore(){
 
     const canvas =
         $("photoCanvas");
@@ -3750,26 +4009,93 @@ function analyzeReversePhoto(){
 
     const ctx =
         canvas.getContext(
-            "2d"
-        );
-
-
-    const image =
-        ctx.getImageData(
-            0,
-            0,
-            canvas.width,
-            canvas.height
+            "2d",
+            {
+                willReadFrequently:true
+            }
         );
 
 
     const x =
         Math.floor(
+            canvas.width/2
+        );
+
+
+    const y =
+        Math.floor(
+            canvas.height/2
+        );
+
+
+    const data =
+        ctx.getImageData(
+            Math.max(0,x-3),
+            Math.max(0,y-3),
+            7,
+            7
+        ).data;
+
+
+    let r=0;
+    let g=0;
+    let b=0;
+    let count=0;
+
+
+    for(
+        let i=0;
+        i<data.length;
+        i+=4
+    ){
+
+        r += data[i];
+        g += data[i+1];
+        b += data[i+2];
+
+        count++;
+
+    }
+
+
+    const pixel =
+        rgbToHex(
+            r/count,
+            g/count,
+            b/count
+        );
+
+
+    return {
+
+        pixel,
+
+        score:
+            colorScore(
+                game.target,
+                pixel
+            )
+
+    };
+
+}
+
+
+/* =========================================================
+RANDOM PIXEL
+========================================================= */
+
+function chooseRandomPixel(
+    canvas,
+    ctx
+){
+
+    const x =
+        Math.floor(
             canvas.width*
             (
-                .15+
-                Math.random()*
-                .70
+                .25+
+                Math.random()*.5
             )
         );
 
@@ -3778,1939 +4104,629 @@ function analyzeReversePhoto(){
         Math.floor(
             canvas.height*
             (
-                .15+
-                Math.random()*
-                .70
+                .25+
+                Math.random()*.5
             )
         );
 
 
-    const index =
-        (
-            y*
-            canvas.width+
-            x
-        )*4;
+    const data =
+        ctx.getImageData(
+            x,
+            y,
+            1,
+            1
+        ).data;
 
 
-    reverseColor =
-        rgbToHex(
-            image.data[index],
-            image.data[index+1],
-            image.data[index+2]
-        );
-
-
-    reverseFirstPhoto =
-        currentPhotoData;
-
-
-    const zoomCanvas =
-        document.createElement(
-            "canvas"
-        );
-
-
-    zoomCanvas.width =
-        120;
-
-    zoomCanvas.height =
-        120;
-
-
-    const zctx =
-        zoomCanvas.getContext(
-            "2d"
-        );
-
-
-    zctx.imageSmoothingEnabled =
-        false;
-
-
-    const size =
-        Math.min(
-            50,
-            Math.min(
-                canvas.width,
-                canvas.height
-            )/4
-        );
-
-
-    zctx.drawImage(
-        canvas,
-        Math.max(
-            0,
-            x-size/2
-        ),
-        Math.max(
-            0,
-            y-size/2
-        ),
-        size,
-        size,
-        0,
-        0,
-        120,
-        120
+    return rgbToHex(
+        data[0],
+        data[1],
+        data[2]
     );
 
-
-    $("reverseZoom")
-        .style.backgroundImage =
-        `url(${zoomCanvas.toDataURL()})`;
-
-
-    $("reversePixelColor")
-        .textContent =
-        reverseColor;
-
-
-    $("reversePanel")
-        .classList.remove(
-            "hidden"
-        );
-
-
-    $("cameraPanel")
-        .classList.add(
-            "hidden"
-        );
-
-
-    $("previewPanel")
-        .classList.add(
-            "hidden"
-        );
-
 }
 
 
-function reverseContinue(){
+/* =========================================================
+FINISH LOCAL ROUND
+========================================================= */
 
-    currentTarget =
-        reverseColor;
-
-
-    $("reversePanel")
-        .classList.add(
-            "hidden"
-        );
-
-
-    $("targetPanel")
-        .classList.remove(
-            "hidden"
-        );
-
-
-    $("targetColor")
-        .style.background =
-        currentTarget;
-
-
-    $("targetHex")
-        .textContent =
-        currentTarget;
-
-
-    $("cameraPanel")
-        .classList.remove(
-            "hidden"
-        );
-
-
-    $("cameraHint")
-        .textContent =
-        "Trouve cette couleur puis prends une nouvelle photo.";
-
-
-    currentPhotoData =
-        null;
-
-
-    startRoundTimer();
-
-}
-
-
-/* =====================================================
-   FIN PHOTO LOCALE
-===================================================== */
-
-function finishLocalPhoto(
-    color,
-    score
+function finishLocalRound(
+    score,
+    pixel
 ){
 
-    roundScores.push(
-        score
-    );
-
-
-    drawResult(
-        color
-    );
-
-
-    if(
-        gameType === "solo"
-    ){
-
-        showLocalResult(
-            color,
-            score
-        );
-
-
+    if(game.finished)
         return;
 
-    }
+
+    game.finished = true;
+
+
+    clearInterval(
+        timerInterval
+    );
+
+
+    timerInterval = null;
+
+
+    game.score =
+        Number(score) || 0;
 
 
     /*
-       MULTI :
-       on envoie immédiatement
-       le score + la photo.
+        SOLO
     */
 
-    submitMultiResult(
-        color,
-        score
-    );
+    if(game.type === "solo"){
 
-}
+        game.rounds.push({
 
+            round:game.round,
 
-/* =====================================================
-   RESULTAT SOLO
-===================================================== */
+            score:game.score,
 
-function showLocalResult(
-    color,
-    score
-){
+            target:game.target,
 
-    $("previewPanel")
-        .classList.add(
-            "hidden"
-        );
-
-
-    $("resultPanel")
-        .classList.remove(
-            "hidden"
-        );
-
-
-    $("scoreValue")
-        .textContent =
-        score+" %";
-
-
-    $("resultTarget")
-        .textContent =
-        currentTarget;
-
-
-    $("resultPixel")
-        .textContent =
-        color;
-
-
-    $("resultText")
-        .textContent =
-        getScoreText(score);
-
-}
-
-
-function drawResult(color){
-
-    const canvas =
-        $("resultCanvas");
-
-
-    canvas.width =
-        600;
-
-    canvas.height =
-        450;
-
-
-    const ctx =
-        canvas.getContext(
-            "2d"
-        );
-
-
-    const photo =
-        new Image();
-
-
-    photo.onload =
-        () => {
-
-            ctx.drawImage(
-                photo,
-                0,
-                0,
-                600,
-                450
-            );
-
-
-            ctx.fillStyle =
-                color;
-
-
-            ctx.beginPath();
-
-
-            ctx.arc(
-                550,
-                50,
-                25,
-                0,
-                Math.PI*2
-            );
-
-
-            ctx.fill();
-
-
-            ctx.strokeStyle =
-                "#fff";
-
-
-            ctx.lineWidth =
-                5;
-
-
-            ctx.stroke();
-
-        };
-
-
-    photo.src =
-        currentPhotoData;
-
-}
-
-
-function getScoreText(score){
-
-    if(score >= 95)
-        return "Parfait ! 🎯";
-
-    if(score >= 85)
-        return "Excellent !";
-
-    if(score >= 70)
-        return "Très bien !";
-
-    if(score >= 50)
-        return "Pas mal !";
-
-    if(score >= 30)
-        return "Tu peux faire mieux.";
-
-    return "Raté !";
-
-}
-
-
-/* =====================================================
-   SOLO MANCHE SUIVANTE
-===================================================== */
-
-function nextSoloRound(){
-
-    if(
-        currentRound >=
-        totalRounds
-    ){
-
-        finishGame();
-
-        return;
-
-    }
-
-
-    currentRound++;
-
-    setupRound();
-
-}
-
-
-/* =====================================================
-   MULTI : ENVOI RÉSULTAT
-===================================================== */
-
-function submitMultiResult(
-    color,
-    score
-){
-
-    if(
-        playerReady[playerName]
-    ){
-
-        return;
-
-    }
-
-
-    playerReady[playerName] =
-        true;
-
-
-    playerRoundData[playerName] = {
-
-        name:playerName,
-
-        color:characterColor,
-
-        score:score,
-
-        photo:currentPhotoData,
-
-        pixelColor:color,
-
-        target:currentTarget
-
-    };
-
-
-    /*
-       Le joueur envoie sa photo
-       et son score à l'hôte.
-    */
-
-    if(isHost){
-
-        receivePlayerRoundData(
-            playerRoundData[playerName]
-        );
-
-    }else{
-
-        sendToHost({
-
-            type:"roundResult",
-
-            round:currentRound,
-
-            data:
-                playerRoundData[playerName]
+            pixel:pixel
 
         });
 
-    }
 
-
-    showWaitingForPlayers();
-
-}
-
-
-/* =====================================================
-   MULTI : PAS DE PHOTO
-===================================================== */
-
-function submitNoPhoto(){
-
-    if(
-        playerReady[playerName]
-    ){
-
-        return;
-
-    }
-
-
-    playerReady[playerName] =
-        true;
-
-
-    playerRoundData[playerName] = {
-
-        name:playerName,
-
-        color:characterColor,
-
-        score:0,
-
-        photo:null,
-
-        pixelColor:null,
-
-        target:currentTarget
-
-    };
-
-
-    if(isHost){
-
-        receivePlayerRoundData(
-            playerRoundData[playerName]
-        );
-
-    }else{
-
-        sendToHost({
-
-            type:"roundResult",
-
-            round:currentRound,
-
-            data:
-                playerRoundData[playerName]
-
-        });
-
-    }
-
-
-    showWaitingForPlayers();
-
-}
-
-
-/* =====================================================
-   ATTENTE
-===================================================== */
-
-function showWaitingForPlayers(){
-
-    $("cameraPanel")
-        .classList.add(
-            "hidden"
+        showResult(
+            pixel,
+            game.score
         );
 
 
-    $("previewPanel")
-        .classList.add(
-            "hidden"
-        );
+        if(
+            game.round >=
+            game.totalRounds
+        ){
 
-
-    $("reversePanel")
-        .classList.add(
-            "hidden"
-        );
-
-
-    $("resultPanel")
-        .classList.add(
-            "hidden"
-        );
-
-
-    $("targetPanel")
-        .classList.add(
-            "hidden"
-        );
-
-
-    $("waitingRoundPanel")
-        .classList.remove(
-            "hidden"
-        );
-
-
-    renderRoundReadyList();
-
-}
-
-
-function renderRoundReadyList(){
-
-    const list =
-        $("roundReadyList");
-
-
-    list.innerHTML = "";
-
-
-    roomPlayers.forEach(
-        player => {
-
-            const ready =
-                !!playerReady[
-                    player.name
-                ];
-
-
-            const row =
-                document.createElement(
-                    "div"
+            nextRoundTimeout =
+                setTimeout(
+                    finishSolo,
+                    1800
                 );
 
+        }else{
 
-            row.className =
-                "playerRow";
+            nextRoundTimeout =
+                setTimeout(()=>{
 
+                    game.round++;
 
-            row.innerHTML = `
-
-                <div class="otherPlayerCharacter">
-
-                    <div
-                        class="otherPlayerHead"
-                        style="
-                            background:${player.color}
-                        ">
-                    </div>
-
-                    <div
-                        class="otherPlayerBody"
-                        style="
-                            background:${player.color}
-                        ">
-                    </div>
-
-                    <div class="otherPlayerEye a"></div>
-                    <div class="otherPlayerEye b"></div>
-
-                </div>
+                    game.target =
+                        randomColor();
 
 
-                <span class="playerName">
-                    ${escapeHtml(player.name)}
-                </span>
+                    startRound(
+                        game.target,
+                        game.round
+                    );
 
-
-                <strong
-                    style="
-                        margin-left:auto;
-                        color:${ready ? "#34C759" : "#999"};
-                    ">
-
-                    ${ready ? "✓ Prêt" : "En cours"}
-
-                </strong>
-            `;
-
-
-            list.appendChild(
-                row
-            );
+                },1800);
 
         }
-    );
 
-}
-
-
-/* =====================================================
-   HÔTE REÇOIT UN RESULTAT
-===================================================== */
-
-function receivePlayerRoundData(data){
-
-    playerRoundData[
-        data.name
-    ] =
-        data;
-
-
-    playerReady[
-        data.name
-    ] =
-        true;
-
-
-    const player =
-        roomPlayers.find(
-            p =>
-                p.name ===
-                data.name
-        );
-
-
-    if(player){
-
-        player.roundScore =
-            data.score || 0;
-
-        player.lastPhoto =
-            data.photo || null;
+        return;
 
     }
 
 
     /*
-       Le résultat est renvoyé
-       à TOUS les joueurs.
+        MULTI
     */
 
-    broadcast({
+    sendToHost({
 
-        type:"playerRoundResult",
+        type:"ROUND_READY",
 
-        round:currentRound,
+        playerId:player.id,
 
-        data:data
+        round:game.round,
+
+        score:game.score,
+
+        target:game.target,
+
+        pixel:pixel
 
     });
 
 
-    renderRoundReadyList();
-
-
-    checkHostRoundReady();
+    showWaiting();
 
 }
 
 
-/* =====================================================
-   HÔTE : VÉRIFICATION
-===================================================== */
+/* =========================================================
+WAITING
+========================================================= */
 
-function checkHostRoundReady(){
+function showWaiting(){
+
+    $("cameraPanel")
+        .classList
+        .add("hidden");
+
+
+    $("previewPanel")
+        .classList
+        .add("hidden");
+
+
+    $("noPhotoPanel")
+        .classList
+        .add("hidden");
+
+
+    $("reversePanel")
+        .classList
+        .add("hidden");
+
+
+    $("resultPanel")
+        .classList
+        .add("hidden");
+
+
+    $("waitingRoundPanel")
+        .classList
+        .remove("hidden");
+
+
+    renderReadyPlayers();
+
+}
+
+
+/* =========================================================
+HOST READY
+========================================================= */
+
+function hostReceivedReady(
+    connection,
+    data
+){
 
     if(!isHost)
         return;
 
 
-    if(hostRoundEnding)
-        return;
-
-
-    /*
-       On attend les deux conditions :
-
-       1. le chrono est terminé
-       2. tout le monde est prêt
-    */
-
-    if(!hostRoundTimerDone)
-        return;
-
-
-    const allReady =
-        roomPlayers.every(
-            player =>
-                !!playerReady[
-                    player.name
-                ]
-        );
-
-
-    if(!allReady)
-        return;
-
-
-    hostRoundEnding =
-        true;
-
-
-    /*
-       Petite pause pour que
-       tout le monde puisse voir
-       que la manche est terminée.
-    */
-
-    setTimeout(
-        () => {
-
-            broadcast({
-
-                type:"nextRound",
-
-                round:
-                    currentRound+1,
-
-                totalRounds:
-                    totalRounds
-
-            });
-
-
-            if(
-                currentRound >=
-                totalRounds
-            ){
-
-                finishMultiGame();
-
-            }else{
-
-                currentRound++;
-
-                setupRound();
-
-            }
-
-        },
-        1800
-    );
-
-}
-
-
-/* =====================================================
-   MULTI : RECEPTION RÉSULTAT
-===================================================== */
-
-function receiveRemoteRoundResult(data){
-
     if(
         data.round !==
-        currentRound
+        game.round
     )
         return;
 
 
-    playerRoundData[
-        data.data.name
-    ] =
-        data.data;
+    const p =
+        game.players[
+            data.playerId
+        ];
 
 
-    playerReady[
-        data.data.name
-    ] =
-        true;
+    if(
+        !p ||
+        p.connected === false
+    )
+        return;
 
 
-    const player =
-        roomPlayers.find(
-            p =>
-                p.name ===
-                data.data.name
-        );
+    if(p.ready)
+        return;
 
 
-    if(player){
-
-        player.roundScore =
-            data.data.score || 0;
-
-        player.lastPhoto =
-            data.data.photo || null;
-
-    }
+    p.ready = true;
 
 
-    renderRoundReadyList();
-
-}
-
-
-/* =====================================================
-   MULTI : FIN
-===================================================== */
-
-function finishMultiGame(){
-
-    clearTimer();
-
-    stopCamera();
+    p.roundScore =
+        Number(data.score) || 0;
 
 
-    /*
-       Tous les résultats de toutes
-       les manches sont déjà conservés
-       côté hôte dans roomPlayers.
-    */
-
-    const finalPlayers =
-        roomPlayers.map(
-            player => ({
-
-                name:player.name,
-
-                color:player.color,
-
-                score:
-                    player.totalScore || 0,
-
-                rounds:
-                    player.roundHistory || [],
-
-                photos:
-                    player.photoHistory || []
-
-            })
-        );
+    p.score +=
+        p.roundScore;
 
 
-    /*
-       Pour le joueur local,
-       on ajoute ses manches.
-    */
+    p.results.push({
 
-    const local =
-        finalPlayers.find(
-            p =>
-                p.name ===
-                playerName
-        );
+        round:data.round,
 
+        score:p.roundScore,
 
-    if(local){
+        target:data.target,
 
-        local.score =
-            roundScores.reduce(
-                (a,b) =>
-                    a+b,
-                0
-            );
-
-    }
-
-
-    broadcast({
-
-        type:"finalResults",
-
-        players:
-            finalPlayers
+        pixel:data.pixel
 
     });
 
 
-    renderFinalResults(
-        finalPlayers
-    );
+    broadcastRoomProgress();
+
+    checkRoundFinished();
 
 }
 
 
-/* =====================================================
-   RÉSULTATS FINAUX REÇUS
-===================================================== */
+/* =========================================================
+ROOM PROGRESS
+========================================================= */
 
-function renderFinalResults(
-    players
-){
+function broadcastRoomProgress(){
 
-    showScreen("finish");
+    broadcast({
 
+        type:"ROOM_STATE",
 
-    const sorted =
-        [...players].sort(
-            (a,b) =>
-                b.score-a.score
-        );
+        hostId:player.id,
 
+        roomCode:game.roomCode,
 
-    const podium =
-        $("podium");
+        players:game.players
+
+    });
 
 
-    podium.innerHTML = "";
-
-
-    sorted.forEach(
-        (player,index) => {
-
-            const average =
-                totalRounds
-                    ? Math.round(
-                        player.score/
-                        totalRounds
-                    )
-                    : 0;
-
-
-            const row =
-                document.createElement(
-                    "div"
-                );
-
-
-            row.className =
-                "podiumRow";
-
-
-            let photosHtml =
-                "";
-
-
-            if(
-                player.photos &&
-                player.photos.length
-            ){
-
-                photosHtml =
-                    player.photos
-                    .map(
-                        photo =>
-                            photo
-                                ? `
-                                    <img
-                                        class="finalPhoto"
-                                        src="${photo}">
-                                  `
-                                : ""
-                    )
-                    .join("");
-
-            }
-
-
-            row.innerHTML = `
-
-                <div class="podiumTop">
-
-                    <div class="finalPlayerCharacter">
-
-                        <div
-                            class="finalPlayerHead"
-                            style="
-                                background:${player.color}
-                            ">
-                        </div>
-
-                        <div
-                            class="finalPlayerBody"
-                            style="
-                                background:${player.color}
-                            ">
-                        </div>
-
-                        <div class="finalPlayerEye a"></div>
-                        <div class="finalPlayerEye b"></div>
-
-                    </div>
-
-
-                    <strong>
-                        ${index+1}. ${escapeHtml(player.name)}
-                    </strong>
-
-
-                    <span class="podiumScore">
-                        ${average} %
-                    </span>
-
-                </div>
-
-
-                <div
-                    class="small"
-                    style="margin-bottom:2px">
-
-                    Score total :
-                    ${player.score} points
-
-                </div>
-
-
-                ${
-                    photosHtml
-                        ? `
-                            <div
-                                style="
-                                    display:grid;
-                                    gap:8px;
-                                ">
-
-                                ${photosHtml}
-
-                            </div>
-                          `
-                        : `
-                            <div class="small">
-                                Aucune photo
-                            </div>
-                          `
-                }
-
-            `;
-
-
-            podium.appendChild(
-                row
-            );
-
-        }
-    );
-
-
-    const me =
-        sorted.find(
-            p =>
-                p.name ===
-                playerName
-        );
-
-
-    if(me){
-
-        const average =
-            totalRounds
-                ? Math.round(
-                    me.score/
-                    totalRounds
-                )
-                : 0;
-
-
-        $("finalTitle")
-            .textContent =
-            playerName;
-
-
-        $("finalScore")
-            .textContent =
-            average+" %";
-
-    }
+    renderReadyPlayers();
 
 }
 
 
-/* =====================================================
-   ROOM : JOUEURS
-===================================================== */
+/* =========================================================
+CHECK ALL PLAYERS
+========================================================= */
 
-function renderPlayers(){
+function checkRoundFinished(){
 
-    const container =
-        $("playersList");
-
-
-    if(!container)
+    if(!isHost)
         return;
 
 
-    container.innerHTML = "";
-
-
-    roomPlayers.forEach(
-        player => {
-
-            const row =
-                document.createElement(
-                    "div"
-                );
-
-
-            row.className =
-                "playerRow";
-
-
-            row.innerHTML = `
-
-                <div class="otherPlayerCharacter">
-
-                    <div
-                        class="otherPlayerHead"
-                        style="
-                            background:${player.color}
-                        ">
-                    </div>
-
-                    <div
-                        class="otherPlayerBody"
-                        style="
-                            background:${player.color}
-                        ">
-                    </div>
-
-                    <div class="otherPlayerEye a"></div>
-                    <div class="otherPlayerEye b"></div>
-
-                </div>
-
-
-                <span class="playerName">
-
-                    ${escapeHtml(
-                        player.name
-                    )}
-
-                </span>
-
-
-                ${
-                    player.name === playerName
-                        ? `
-                            <span
-                                style="
-                                    margin-left:auto;
-                                    color:#777;
-                                    font-size:12px;
-                                ">
-
-                                Toi
-
-                            </span>
-                          `
-                        : ""
-                }
-
-            `;
-
-
-            container.appendChild(
-                row
+    const activePlayers =
+        Object
+            .values(game.players)
+            .filter(
+                p=>p.connected !== false
             );
 
-        }
+
+    if(activePlayers.length === 0)
+        return;
+
+
+    const everyoneReady =
+        activePlayers.every(
+            p=>p.ready === true
+        );
+
+
+    if(!everyoneReady)
+        return;
+
+
+    clearTimers();
+
+
+    /*
+        Tout le monde a terminé.
+    */
+
+    broadcast({
+
+        type:"ROUND_RESULTS",
+
+        round:game.round,
+
+        players:game.players
+
+    });
+
+
+    showWaiting();
+
+
+    nextRoundTimeout =
+        setTimeout(()=>{
+
+            if(
+                game.round >=
+                game.totalRounds
+            ){
+
+                finishMulti();
+
+            }else{
+
+                startNextMultiRound();
+
+            }
+
+        },1800);
+
+}
+
+
+/* =========================================================
+NEXT MULTI ROUND
+========================================================= */
+
+function startNextMultiRound(){
+
+    if(!isHost)
+        return;
+
+
+    const activePlayers =
+        Object
+            .values(game.players)
+            .filter(
+                p=>p.connected !== false
+            );
+
+
+    if(activePlayers.length === 0)
+        return;
+
+
+    const nextRound =
+        game.round+1;
+
+
+    const target =
+        randomColor();
+
+
+    activePlayers.forEach(p=>{
+
+        p.ready = false;
+
+        p.roundScore = 0;
+
+    });
+
+
+    const startAt =
+        Date.now()+1500;
+
+
+    game.round =
+        nextRound;
+
+
+    game.target =
+        target;
+
+
+    game.startAt =
+        startAt;
+
+
+    broadcast({
+
+        type:"ROUND_STATE",
+
+        round:nextRound,
+
+        target:target,
+
+        startAt:startAt,
+
+        players:game.players
+
+    });
+
+
+    startRound(
+        target,
+        nextRound,
+        startAt
     );
 
+}
+
+
+/* =========================================================
+RECEIVE ROUND STATE
+========================================================= */
+
+function receiveRoundState(data){
+
+    game.players =
+        data.players ||
+        game.players;
+
+
+    game.round =
+        data.round;
+
+
+    game.target =
+        data.target;
+
+
+    game.active = true;
+
+
+    startRound(
+        data.target,
+        data.round,
+        data.startAt
+    );
 
 }
 
 
-/* =====================================================
-   ROOM CODE
-===================================================== */
+/* =========================================================
+READY PLAYERS
+========================================================= */
 
-function generateRoomCode(){
+function renderReadyPlayers(){
 
-    const chars =
-        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    const containers = [
 
+        $("roundReadyList"),
 
-    let code = "";
-
-
-    for(
-        let i=0;
-        i<6;
-        i++
-    ){
-
-        code +=
-            chars[
-                Math.floor(
-                    Math.random()*
-                    chars.length
-                )
-            ];
-
-    }
-
-
-    return code;
-
-}
-
-
-/* =====================================================
-   CREATE ROOM
-===================================================== */
-
-function createRoom(){
-
-    isHost =
-        true;
-
-
-    gameType =
-        "multi";
-
-
-    roomCode =
-        generateRoomCode();
-
-
-    roomPlayers = [
-
-        {
-            name:playerName,
-            color:characterColor,
-            totalScore:0,
-            roundHistory:[],
-            photoHistory:[]
-        }
+        $("waitingPlayers")
 
     ];
 
 
-    showScreen("room");
+    containers.forEach(container=>{
+
+        if(!container)
+            return;
 
 
-    $("roomCodeDisplay")
-        .textContent =
-        roomCode;
+        container.innerHTML = "";
 
 
-    $("hostConfig")
-        .classList.remove(
-            "hidden"
-        );
+        Object
+            .values(game.players)
+            .filter(
+                p=>p.connected !== false
+            )
+            .forEach(p=>{
+
+                const row =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                row.className =
+                    "playerRow";
+
+
+                row.innerHTML = `
+
+                    <div
+                        class="miniCharacter"
+                        style="--c:${p.color}">
+
+                        <div class="head"></div>
+                        <div class="body"></div>
+
+                    </div>
+
+                    <div class="playerInfo">
+
+                        <strong>
+                            ${escapeHTML(p.name)}
+                        </strong>
+
+                        <span>
+                            ${
+                                p.ready
+                                ? "✓ Terminé"
+                                : "⌛ En jeu"
+                            }
+                        </span>
+
+                    </div>
+
+                `;
+
+
+                container.appendChild(row);
+
+            });
+
+    });
+
+}
+
+
+/* =========================================================
+DISCONNECT
+========================================================= */
+
+function playerDisconnected(id){
+
+    if(!game.players[id])
+        return;
+
+
+    game.players[id].connected =
+        false;
+
+
+    delete connections[id];
 
 
     renderPlayers();
 
+    renderReadyPlayers();
 
-    peer =
-        new Peer(
-            "colorhunt-"+roomCode
-        );
 
+    if(isHost){
 
-    peer.on(
-        "open",
-        () => {
+        broadcastRoomProgress();
 
-            showToast(
-                "Room créée"
-            );
-
-        }
-    );
-
-
-    peer.on(
-        "connection",
-        conn => {
-
-            connections.push(
-                conn
-            );
-
-            setupConnection(
-                conn
-            );
-
-        }
-    );
-
-
-    peer.on(
-        "error",
-        error => {
-
-            console.error(
-                error
-            );
-
-            showToast(
-                "Erreur réseau"
-            );
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   JOIN ROOM
-===================================================== */
-
-function joinRoom(){
-
-    const input =
-        $("joinCode")
-        .value
-        .trim()
-        .toUpperCase();
-
-
-    if(!input){
-
-        showToast(
-            "Entre un code"
-        );
-
-        return;
-
-    }
-
-
-    isHost =
-        false;
-
-
-    gameType =
-        "multi";
-
-
-    roomCode =
-        input;
-
-
-    showScreen(
-        "room"
-    );
-
-
-    $("roomCodeDisplay")
-        .textContent =
-        roomCode;
-
-
-    $("hostConfig")
-        .classList.add(
-            "hidden"
-        );
-
-
-    peer =
-        new Peer();
-
-
-    peer.on(
-        "open",
-        () => {
-
-            const conn =
-                peer.connect(
-                    "colorhunt-"+roomCode
-                );
-
-
-            connections = [
-                conn
-            ];
-
-
-            setupConnection(
-                conn
-            );
-
-        }
-    );
-
-
-    peer.on(
-        "error",
-        error => {
-
-            console.error(
-                error
-            );
-
-            showToast(
-                "Impossible de rejoindre"
-            );
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   CONNECTION
-===================================================== */
-
-function setupConnection(
-    conn
-){
-
-    conn.on(
-        "open",
-        () => {
-
-            conn.send({
-
-                type:"join",
-
-                player:{
-                    name:playerName,
-                    color:characterColor
-                }
-
-            });
-
-        }
-    );
-
-
-    conn.on(
-        "data",
-        data => {
-
-            handleNetworkData(
-                data,
-                conn
-            );
-
-        }
-    );
-
-
-    conn.on(
-        "close",
-        () => {
-
-            showToast(
-                "Un joueur est parti"
-            );
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   NETWORK
-===================================================== */
-
-function handleNetworkData(
-    data,
-    conn
-){
-
-    if(
-        !data ||
-        !data.type
-    )
-        return;
-
-
-    /* ==========================
-       JOUEUR REJOINT
-    ========================== */
-
-    if(
-        data.type ===
-        "join"
-    ){
-
-        if(!isHost)
-            return;
-
-
-        const player =
-            data.player;
-
-
-        const exists =
-            roomPlayers.some(
-                p =>
-                    p.name ===
-                    player.name
-            );
-
-
-        if(!exists){
-
-            roomPlayers.push({
-
-                name:
-                    player.name,
-
-                color:
-                    player.color,
-
-                totalScore:0,
-
-                roundHistory:[],
-
-                photoHistory:[]
-
-            });
-
-        }
-
-
-        broadcast({
-
-            type:"players",
-
-            players:
-                roomPlayers
-
-        });
-
-
-        renderPlayers();
-
-
-        return;
-
-    }
-
-
-    /* ==========================
-       LISTE JOUEURS
-    ========================== */
-
-    if(
-        data.type ===
-        "players"
-    ){
-
-        roomPlayers =
-            data.players || [];
-
-
-        renderPlayers();
-
-
-        return;
-
-    }
-
-
-    /* ==========================
-       START
-    ========================== */
-
-    if(
-        data.type ===
-        "start"
-    ){
-
-        gameMode =
-            data.mode;
-
-
-        totalRounds =
-            data.rounds;
-
-
-        roundTime =
-            data.time;
-
-
-        currentRound =
-            1;
-
-
-        roundScores = [];
-
-
-        startGame();
-
-
-        return;
-
-    }
-
-
-    /* ==========================
-       RÉSULTAT ROUND
-    ========================== */
-
-    if(
-        data.type ===
-        "roundResult"
-    ){
-
-        if(!isHost)
-            return;
-
-
-        receivePlayerRoundData(
-            data.data
-        );
-
-
-        return;
-
-    }
-
-
-    /* ==========================
-       RESULTAT D'UN JOUEUR
-    ========================== */
-
-    if(
-        data.type ===
-        "playerRoundResult"
-    ){
-
-        receiveRemoteRoundResult(
-            data
-        );
-
-
-        return;
-
-    }
-
-
-    /* ==========================
-       NOUVELLE MANCHE
-    ========================== */
-
-    if(
-        data.type ===
-        "nextRound"
-    ){
-
-        if(
-            data.round >
-            totalRounds
-        ){
-
-            return;
-
-        }
-
-
-        currentRound =
-            data.round;
-
-
-        setupRound();
-
-
-        return;
-
-    }
-
-
-    /* ==========================
-       RESULTATS FINAUX
-    ========================== */
-
-    if(
-        data.type ===
-        "finalResults"
-    ){
-
-        renderFinalResults(
-            data.players
-        );
-
-
-        return;
+        checkRoundFinished();
 
     }
 
 }
 
 
-/* =====================================================
-   SEND TO HOST
-===================================================== */
-
-function sendToHost(
-    data
-){
-
-    if(
-        connections[0] &&
-        connections[0].open
-    ){
-
-        connections[0]
-            .send(data);
-
-    }
-
-}
-
-
-/* =====================================================
-   BROADCAST
-===================================================== */
-
-function broadcast(
-    data
-){
-
-    connections.forEach(
-        conn => {
-
-            if(
-                conn &&
-                conn.open
-            ){
-
-                conn.send(
-                    data
-                );
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   MULTI START
-===================================================== */
-
-function startMulti(){
-
-    if(!isHost){
-
-        showToast(
-            "Seul l'hôte peut lancer la partie"
-        );
-
-        return;
-
-    }
-
-
-    gameMode =
-        $("multiMode")
-        .value;
-
-
-    totalRounds =
-        parseInt(
-            $("multiRounds")
-            .value
-        );
-
-
-    roundTime =
-        $("multiTime")
-        .value === "infinite"
-            ? Infinity
-            : parseInt(
-                $("multiTime")
-                .value
-            );
-
-
-    currentRound =
-        1;
-
-
-    roundScores =
-        [];
-
-
-    roomPlayers.forEach(
-        player => {
-
-            player.totalScore =
-                0;
-
-            player.roundHistory =
-                [];
-
-            player.photoHistory =
-                [];
-
-        }
-    );
-
-
-    broadcast({
-
-        type:"start",
-
-        mode:
-            gameMode,
-
-        rounds:
-            totalRounds,
-
-        time:
-            roundTime
-
-    });
-
-
-    startGame();
-
-}
-
-
-/* =====================================================
-   SHARE
-===================================================== */
-
-function shareRoom(){
-
-    const text =
-        `Rejoins ma partie Color Hunt : ${roomCode}`;
-
-
-    if(
-        navigator.share
-    ){
-
-        navigator.share({
-
-            title:
-                "Color Hunt",
-
-            text:
-                text
-
-        });
-
-    }else{
-
-        navigator.clipboard
-            .writeText(text)
-            .then(
-                () =>
-                    showToast(
-                        "Code copié"
-                    )
-            );
-
-    }
-
-}
-
-
-/* =====================================================
-   QUITTER
-===================================================== */
-
-function quitGame(){
-
-    if(
-        !confirm(
-            "Quitter la partie ?"
-        )
-    )
-        return;
-
-
-    clearTimer();
-
-    stopCamera();
-
-
-    if(
-        gameType ===
-        "multi"
-    ){
-
-        leaveRoom();
-
-    }else{
-
-        showScreen(
-            "home"
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   LEAVE ROOM
-===================================================== */
+/* =========================================================
+LEAVE ROOM
+========================================================= */
 
 function leaveRoom(){
 
-    clearTimer();
+    if(game.type === "multi"){
 
-    stopCamera();
+        if(isHost){
 
+            Object
+                .values(connections)
+                .forEach(connection=>{
 
-    connections.forEach(
-        conn => {
+                    sendTo(
+                        connection,
+                        {
 
-            try{
-                conn.close();
-            }catch(e){}
+                            type:"PLAYER_LEFT",
+
+                            playerId:player.id
+
+                        }
+                    );
+
+                });
+
+        }else{
+
+            sendToHost({
+
+                type:"PLAYER_LEFT",
+
+                playerId:player.id
+
+            });
 
         }
-    );
+
+    }
 
 
-    connections = [];
+    Object
+        .values(connections)
+        .forEach(connection=>{
+
+            try{
+                connection.close();
+            }catch(e){}
+
+        });
+
+
+    connections = {};
 
 
     if(peer){
@@ -5724,403 +4740,750 @@ function leaveRoom(){
     }
 
 
-    roomPlayers = [];
+    peerReady = false;
 
-    playerReady = {};
 
-    playerRoundData = {};
+    stopCamera();
 
-    roomCode = null;
+    clearTimers();
+
+
+    game.active = false;
+
+    game.type = "solo";
 
     isHost = false;
 
+    game.players = {};
 
-    showScreen(
-        "home"
-    );
+    game.roomCode = "";
+
+    game.hostId = "";
+
+
+    showScreen("home");
 
 }
 
 
-/* =====================================================
-   PATCH IMPORTANT :
-   STOCKAGE DES RÉSULTATS PAR ROUND
-===================================================== */
+/* =========================================================
+QUIT GAME
+========================================================= */
 
-function receivePlayerRoundData(
-    data
+function quitGame(){
+
+    if(
+        game.type === "multi"
+    ){
+
+        leaveRoom();
+
+    }else{
+
+        clearTimers();
+
+        stopCamera();
+
+        game.active = false;
+
+        showScreen("home");
+
+    }
+
+}
+
+
+/* =========================================================
+RESULT
+========================================================= */
+
+function showResult(
+    pixel,
+    score
 ){
 
-    if(!isHost)
-        return;
+    $("resultPanel")
+        .classList
+        .remove("hidden");
 
 
-    playerRoundData[
-        data.name
-    ] =
-        data;
+    $("scoreValue")
+        .textContent =
+        score+" %";
 
 
-    playerReady[
-        data.name
-    ] =
-        true;
+    $("resultTarget")
+        .textContent =
+        game.target;
 
 
-    const player =
-        roomPlayers.find(
-            p =>
-                p.name ===
-                data.name
-        );
+    $("resultPixel")
+        .textContent =
+        pixel || "—";
 
 
-    if(player){
+    if(score >= 95){
 
-        player.roundScore =
-            data.score || 0;
+        $("resultText")
+            .textContent =
+            "Parfait ! 🎯";
 
+    }else if(score >= 80){
 
-        player.totalScore =
-            (player.totalScore || 0)
-            +
-            (data.score || 0);
+        $("resultText")
+            .textContent =
+            "Excellent !";
 
+    }else if(score >= 60){
 
-        if(
-            !player.roundHistory
-        ){
+        $("resultText")
+            .textContent =
+            "Pas mal !";
 
-            player.roundHistory =
-                [];
+    }else if(score >= 40){
 
-        }
+        $("resultText")
+            .textContent =
+            "Tu peux faire mieux.";
 
+    }else{
 
-        if(
-            !player.photoHistory
-        ){
-
-            player.photoHistory =
-                [];
-
-        }
-
-
-        player.roundHistory[
-            currentRound-1
-        ] =
-            data.score || 0;
-
-
-        player.photoHistory[
-            currentRound-1
-        ] =
-            data.photo || null;
-
-
-        player.lastPhoto =
-            data.photo || null;
+        $("resultText")
+            .textContent =
+            "Très loin !";
 
     }
 
 
-    /*
-       Envoyer le résultat aux
-       autres joueurs.
-    */
-
-    broadcast({
-
-        type:
-            "playerRoundResult",
-
-        round:
-            currentRound,
-
-        data:
-            data
-
-    });
+    const source =
+        $("photoCanvas");
 
 
-    renderRoundReadyList();
+    const destination =
+        $("resultCanvas");
 
 
-    checkHostRoundReady();
+    if(
+        source.width &&
+        source.height
+    ){
+
+        destination.width =
+            source.width;
+
+
+        destination.height =
+            source.height;
+
+
+        destination
+            .getContext("2d")
+            .drawImage(
+                source,
+                0,
+                0
+            );
+
+    }
 
 }
 
 
-/* =====================================================
-   PATCH FINAL MULTI
-===================================================== */
+/* =========================================================
+FINAL SOLO
+========================================================= */
 
-function finishMultiGame(){
+function finishSolo(){
 
-    clearTimer();
+    clearTimers();
 
     stopCamera();
 
 
-    const finalPlayers =
-        roomPlayers.map(
-            player => ({
-
-                name:
-                    player.name,
-
-                color:
-                    player.color,
-
-                score:
-                    player.totalScore || 0,
-
-                rounds:
-                    player.roundHistory || [],
-
-                photos:
-                    player.photoHistory || []
-
-            })
+    const total =
+        game.rounds.reduce(
+            (sum,r)=>
+                sum+r.score,
+            0
         );
 
 
-    broadcast({
-
-        type:
-            "finalResults",
-
-        players:
-            finalPlayers
-
-    });
+    const average =
+        game.rounds.length
+        ? Math.round(
+            total/
+            game.rounds.length
+        )
+        : 0;
 
 
-    renderFinalResults(
-        finalPlayers
-    );
+    $("finalTitle")
+        .textContent =
+        player.name;
+
+
+    $("finalScore")
+        .textContent =
+        average+" %";
+
+
+    $("podium")
+        .innerHTML = `
+
+            <div class="podiumItem">
+
+                <div class="podiumRank">
+                    🏆
+                </div>
+
+                <div class="podiumInfo">
+
+                    <strong>
+                        ${escapeHTML(player.name)}
+                    </strong>
+
+                    <span>
+                        ${average} % de moyenne
+                    </span>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+    showScreen("final");
 
 }
 
 
-/* =====================================================
-   REMPLACEMENT DE CHECK HOST
-===================================================== */
+/* =========================================================
+FINAL MULTI
+========================================================= */
 
-function checkHostRoundReady(){
+function finishMulti(){
 
     if(!isHost)
         return;
 
 
-    if(hostRoundEnding)
-        return;
+    clearTimers();
+
+    stopCamera();
+
+    game.active = false;
 
 
-    if(!hostRoundTimerDone)
-        return;
+    broadcast({
+
+        type:"FINAL",
+
+        players:game.players
+
+    });
 
 
-    const allReady =
-        roomPlayers.every(
-            player =>
-                !!playerReady[
-                    player.name
-                ]
+    showFinal(
+        game.players
+    );
+
+}
+
+
+/* =========================================================
+RECEIVE FINAL
+========================================================= */
+
+function receiveFinal(data){
+
+    game.players =
+        data.players || {};
+
+
+    game.active = false;
+
+
+    clearTimers();
+
+    stopCamera();
+
+
+    showFinal(
+        game.players
+    );
+
+}
+
+
+/* =========================================================
+SHOW FINAL
+========================================================= */
+
+function showFinal(players){
+
+    const list =
+        Object
+            .values(players)
+            .filter(
+                p=>p.connected !== false
+            )
+            .sort(
+                (a,b)=>
+                    b.score-a.score
+            );
+
+
+    const mine =
+        list.find(
+            p=>p.id === player.id
         );
 
 
-    if(!allReady){
+    const average =
+        mine
+        ? Math.round(
+            mine.score/
+            Math.max(
+                1,
+                game.totalRounds
+            )
+        )
+        : 0;
 
-        renderRoundReadyList();
+
+    $("finalScore")
+        .textContent =
+        average+" %";
+
+
+    if(
+        list.length &&
+        list[0].id === player.id
+    ){
+
+        $("finalTitle")
+            .textContent =
+            "🏆 Victoire !";
+
+    }else{
+
+        $("finalTitle")
+            .textContent =
+            "Résultats";
+
+    }
+
+
+    const podium =
+        $("podium");
+
+
+    podium.innerHTML = "";
+
+
+    list.forEach((p,index)=>{
+
+        const average =
+            Math.round(
+                p.score/
+                Math.max(
+                    1,
+                    game.totalRounds
+                )
+            );
+
+
+        const row =
+            document.createElement(
+                "div"
+            );
+
+
+        row.className =
+            "podiumItem";
+
+
+        row.innerHTML = `
+
+            <div class="podiumRank">
+
+                ${
+                    index === 0
+                    ? "🥇"
+                    : index === 1
+                    ? "🥈"
+                    : index === 2
+                    ? "🥉"
+                    : "#"+(index+1)
+                }
+
+            </div>
+
+
+            <div
+                class="miniCharacter"
+                style="--c:${p.color}">
+
+                <div class="head"></div>
+                <div class="body"></div>
+
+            </div>
+
+
+            <div class="podiumInfo">
+
+                <strong>
+                    ${escapeHTML(p.name)}
+                </strong>
+
+                <span>
+                    ${average} %
+                    · ${p.score} points
+                </span>
+
+            </div>
+
+        `;
+
+
+        podium.appendChild(row);
+
+    });
+
+
+    showScreen("final");
+
+}
+
+
+/* =========================================================
+REJOUER
+========================================================= */
+
+function playAgain(){
+
+    if(game.type === "solo"){
+
+        startSolo();
 
         return;
 
     }
 
 
-    hostRoundEnding =
-        true;
+    if(isHost){
 
+        showScreen("room");
 
-    setTimeout(
-        () => {
+        renderPlayers();
 
-            if(
-                currentRound >=
-                totalRounds
-            ){
+    }else{
 
-                finishMultiGame();
+        showScreen("room");
 
-                return;
-
-            }
-
-
-            currentRound++;
-
-
-            broadcast({
-
-                type:
-                    "nextRound",
-
-                round:
-                    currentRound
-
-            });
-
-
-            setupRound();
-
-        },
-        1800
-    );
+    }
 
 }
 
 
-/* =====================================================
-   PATCH SETUP ROUND
-===================================================== */
+/* =========================================================
+SHARE ROOM
+========================================================= */
 
-const originalSetupRound =
-    setupRound;
+async function shareRoom(){
 
-
-setupRound =
-    function(){
-
-        originalSetupRound();
+    const code =
+        game.roomCode;
 
 
-        if(
-            gameType ===
-            "multi" &&
-            isHost
-        ){
-
-            playerReady = {};
-
-            playerRoundData = {};
-
-            hostRoundTimerDone =
-                false;
-
-            hostRoundEnding =
-                false;
+    const link =
+        getRoomLink();
 
 
-            roomPlayers.forEach(
-                player => {
-
-                    player.ready =
-                        false;
-
-                    player.roundScore =
-                        null;
-
-                }
-            );
+    const text =
+        "Rejoins ma partie Color Hunt !\n\n"+
+        "Code : "+
+        code+
+        "\n"+
+        "Lien : "+
+        link;
 
 
-            renderRoundReadyList();
+    try{
 
-        }
+        if(navigator.share){
 
-    };
+            await navigator.share({
 
+                title:"Color Hunt",
 
-/* =====================================================
-   PATCH TIMER FINISHED
-===================================================== */
+                text:text,
 
-const originalTimerFinished =
-    timerFinished;
+                url:link
 
-
-timerFinished =
-    function(){
-
-        if(
-            gameType ===
-            "multi"
-        ){
-
-            if(
-                !currentPhotoData
-            ){
-
-                submitNoPhoto();
-
-            }
-
-
-            if(isHost){
-
-                hostRoundTimerDone =
-                    true;
-
-
-                checkHostRoundReady();
-
-            }
-
+            });
 
             return;
 
         }
 
 
-        originalTimerFinished();
-
-    };
-
-
-/* =====================================================
-   INIT
-===================================================== */
-
-function init(){
-
-    $("playerName")
-        .value =
-        playerName;
+        await navigator
+            .clipboard
+            .writeText(link);
 
 
-    $("characterColor")
-        .value =
-        characterColor;
+        toast(
+            "Lien de room copié"
+        );
 
 
-    $("characterHex")
-        .textContent =
-        characterColor
-        .toUpperCase();
+    }catch(error){
+
+        try{
+
+            await navigator
+                .clipboard
+                .writeText(link);
 
 
-    updateCharacterPreview();
+            toast(
+                "Lien de room copié"
+            );
 
+        }catch(e){
 
-    updateModeDescription(
-        "solo"
-    );
+            console.error(e);
 
+        }
 
-    updateModeDescription(
-        "multi"
-    );
+    }
 
 }
 
 
-init();
+/* =========================================================
+COPY CODE
+========================================================= */
+
+async function copyRoomCode(){
+
+    try{
+
+        await navigator
+            .clipboard
+            .writeText(
+                game.roomCode
+            );
+
+
+        toast(
+            "Code "+game.roomCode+" copié"
+        );
+
+    }catch(error){
+
+        toast(
+            "Code : "+
+            game.roomCode
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+ROOM LINK
+========================================================= */
+
+function checkRoomLink(){
+
+    const hash =
+        window.location.hash;
+
+
+    if(
+        !hash ||
+        !hash.toLowerCase().startsWith("#room=")
+    )
+        return;
+
+
+    const code =
+        hash
+            .substring(6)
+            .trim()
+            .toUpperCase();
+
+
+    if(
+        !/^[A-Z0-9]{5}$/.test(code)
+    ){
+
+        history.replaceState(
+            null,
+            "",
+            window.location.pathname+
+            window.location.search
+        );
+
+        return;
+
+    }
+
+
+    $("joinCode").value =
+        code;
+
+
+    showScreen("multi");
+
+
+    setTimeout(()=>{
+
+        toast(
+            "Room "+code+" détectée"
+        );
+
+    },300);
+
+}
+
+
+/* =========================================================
+TIMERS
+========================================================= */
+
+function clearTimers(){
+
+    if(timerInterval){
+
+        clearInterval(
+            timerInterval
+        );
+
+        timerInterval = null;
+
+    }
+
+
+    if(memoryTimeout){
+
+        clearTimeout(
+            memoryTimeout
+        );
+
+        memoryTimeout = null;
+
+    }
+
+
+    if(nextRoundTimeout){
+
+        clearTimeout(
+            nextRoundTimeout
+        );
+
+        nextRoundTimeout = null;
+
+    }
+
+}
+
+
+/* =========================================================
+INIT
+========================================================= */
+
+document.documentElement
+    .style
+    .setProperty(
+        "--character-color",
+        player.color
+    );
+
+
+$("playerName").value =
+    player.name;
+
+
+$("characterColor").value =
+    player.color;
+
+
+updateCharacter();
+
+
+console.log(
+    "Color Hunt prêt."
+);
+
+
+/* =========================================================
+PAGE CACHE
+========================================================= */
+
+document.addEventListener(
+    "visibilitychange",
+    ()=>{
+
+        if(
+            !document.hidden &&
+            game.active
+        ){
+
+            updateTimer();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+FERMETURE PAGE
+========================================================= */
+
+window.addEventListener(
+    "beforeunload",
+    ()=>{
+
+        if(
+            game.type === "multi" &&
+            game.active
+        ){
+
+            sendToHost({
+
+                type:"PLAYER_LEFT",
+
+                playerId:player.id
+
+            });
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+START
+========================================================= */
+
+window.addEventListener(
+    "load",
+    ()=>{
+
+        checkRoomLink();
+
+    }
+);
 
 </script>
 
 </body>
 
 </html>
-```
