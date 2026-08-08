@@ -1,0 +1,5389 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f5f5f7">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<title>Color Hunt</title>
+
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+:root{
+    --bg:#f5f5f7;
+    --card:rgba(255,255,255,.82);
+    --cardSolid:#ffffff;
+    --text:#111111;
+    --muted:#777777;
+    --line:rgba(0,0,0,.09);
+    --blue:#007aff;
+    --green:#34c759;
+    --red:#ff3b30;
+    --orange:#ff9500;
+    --shadow:0 10px 35px rgba(0,0,0,.08);
+}
+
+html{
+    background:var(--bg);
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    color:var(--text);
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        Arial,
+        sans-serif;
+    background:
+        radial-gradient(
+            circle at 50% -20%,
+            rgba(255,255,255,.95),
+            transparent 45%
+        ),
+        var(--bg);
+}
+
+button,
+input,
+select{
+    font:inherit;
+}
+
+button{
+    -webkit-appearance:none;
+    appearance:none;
+}
+
+.app{
+    width:min(620px,100%);
+    min-height:100vh;
+    margin:auto;
+    padding:
+        max(16px,env(safe-area-inset-top))
+        17px
+        max(28px,env(safe-area-inset-bottom));
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.header{
+    padding:14px 2px 18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.brand{
+    font-size:20px;
+    font-weight:700;
+    letter-spacing:-.8px;
+}
+
+.brand span{
+    color:#888;
+    font-weight:400;
+}
+
+.headerProfile{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    border:1px solid rgba(0,0,0,.08);
+    background:white;
+    box-shadow:0 3px 12px rgba(0,0,0,.08);
+    position:relative;
+    overflow:hidden;
+    cursor:pointer;
+}
+
+.headerProfile .pHead{
+    position:absolute;
+    width:13px;
+    height:13px;
+    border-radius:50%;
+    background:var(--character,#007aff);
+    top:7px;
+    left:12px;
+}
+
+.headerProfile .pBody{
+    position:absolute;
+    width:23px;
+    height:17px;
+    border-radius:13px 13px 7px 7px;
+    background:var(--character,#007aff);
+    bottom:4px;
+    left:7px;
+}
+
+/* =========================================================
+   SCREENS
+   ========================================================= */
+
+.screen{
+    display:none;
+    animation:screenIn .25s ease;
+}
+
+.screen.active{
+    display:block;
+}
+
+@keyframes screenIn{
+    from{
+        opacity:0;
+        transform:translateY(8px);
+    }
+
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.card{
+    background:var(--card);
+    border:1px solid rgba(255,255,255,.9);
+    border-radius:24px;
+    padding:20px;
+    margin-bottom:13px;
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+}
+
+.cardTitle{
+    font-size:13px;
+    font-weight:700;
+    color:#777;
+    text-transform:uppercase;
+    letter-spacing:1.3px;
+    margin-bottom:15px;
+}
+
+.center{
+    text-align:center;
+}
+
+.small{
+    font-size:13px;
+    line-height:1.45;
+    color:var(--muted);
+}
+
+.description{
+    color:#777;
+    font-size:14px;
+    line-height:1.5;
+}
+
+/* =========================================================
+   HOME
+   ========================================================= */
+
+.homeHero{
+    padding:25px 5px 22px;
+}
+
+.homeHero h1{
+    margin:0;
+    font-size:43px;
+    letter-spacing:-2.8px;
+    font-weight:800;
+}
+
+.homeHero p{
+    margin:8px 0 0;
+    color:#8a8a8f;
+    font-size:14px;
+}
+
+.homeCharacter{
+    width:105px;
+    height:105px;
+    margin:12px auto 24px;
+    position:relative;
+}
+
+.characterHead{
+    position:absolute;
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    top:8px;
+    left:34px;
+    background:var(--character,#007aff);
+    box-shadow:
+        inset 0 -3px rgba(0,0,0,.1),
+        0 8px 25px color-mix(
+            in srgb,
+            var(--character,#007aff) 30%,
+            transparent
+        );
+}
+
+.characterBody{
+    position:absolute;
+    width:66px;
+    height:48px;
+    border-radius:30px 30px 16px 16px;
+    bottom:9px;
+    left:20px;
+    background:var(--character,#007aff);
+    box-shadow:
+        inset 0 -4px rgba(0,0,0,.1);
+}
+
+.characterEye{
+    position:absolute;
+    width:5px;
+    height:7px;
+    border-radius:50%;
+    background:white;
+    top:23px;
+    z-index:2;
+}
+
+.characterEye.one{
+    left:46px;
+}
+
+.characterEye.two{
+    left:55px;
+}
+
+.homeButtons{
+    display:grid;
+    gap:10px;
+}
+
+.actionButton{
+    width:100%;
+    border:0;
+    border-radius:17px;
+    padding:17px 18px;
+    background:white;
+    color:#111;
+    text-align:left;
+    box-shadow:
+        0 3px 15px rgba(0,0,0,.06);
+    border:1px solid rgba(0,0,0,.06);
+    transition:.15s;
+}
+
+.actionButton:active{
+    transform:scale(.975);
+}
+
+.actionButton strong{
+    display:block;
+    font-size:16px;
+    letter-spacing:-.2px;
+}
+
+.actionButton small{
+    display:block;
+    margin-top:4px;
+    color:#8a8a8f;
+}
+
+.actionButton.primary{
+    color:white;
+    background:#111;
+    border-color:#111;
+}
+
+.actionButton .arrow{
+    float:right;
+    font-size:22px;
+    line-height:1;
+    opacity:.45;
+}
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:12px;
+}
+
+.back{
+    border:0;
+    background:none;
+    padding:7px 2px;
+    color:var(--blue);
+    font-size:15px;
+}
+
+.badge{
+    padding:6px 10px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:999px;
+    font-size:11px;
+    font-weight:600;
+    color:#666;
+}
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.field{
+    margin-bottom:17px;
+}
+
+.field label{
+    display:block;
+    margin-bottom:7px;
+    color:#777;
+    font-size:12px;
+    font-weight:600;
+}
+
+select,
+.textInput{
+    width:100%;
+    border:1px solid rgba(0,0,0,.1);
+    border-radius:14px;
+    background:white;
+    color:#111;
+    padding:13px 14px;
+    outline:none;
+}
+
+select:focus,
+.textInput:focus{
+    border-color:var(--blue);
+    box-shadow:0 0 0 3px rgba(0,122,255,.1);
+}
+
+.primaryButton{
+    width:100%;
+    border:0;
+    border-radius:15px;
+    padding:14px;
+    background:#111;
+    color:white;
+    font-weight:700;
+    transition:.15s;
+}
+
+.primaryButton:active{
+    transform:scale(.98);
+}
+
+.secondaryButton{
+    width:100%;
+    border:1px solid var(--line);
+    border-radius:15px;
+    padding:13px;
+    background:white;
+    color:#111;
+}
+
+.dangerButton{
+    width:100%;
+    border:1px solid rgba(255,59,48,.15);
+    border-radius:15px;
+    padding:13px;
+    background:#fff;
+    color:var(--red);
+}
+
+/* =========================================================
+   TOGGLE
+   ========================================================= */
+
+.toggleRow{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    padding:4px 0;
+}
+
+.toggleText strong{
+    display:block;
+    font-size:14px;
+}
+
+.toggleText span{
+    display:block;
+    margin-top:3px;
+    color:#888;
+    font-size:12px;
+}
+
+.switch{
+    position:relative;
+    width:51px;
+    height:31px;
+    flex:none;
+}
+
+.switch input{
+    opacity:0;
+    width:0;
+    height:0;
+}
+
+.slider{
+    position:absolute;
+    inset:0;
+    background:#d2d2d7;
+    border-radius:30px;
+    transition:.2s;
+}
+
+.slider:before{
+    content:"";
+    position:absolute;
+    width:27px;
+    height:27px;
+    left:2px;
+    top:2px;
+    border-radius:50%;
+    background:white;
+    box-shadow:0 2px 5px rgba(0,0,0,.2);
+    transition:.2s;
+}
+
+.switch input:checked + .slider{
+    background:var(--green);
+}
+
+.switch input:checked + .slider:before{
+    transform:translateX(20px);
+}
+
+/* =========================================================
+   ROOM
+   ========================================================= */
+
+.roomCode{
+    font-size:36px;
+    font-weight:800;
+    letter-spacing:6px;
+    margin:10px 0 17px;
+}
+
+.players{
+    display:grid;
+    gap:7px;
+}
+
+.player{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:11px 12px;
+    border-radius:13px;
+    background:#fff;
+    border:1px solid var(--line);
+}
+
+.playerName{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    min-width:0;
+}
+
+.miniAvatar{
+    width:29px;
+    height:29px;
+    border-radius:50%;
+    position:relative;
+    overflow:hidden;
+    background:#eee;
+    flex:none;
+}
+
+.miniAvatar .head{
+    position:absolute;
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    top:5px;
+    left:9px;
+}
+
+.miniAvatar .body{
+    position:absolute;
+    width:18px;
+    height:12px;
+    border-radius:10px 10px 5px 5px;
+    bottom:3px;
+    left:5px;
+}
+
+.playerName span{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.playerStatus{
+    font-size:11px;
+    color:#888;
+}
+
+/* =========================================================
+   COLOR TARGET
+   ========================================================= */
+
+.targetColor{
+    width:100%;
+    height:190px;
+    border-radius:22px;
+    border:1px solid rgba(0,0,0,.1);
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+    padding:13px;
+    overflow:hidden;
+    transition:background .25s;
+}
+
+.targetHex{
+    padding:7px 11px;
+    background:rgba(255,255,255,.72);
+    border-radius:10px;
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    font-family:monospace;
+    font-size:13px;
+    font-weight:700;
+}
+
+.roundHeader{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:9px;
+}
+
+.roundText{
+    font-size:13px;
+    color:#777;
+}
+
+.timer{
+    font-size:14px;
+    font-weight:700;
+    color:#777;
+    margin:5px 0 12px;
+}
+
+.progress{
+    height:4px;
+    width:100%;
+    background:#dedee3;
+    border-radius:10px;
+    overflow:hidden;
+    margin-bottom:15px;
+}
+
+.progressBar{
+    height:100%;
+    width:0;
+    background:#111;
+    transition:.3s;
+}
+
+/* =========================================================
+   CAMERA
+   ========================================================= */
+
+.camera{
+    position:relative;
+    overflow:hidden;
+    border-radius:20px;
+    background:#111;
+}
+
+video,
+canvas.photo{
+    width:100%;
+    display:block;
+    aspect-ratio:4/3;
+    object-fit:cover;
+}
+
+.cameraHint{
+    margin-top:10px;
+    text-align:center;
+    color:#888;
+    font-size:12px;
+}
+
+.marker{
+    position:absolute;
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    border:3px solid white;
+    box-shadow:
+        0 0 0 2px rgba(0,0,0,.6),
+        0 0 18px rgba(255,255,255,.8);
+    transform:translate(-50%,-50%);
+    pointer-events:none;
+}
+
+/* =========================================================
+   RESULT
+   ========================================================= */
+
+.scoreBig{
+    font-size:58px;
+    font-weight:800;
+    letter-spacing:-3px;
+    margin:8px 0;
+}
+
+.resultMessage{
+    color:#777;
+    font-size:14px;
+}
+
+.resultGrid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+    margin-top:14px;
+}
+
+.resultItem{
+    background:#f5f5f7;
+    border-radius:14px;
+    padding:12px;
+}
+
+.resultItem span{
+    display:block;
+    font-size:11px;
+    color:#888;
+    margin-bottom:5px;
+}
+
+.resultItem strong{
+    font-family:monospace;
+    font-size:14px;
+}
+
+/* =========================================================
+   WAITING
+   ========================================================= */
+
+.waitingIcon{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    margin:8px auto 17px;
+    border:3px solid #ddd;
+    border-top-color:#111;
+    animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* =========================================================
+   FINAL
+   ========================================================= */
+
+.finalTitle{
+    font-size:29px;
+    font-weight:800;
+    letter-spacing:-1.2px;
+}
+
+.podium{
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    gap:8px;
+    height:245px;
+    padding-top:15px;
+}
+
+.podiumPlace{
+    width:31%;
+    text-align:center;
+}
+
+.podiumAvatar{
+    width:52px;
+    height:52px;
+    margin:0 auto 7px;
+    border-radius:50%;
+    position:relative;
+}
+
+.podiumName{
+    font-size:12px;
+    font-weight:700;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.podiumScore{
+    font-size:12px;
+    color:#777;
+    margin-top:3px;
+}
+
+.podiumBlock{
+    margin-top:9px;
+    border-radius:12px 12px 4px 4px;
+    background:#111;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+    font-weight:800;
+}
+
+.place1 .podiumBlock{
+    height:115px;
+}
+
+.place2 .podiumBlock{
+    height:80px;
+}
+
+.place3 .podiumBlock{
+    height:55px;
+}
+
+/* =========================================================
+   CHARACTER
+   ========================================================= */
+
+.characterEditor{
+    text-align:center;
+}
+
+.bigCharacter{
+    width:150px;
+    height:150px;
+    position:relative;
+    margin:10px auto 20px;
+}
+
+.bigCharacter .head{
+    position:absolute;
+    width:54px;
+    height:54px;
+    border-radius:50%;
+    top:10px;
+    left:48px;
+    background:var(--character,#007aff);
+    box-shadow:
+        inset 0 -5px rgba(0,0,0,.1),
+        0 12px 30px rgba(0,0,0,.12);
+}
+
+.bigCharacter .body{
+    position:absolute;
+    width:95px;
+    height:68px;
+    border-radius:42px 42px 19px 19px;
+    bottom:12px;
+    left:28px;
+    background:var(--character,#007aff);
+    box-shadow:
+        inset 0 -6px rgba(0,0,0,.1);
+}
+
+.bigCharacter .eye{
+    position:absolute;
+    width:7px;
+    height:9px;
+    border-radius:50%;
+    background:white;
+    top:32px;
+    z-index:2;
+}
+
+.bigCharacter .eye.a{
+    left:65px;
+}
+
+.bigCharacter .eye.b{
+    left:79px;
+}
+
+.colorInput{
+    width:100%;
+    height:55px;
+    padding:4px;
+    border:1px solid var(--line);
+    border-radius:15px;
+    background:white;
+}
+
+.colorValue{
+    margin-top:9px;
+    font-family:monospace;
+    font-size:13px;
+    font-weight:600;
+}
+
+.colorSpectrum{
+    width:100%;
+    height:18px;
+    margin:15px 0 6px;
+    border-radius:999px;
+    background:
+        linear-gradient(
+            90deg,
+            #ff0000 0%,
+            #ffff00 16.6%,
+            #00ff00 33.3%,
+            #00ffff 50%,
+            #0000ff 66.6%,
+            #ff00ff 83.3%,
+            #ff0000 100%
+        );
+}
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:max(20px,env(safe-area-inset-bottom));
+    transform:translate(-50%,20px);
+    opacity:0;
+    pointer-events:none;
+    background:rgba(20,20,20,.92);
+    color:white;
+    border-radius:14px;
+    padding:11px 17px;
+    font-size:13px;
+    z-index:1000;
+    transition:.22s;
+    white-space:nowrap;
+    max-width:90vw;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+/* =========================================================
+   HIDDEN
+   ========================================================= */
+
+.hidden{
+    display:none!important;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media(max-width:400px){
+
+    .homeHero h1{
+        font-size:37px;
+    }
+
+    .targetColor{
+        height:155px;
+    }
+
+    .scoreBig{
+        font-size:48px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="header">
+
+    <div class="brand">
+        Color<span>Hunt</span>
+    </div>
+
+    <button
+        class="headerProfile"
+        onclick="openCharacter()"
+        id="headerProfile">
+
+        <div class="pHead"></div>
+        <div class="pBody"></div>
+
+    </button>
+
+</header>
+
+
+<!-- ======================================================
+     ACCUEIL
+     ====================================================== -->
+
+<section id="home" class="screen active">
+
+    <div class="homeHero center">
+
+        <div class="homeCharacter">
+
+            <div
+                id="homeCharacterHead"
+                class="characterHead">
+            </div>
+
+            <div
+                id="homeCharacterBody"
+                class="characterBody">
+            </div>
+
+            <div class="characterEye one"></div>
+            <div class="characterEye two"></div>
+
+        </div>
+
+        <h1>Color Hunt</h1>
+
+        <p>
+            Trouve la couleur. Capture-la. Score.
+        </p>
+
+    </div>
+
+
+    <div class="homeButtons">
+
+        <button
+            class="actionButton primary"
+            onclick="openSolo()">
+
+            <span class="arrow">›</span>
+
+            <strong>Solo</strong>
+
+            <small>
+                Joue seul
+            </small>
+
+        </button>
+
+
+        <button
+            class="actionButton"
+            onclick="openMulti()">
+
+            <span class="arrow">›</span>
+
+            <strong>Multijoueur</strong>
+
+            <small>
+                Crée ou rejoins une partie
+            </small>
+
+        </button>
+
+
+        <button
+            class="actionButton"
+            onclick="openCharacter()">
+
+            <span class="arrow">›</span>
+
+            <strong>Personnage</strong>
+
+            <small>
+                Choisis ta couleur
+            </small>
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     SOLO CONFIG
+     ====================================================== -->
+
+<section id="soloConfig" class="screen">
+
+    <div class="nav">
+
+        <button
+            class="back"
+            onclick="showScreen('home')">
+            ← Retour
+        </button>
+
+        <span class="badge">Solo</span>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="cardTitle">
+            Partie
+        </div>
+
+
+        <div class="field">
+
+            <label>Mode</label>
+
+            <select
+                id="soloMode"
+                onchange="updateModeDescription('solo')">
+
+                <option value="classic">
+                    Classique
+                </option>
+
+                <option value="blind">
+                    À l'aveugle
+                </option>
+
+                <option value="memory">
+                    Mémoire
+                </option>
+
+                <option value="rapid">
+                    Rapide
+                </option>
+
+                <option value="challenge">
+                    Défi
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div
+            id="soloModeDescription"
+            class="description">
+            La couleur reste visible.
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Nombre de manches
+            </label>
+
+            <select id="soloRounds">
+
+                <option value="1">1</option>
+                <option value="3">3</option>
+                <option value="5" selected>5</option>
+                <option value="7">7</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+
+            </select>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Temps par manche
+            </label>
+
+            <select id="soloTime">
+
+                <option value="10">10 secondes</option>
+                <option value="15">15 secondes</option>
+                <option value="20">20 secondes</option>
+                <option value="30" selected>30 secondes</option>
+                <option value="45">45 secondes</option>
+                <option value="60">1 minute</option>
+                <option value="120">2 minutes</option>
+                <option value="infinite">Infini</option>
+
+            </select>
+
+        </div>
+
+
+        <div class="toggleRow">
+
+            <div class="toggleText">
+
+                <strong>
+                    Photo automatique
+                </strong>
+
+                <span>
+                    Capture automatiquement à la fin
+                </span>
+
+            </div>
+
+            <label class="switch">
+
+                <input
+                    id="soloAutoPhoto"
+                    type="checkbox"
+                    checked>
+
+                <span class="slider"></span>
+
+            </label>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="primaryButton"
+        onclick="startSolo()">
+
+        Commencer
+
+    </button>
+
+</section>
+
+
+<!-- ======================================================
+     MULTI MENU
+     ====================================================== -->
+
+<section id="multiMenu" class="screen">
+
+    <div class="nav">
+
+        <button
+            class="back"
+            onclick="showScreen('home')">
+            ← Retour
+        </button>
+
+        <span class="badge">
+            Multijoueur
+        </span>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="cardTitle">
+            Créer une partie
+        </div>
+
+        <p class="description">
+            Crée une room et partage son code.
+        </p>
+
+        <button
+            class="primaryButton"
+            onclick="createRoom()">
+
+            Créer une room
+
+        </button>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="cardTitle">
+            Rejoindre
+        </div>
+
+        <input
+            id="joinCode"
+            class="textInput"
+            maxlength="8"
+            placeholder="Code de room"
+            autocomplete="off">
+
+        <br><br>
+
+        <button
+            class="primaryButton"
+            onclick="joinRoom()">
+
+            Rejoindre
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     LOBBY
+     ====================================================== -->
+
+<section id="lobby" class="screen">
+
+    <div class="nav">
+
+        <button
+            class="back"
+            onclick="leaveRoom()">
+            ← Quitter
+        </button>
+
+        <span class="badge">
+            Room
+        </span>
+
+    </div>
+
+
+    <div class="card center">
+
+        <div class="cardTitle">
+            Code
+        </div>
+
+        <div
+            id="roomCodeDisplay"
+            class="roomCode">
+            ------
+        </div>
+
+        <button
+            class="secondaryButton"
+            onclick="shareRoom()">
+
+            Partager
+
+        </button>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="cardTitle">
+            Joueurs
+        </div>
+
+        <div
+            id="playersList"
+            class="players">
+        </div>
+
+    </div>
+
+
+    <div
+        id="hostConfig"
+        class="card">
+
+        <div class="cardTitle">
+            Configuration
+        </div>
+
+
+        <div class="field">
+
+            <label>Mode</label>
+
+            <select
+                id="multiMode"
+                onchange="updateModeDescription('multi')">
+
+                <option value="classic">
+                    Classique
+                </option>
+
+                <option value="blind">
+                    À l'aveugle
+                </option>
+
+                <option value="memory">
+                    Mémoire
+                </option>
+
+                <option value="rapid">
+                    Rapide
+                </option>
+
+                <option value="challenge">
+                    Défi
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div
+            id="multiModeDescription"
+            class="description">
+            La couleur reste visible.
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Nombre de manches
+            </label>
+
+            <select id="multiRounds">
+
+                <option value="1">1</option>
+                <option value="3">3</option>
+                <option value="5" selected>5</option>
+                <option value="7">7</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+
+            </select>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Temps par manche
+            </label>
+
+            <select id="multiTime">
+
+                <option value="10">10 secondes</option>
+                <option value="15">15 secondes</option>
+                <option value="20">20 secondes</option>
+                <option value="30" selected>30 secondes</option>
+                <option value="45">45 secondes</option>
+                <option value="60">1 minute</option>
+                <option value="120">2 minutes</option>
+                <option value="infinite">Infini</option>
+
+            </select>
+
+        </div>
+
+
+        <div class="toggleRow">
+
+            <div class="toggleText">
+
+                <strong>
+                    Photo automatique
+                </strong>
+
+                <span>
+                    Capture à la fin du compte à rebours
+                </span>
+
+            </div>
+
+            <label class="switch">
+
+                <input
+                    id="multiAutoPhoto"
+                    type="checkbox"
+                    checked>
+
+                <span class="slider"></span>
+
+            </label>
+
+        </div>
+
+        <br>
+
+        <button
+            class="primaryButton"
+            onclick="startMulti()">
+
+            Lancer la partie
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     GAME
+     ====================================================== -->
+
+<section id="game" class="screen">
+
+    <div class="roundHeader">
+
+        <span
+            id="gameModeBadge"
+            class="badge">
+            Solo
+        </span>
+
+        <span class="roundText">
+            Manche
+            <strong id="roundNumber">1</strong>
+            /
+            <strong id="roundTotal">5</strong>
+        </span>
+
+    </div>
+
+
+    <div class="progress">
+        <div
+            id="roundProgress"
+            class="progressBar">
+        </div>
+    </div>
+
+
+    <div
+        id="timer"
+        class="timer center">
+    </div>
+
+
+    <div
+        id="targetPanel"
+        class="card">
+
+        <div class="cardTitle center">
+            Couleur cible
+        </div>
+
+        <div
+            id="targetColor"
+            class="targetColor">
+
+            <span
+                id="targetHex"
+                class="targetHex">
+                #FFFFFF
+            </span>
+
+        </div>
+
+        <div
+            id="targetCountdown"
+            class="center"
+            style="
+                margin-top:12px;
+                font-size:20px;
+                font-weight:700;
+            ">
+        </div>
+
+    </div>
+
+
+    <div
+        id="cameraPanel"
+        class="card">
+
+        <div class="cardTitle">
+            Photo
+        </div>
+
+        <div class="camera">
+
+            <video
+                id="camera"
+                autoplay
+                playsinline>
+            </video>
+
+        </div>
+
+        <div class="cameraHint">
+            Trouve la couleur puis prends ta photo.
+        </div>
+
+        <br>
+
+        <button
+            class="primaryButton"
+            onclick="takePhoto()">
+
+            Prendre la photo
+
+        </button>
+
+    </div>
+
+
+    <div
+        id="noPhotoPanel"
+        class="card hidden center">
+
+        <div class="cardTitle">
+            Résultat
+        </div>
+
+        <div
+            style="
+                font-size:18px;
+                font-weight:700;
+                margin-bottom:7px;
+            ">
+            Aucune photo
+        </div>
+
+        <div class="small">
+            Aucun cliché n'a été pris pour cette manche.
+        </div>
+
+        <br>
+
+        <button
+            class="primaryButton"
+            onclick="validateNoPhoto()">
+
+            Continuer
+
+        </button>
+
+    </div>
+
+
+    <div
+        id="previewPanel"
+        class="card hidden">
+
+        <div class="cardTitle">
+            Aperçu
+        </div>
+
+        <canvas
+            id="photoCanvas"
+            class="photo">
+        </canvas>
+
+        <br>
+
+        <div
+            style="
+                display:grid;
+                grid-template-columns:1fr 1fr;
+                gap:8px;
+            ">
+
+            <button
+                class="secondaryButton"
+                onclick="retakePhoto()">
+
+                Refaire
+
+            </button>
+
+            <button
+                class="primaryButton"
+                onclick="analyzePhoto()">
+
+                Analyser
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="resultPanel"
+        class="card hidden">
+
+        <div class="cardTitle center">
+            Résultat
+        </div>
+
+
+        <div class="camera">
+
+            <canvas
+                id="resultCanvas"
+                class="photo">
+            </canvas>
+
+        </div>
+
+
+        <div
+            id="scoreValue"
+            class="scoreBig center">
+            0 %
+        </div>
+
+
+        <div
+            id="resultText"
+            class="resultMessage center">
+        </div>
+
+
+        <div class="resultGrid">
+
+            <div class="resultItem">
+
+                <span>
+                    Cible
+                </span>
+
+                <strong
+                    id="resultTarget">
+                    #FFFFFF
+                </strong>
+
+            </div>
+
+
+            <div class="resultItem">
+
+                <span>
+                    Pixel trouvé
+                </span>
+
+                <strong
+                    id="resultPixel">
+                    #FFFFFF
+                </strong>
+
+            </div>
+
+        </div>
+
+        <br>
+
+
+        <button
+            id="nextRoundButton"
+            class="primaryButton"
+            onclick="nextRound()">
+
+            Couleur suivante
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     WAITING
+     ====================================================== -->
+
+<section id="waiting" class="screen">
+
+    <div class="card center">
+
+        <div class="waitingIcon"></div>
+
+        <div class="cardTitle">
+            En attente
+        </div>
+
+        <div
+            style="
+                font-size:20px;
+                font-weight:700;
+            ">
+            Photo validée
+        </div>
+
+        <p class="small">
+            Les autres joueurs doivent terminer.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="cardTitle">
+            Progression
+        </div>
+
+        <div
+            id="waitingPlayers"
+            class="players">
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     FINAL
+     ====================================================== -->
+
+<section id="final" class="screen">
+
+    <div class="card center">
+
+        <div class="cardTitle">
+            Fin de partie
+        </div>
+
+        <div
+            id="finalTitle"
+            class="finalTitle">
+            Résultats
+        </div>
+
+        <div
+            id="finalScore"
+            class="scoreBig">
+            0 %
+        </div>
+
+    </div>
+
+
+    <div
+        id="podiumPanel"
+        class="card hidden">
+
+        <div class="cardTitle center">
+            Résultats
+        </div>
+
+        <div
+            id="podium"
+            class="podium">
+        </div>
+
+    </div>
+
+
+    <div
+        id="soloResultsPanel"
+        class="card">
+
+        <div class="cardTitle">
+            Tes manches
+        </div>
+
+        <div
+            id="roundScores"
+            class="players">
+        </div>
+
+    </div>
+
+
+    <button
+        class="primaryButton"
+        onclick="playAgain()">
+
+        Rejouer
+
+    </button>
+
+    <br><br>
+
+    <button
+        class="secondaryButton"
+        onclick="goHome()">
+
+        Accueil
+
+    </button>
+
+</section>
+
+
+<!-- ======================================================
+     CHARACTER
+     ====================================================== -->
+
+<section id="character" class="screen">
+
+    <div class="nav">
+
+        <button
+            class="back"
+            onclick="showScreen('home')">
+
+            ← Retour
+
+        </button>
+
+        <span class="badge">
+            Personnage
+        </span>
+
+    </div>
+
+
+    <div class="card characterEditor">
+
+        <div class="cardTitle">
+            Couleur
+        </div>
+
+
+        <div class="bigCharacter">
+
+            <div
+                id="bigCharacterHead"
+                class="head">
+            </div>
+
+            <div
+                id="bigCharacterBody"
+                class="body">
+            </div>
+
+            <div class="eye a"></div>
+            <div class="eye b"></div>
+
+        </div>
+
+
+        <input
+            id="characterColor"
+            class="colorInput"
+            type="color"
+            value="#007AFF"
+            oninput="changeCharacterColor(this.value)">
+
+
+        <div
+            id="colorSpectrum"
+            class="colorSpectrum">
+        </div>
+
+
+        <div
+            id="characterHex"
+            class="colorValue">
+            #007AFF
+        </div>
+
+        <p class="small">
+            Fais glisser le sélecteur pour choisir une couleur.
+        </p>
+
+    </div>
+
+</section>
+
+</div>
+
+
+<div
+    id="toast"
+    class="toast">
+</div>
+
+
+<script>
+
+/* =========================================================
+   COLOR HUNT
+   ========================================================= */
+
+
+/* =========================================================
+   ETAT
+   ========================================================= */
+
+let playerId =
+    localStorage.getItem(
+        "colorhunt_player_id"
+    );
+
+if(!playerId){
+
+    playerId =
+        crypto.randomUUID();
+
+    localStorage.setItem(
+        "colorhunt_player_id",
+        playerId
+    );
+}
+
+
+let playerName =
+    localStorage.getItem(
+        "colorhunt_name"
+    ) || "";
+
+
+let characterColor =
+    localStorage.getItem(
+        "colorhunt_character_color"
+    ) || "#007AFF";
+
+
+let game = {
+
+    type:"solo",
+
+    mode:"classic",
+
+    rounds:5,
+
+    currentRound:0,
+
+    target:null,
+
+    scores:[],
+
+    photos:[],
+
+    time:"30",
+
+    autoPhoto:true,
+
+    timer:null,
+
+    timeLeft:0,
+
+    photoTaken:false,
+
+    analyzed:false,
+
+    roundFinished:false
+
+};
+
+
+let cameraStream = null;
+
+
+let room = {
+
+    code:null,
+
+    host:false,
+
+    peer:null,
+
+    connections:{},
+
+    players:{},
+
+    roundScores:{},
+
+    finished:{},
+
+    config:null
+
+};
+
+
+/* =========================================================
+   PSEUDO
+   ========================================================= */
+
+function ensurePlayerName(){
+
+    if(
+        playerName &&
+        playerName.trim().length >= 2
+    ){
+        return true;
+    }
+
+    const name =
+        prompt(
+            "Choisis ton pseudo :",
+            ""
+        );
+
+    if(
+        !name ||
+        name.trim().length < 2
+    ){
+
+        toast(
+            "Le pseudo doit contenir au moins 2 caractères."
+        );
+
+        return false;
+    }
+
+    playerName =
+        name.trim()
+            .substring(0,18);
+
+    localStorage.setItem(
+        "colorhunt_name",
+        playerName
+    );
+
+    return true;
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+function showScreen(id){
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(
+            s =>
+                s.classList.remove(
+                    "active"
+                )
+        );
+
+    const screen =
+        document.getElementById(id);
+
+    if(screen)
+        screen.classList.add("active");
+
+}
+
+
+function goHome(){
+
+    stopCamera();
+
+    clearTimer();
+
+    showScreen("home");
+
+    updateCharacterUI();
+}
+
+
+function toast(text){
+
+    const el =
+        document.getElementById(
+            "toast"
+        );
+
+    el.textContent =
+        text;
+
+    el.classList.add("show");
+
+    setTimeout(
+        ()=>{
+            el.classList.remove(
+                "show"
+            );
+        },
+        2300
+    );
+}
+
+
+/* =========================================================
+   CHARACTER
+   ========================================================= */
+
+function updateCharacterUI(){
+
+    document.documentElement
+        .style
+        .setProperty(
+            "--character",
+            characterColor
+        );
+
+    const ids = [
+
+        "homeCharacterHead",
+        "homeCharacterBody",
+        "bigCharacterHead",
+        "bigCharacterBody"
+
+    ];
+
+    ids.forEach(id=>{
+
+        const el =
+            document.getElementById(id);
+
+        if(el)
+            el.style.background =
+                characterColor;
+
+    });
+
+
+    const input =
+        document.getElementById(
+            "characterColor"
+        );
+
+    if(input)
+        input.value =
+            characterColor;
+
+
+    const hex =
+        document.getElementById(
+            "characterHex"
+        );
+
+    if(hex)
+        hex.textContent =
+            characterColor;
+
+
+    document
+        .querySelectorAll(
+            ".miniAvatar .head, .miniAvatar .body"
+        )
+        .forEach(
+            el =>
+                el.style.background =
+                    characterColor
+        );
+}
+
+
+function openCharacter(){
+
+    showScreen("character");
+
+    updateCharacterUI();
+}
+
+
+function changeCharacterColor(color){
+
+    characterColor =
+        color.toUpperCase();
+
+    localStorage.setItem(
+        "colorhunt_character_color",
+        characterColor
+    );
+
+    updateCharacterUI();
+}
+
+
+/* =========================================================
+   MODE
+   ========================================================= */
+
+const modeDescriptions = {
+
+    classic:
+        "La couleur reste visible pendant toute la manche.",
+
+    blind:
+        "La couleur disparaît après quelques secondes.",
+
+    memory:
+        "Observe la couleur puis mémorise-la.",
+
+    rapid:
+        "Le temps est limité.",
+
+    challenge:
+        "La couleur change à chaque manche."
+};
+
+
+function updateModeDescription(type){
+
+    const select =
+        document.getElementById(
+            type === "solo"
+            ? "soloMode"
+            : "multiMode"
+        );
+
+    const box =
+        document.getElementById(
+            type === "solo"
+            ? "soloModeDescription"
+            : "multiModeDescription"
+        );
+
+    if(!select || !box)
+        return;
+
+    box.textContent =
+        modeDescriptions[
+            select.value
+        ];
+}
+
+
+/* =========================================================
+   SOLO
+   ========================================================= */
+
+function openSolo(){
+
+    if(!ensurePlayerName())
+        return;
+
+    showScreen("soloConfig");
+
+    updateModeDescription(
+        "solo"
+    );
+}
+
+
+async function startSolo(){
+
+    if(!ensurePlayerName())
+        return;
+
+    game = {
+
+        type:"solo",
+
+        mode:
+            document.getElementById(
+                "soloMode"
+            ).value,
+
+        rounds:
+            Number(
+                document.getElementById(
+                    "soloRounds"
+                ).value
+            ),
+
+        currentRound:0,
+
+        target:null,
+
+        scores:[],
+
+        photos:[],
+
+        time:
+            document.getElementById(
+                "soloTime"
+            ).value,
+
+        autoPhoto:
+            document.getElementById(
+                "soloAutoPhoto"
+            ).checked,
+
+        timer:null,
+
+        timeLeft:0,
+
+        photoTaken:false,
+
+        analyzed:false,
+
+        roundFinished:false
+
+    };
+
+
+    document.getElementById(
+        "gameModeBadge"
+    ).textContent =
+        "Solo";
+
+
+    document.getElementById(
+        "roundTotal"
+    ).textContent =
+        game.rounds;
+
+
+    showScreen("game");
+
+
+    await startCamera();
+
+    startRound();
+
+}
+
+
+/* =========================================================
+   CAMERA
+   ========================================================= */
+
+async function startCamera(){
+
+    stopCamera();
+
+    if(
+        !navigator.mediaDevices ||
+        !navigator.mediaDevices.getUserMedia
+    ){
+
+        toast(
+            "Caméra non disponible."
+        );
+
+        return;
+    }
+
+
+    try{
+
+        cameraStream =
+            await navigator
+                .mediaDevices
+                .getUserMedia({
+
+                    video:{
+                        facingMode:{
+                            ideal:"environment"
+                        },
+
+                        width:{
+                            ideal:1280
+                        },
+
+                        height:{
+                            ideal:720
+                        }
+
+                    },
+
+                    audio:false
+
+                });
+
+
+        const video =
+            document.getElementById(
+                "camera"
+            );
+
+        video.srcObject =
+            cameraStream;
+
+
+    }catch(error){
+
+        console.error(error);
+
+        toast(
+            "Impossible d'accéder à la caméra."
+        );
+
+    }
+}
+
+
+function stopCamera(){
+
+    if(cameraStream){
+
+        cameraStream
+            .getTracks()
+            .forEach(
+                track =>
+                    track.stop()
+            );
+
+        cameraStream = null;
+    }
+}
+
+
+/* =========================================================
+   COULEURS
+   ========================================================= */
+
+function randomColor(){
+
+    return {
+
+        r:
+            Math.floor(
+                Math.random()*256
+            ),
+
+        g:
+            Math.floor(
+                Math.random()*256
+            ),
+
+        b:
+            Math.floor(
+                Math.random()*256
+            )
+
+    };
+}
+
+
+function rgbToHex(c){
+
+    return "#" +
+        [c.r,c.g,c.b]
+            .map(
+                x =>
+                    x.toString(16)
+                     .padStart(2,"0")
+            )
+            .join("")
+            .toUpperCase();
+}
+
+
+function colorToCSS(c){
+
+    return `rgb(${c.r},${c.g},${c.b})`;
+}
+
+
+/* =========================================================
+   ROUND
+   ========================================================= */
+
+async function startRound(){
+
+    clearTimer();
+
+
+    game.currentRound++;
+
+    game.photoTaken =
+        false;
+
+    game.analyzed =
+        false;
+
+    game.roundFinished =
+        false;
+
+
+    document.getElementById(
+        "roundNumber"
+    ).textContent =
+        game.currentRound;
+
+
+    document.getElementById(
+        "roundTotal"
+    ).textContent =
+        game.rounds;
+
+
+    document.getElementById(
+        "roundProgress"
+    ).style.width =
+        (
+            (
+                game.currentRound-1
+            )
+            /
+            game.rounds
+            *
+            100
+        ) +
+        "%";
+
+
+    document.getElementById(
+        "cameraPanel"
+    ).classList.remove(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "previewPanel"
+    ).classList.add(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "resultPanel"
+    ).classList.add(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "noPhotoPanel"
+    ).classList.add(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "targetPanel"
+    ).classList.remove(
+        "hidden"
+    );
+
+
+    game.target =
+        randomColor();
+
+
+    displayTarget();
+
+
+    if(
+        game.type === "multi" &&
+        room.host
+    ){
+
+        broadcast({
+
+            type:"round",
+
+            round:
+                game.currentRound,
+
+            target:
+                game.target
+
+        });
+
+    }
+
+
+    await handleModeStart();
+
+}
+
+
+/* =========================================================
+   DISPLAY TARGET
+   ========================================================= */
+
+function displayTarget(){
+
+    const box =
+        document.getElementById(
+            "targetColor"
+        );
+
+    box.style.background =
+        colorToCSS(
+            game.target
+        );
+
+
+    document.getElementById(
+        "targetHex"
+    ).textContent =
+        rgbToHex(
+            game.target
+        );
+
+
+    document.getElementById(
+        "resultTarget"
+    ).textContent =
+        rgbToHex(
+            game.target
+        );
+
+}
+
+
+/* =========================================================
+   MODES
+   ========================================================= */
+
+async function handleModeStart(){
+
+    if(
+        game.mode === "blind" ||
+        game.mode === "memory"
+    ){
+
+        await colorPreviewCountdown(3);
+
+        document.getElementById(
+            "targetPanel"
+        ).classList.add(
+            "hidden"
+        );
+    }
+
+
+    if(
+        game.time !== "infinite"
+    ){
+
+        game.timeLeft =
+            Number(
+                game.time
+            );
+
+        startTimer();
+
+    }else{
+
+        document.getElementById(
+            "timer"
+        ).textContent =
+            "Temps illimité";
+
+    }
+
+}
+
+
+/* =========================================================
+   COUNTDOWN
+   ========================================================= */
+
+function colorPreviewCountdown(seconds){
+
+    return new Promise(resolve=>{
+
+        const el =
+            document.getElementById(
+                "targetCountdown"
+            );
+
+        let left =
+            seconds;
+
+        el.textContent =
+            left;
+
+
+        const interval =
+            setInterval(()=>{
+
+                left--;
+
+                if(left <= 0){
+
+                    clearInterval(
+                        interval
+                    );
+
+                    el.textContent =
+                        "";
+
+                    resolve();
+
+                }else{
+
+                    el.textContent =
+                        left;
+
+                }
+
+            },1000);
+
+    });
+
+}
+
+
+/* =========================================================
+   TIMER
+   ========================================================= */
+
+function startTimer(){
+
+    clearTimer();
+
+
+    const timer =
+        document.getElementById(
+            "timer"
+        );
+
+
+    timer.textContent =
+        `Temps restant : ${game.timeLeft}s`;
+
+
+    game.timer =
+        setInterval(()=>{
+
+            game.timeLeft--;
+
+
+            timer.textContent =
+                `Temps restant : ${game.timeLeft}s`;
+
+
+            if(
+                game.timeLeft <= 0
+            ){
+
+                clearTimer();
+
+
+                if(
+                    game.photoTaken
+                ){
+
+                    return;
+                }
+
+
+                if(
+                    game.autoPhoto
+                ){
+
+                    takePhoto(
+                        true
+                    );
+
+                }else{
+
+                    showNoPhoto();
+
+                }
+
+            }
+
+        },1000);
+
+}
+
+
+/* =========================================================
+   CLEAR TIMER
+   ========================================================= */
+
+function clearTimer(){
+
+    if(game.timer){
+
+        clearInterval(
+            game.timer
+        );
+
+        game.timer =
+            null;
+
+    }
+
+
+    const timer =
+        document.getElementById(
+            "timer"
+        );
+
+    if(timer)
+        timer.textContent =
+            "";
+
+}
+
+
+/* =========================================================
+   PHOTO
+   ========================================================= */
+
+function takePhoto(automatic=false){
+
+    if(game.photoTaken)
+        return;
+
+
+    const video =
+        document.getElementById(
+            "camera"
+        );
+
+
+    const canvas =
+        document.getElementById(
+            "photoCanvas"
+        );
+
+
+    if(
+        !video.videoWidth ||
+        !video.videoHeight
+    ){
+
+        if(!automatic){
+
+            toast(
+                "La caméra n'est pas prête."
+            );
+
+        }
+
+        return;
+
+    }
+
+
+    canvas.width =
+        video.videoWidth;
+
+    canvas.height =
+        video.videoHeight;
+
+
+    const ctx =
+        canvas.getContext(
+            "2d"
+        );
+
+
+    ctx.drawImage(
+        video,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    game.photoTaken =
+        true;
+
+
+    clearTimer();
+
+
+    document.getElementById(
+        "cameraPanel"
+    ).classList.add(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "previewPanel"
+    ).classList.remove(
+        "hidden"
+    );
+
+
+    if(automatic){
+
+        toast(
+            "Temps écoulé : photo prise automatiquement."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   RETAKE
+   ========================================================= */
+
+function retakePhoto(){
+
+    game.photoTaken =
+        false;
+
+    document.getElementById(
+        "previewPanel"
+    ).classList.add(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "cameraPanel"
+    ).classList.remove(
+        "hidden"
+    );
+
+
+    if(
+        game.time !== "infinite" &&
+        game.timeLeft <= 0
+    ){
+
+        game.timeLeft =
+            Number(
+                game.time
+            );
+
+    }
+
+
+    if(
+        game.time !== "infinite"
+    ){
+
+        startTimer();
+
+    }
+
+}
+
+
+/* =========================================================
+   NO PHOTO
+   ========================================================= */
+
+function showNoPhoto(){
+
+    game.roundFinished =
+        true;
+
+
+    clearTimer();
+
+
+    document.getElementById(
+        "cameraPanel"
+    ).classList.add(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "previewPanel"
+    ).classList.add(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "targetPanel"
+    ).classList.remove(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "noPhotoPanel"
+    ).classList.remove(
+        "hidden"
+    );
+
+
+    game.scores.push(0);
+
+}
+
+
+function validateNoPhoto(){
+
+    if(
+        game.type === "multi"
+    ){
+
+        submitMultiScore(
+            0
+        );
+
+    }else{
+
+        nextRound();
+
+    }
+
+}
+
+
+/* =========================================================
+   ANALYSE PIXEL PAR PIXEL
+   ========================================================= */
+
+function analyzePhoto(){
+
+    if(
+        !game.photoTaken ||
+        game.analyzed
+    )
+        return;
+
+
+    const canvas =
+        document.getElementById(
+            "photoCanvas"
+        );
+
+
+    const ctx =
+        canvas.getContext(
+            "2d",
+            {
+                willReadFrequently:true
+            }
+        );
+
+
+    const image =
+        ctx.getImageData(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+
+    const data =
+        image.data;
+
+
+    const target =
+        game.target;
+
+
+    let bestDistance =
+        Infinity;
+
+
+    let bestIndex =
+        0;
+
+
+    /*
+        Chaque pixel est comparé
+        individuellement à la cible.
+
+        Il n'y a aucune moyenne.
+    */
+
+    for(
+        let i=0;
+        i<data.length;
+        i+=4
+    ){
+
+        const alpha =
+            data[i+3];
+
+
+        if(alpha === 0)
+            continue;
+
+
+        const r =
+            data[i];
+
+
+        const g =
+            data[i+1];
+
+
+        const b =
+            data[i+2];
+
+
+        const dr =
+            r-target.r;
+
+
+        const dg =
+            g-target.g;
+
+
+        const db =
+            b-target.b;
+
+
+        const distance =
+            Math.sqrt(
+                dr*dr +
+                dg*dg +
+                db*db
+            );
+
+
+        if(
+            distance <
+            bestDistance
+        ){
+
+            bestDistance =
+                distance;
+
+            bestIndex =
+                i;
+
+        }
+
+    }
+
+
+    const pixelNumber =
+        bestIndex/4;
+
+
+    const x =
+        pixelNumber %
+        canvas.width;
+
+
+    const y =
+        Math.floor(
+            pixelNumber /
+            canvas.width
+        );
+
+
+    const bestColor = {
+
+        r:data[bestIndex],
+
+        g:data[bestIndex+1],
+
+        b:data[bestIndex+2]
+
+    };
+
+
+    /*
+        Distance maximale RGB :
+
+        sqrt(
+            255² +
+            255² +
+            255²
+        )
+    */
+
+    const maxDistance =
+        Math.sqrt(
+            255*255*3
+        );
+
+
+    let precision =
+        1 -
+        bestDistance /
+        maxDistance;
+
+
+    precision =
+        Math.max(
+            0,
+            Math.min(
+                1,
+                precision
+            )
+        );
+
+
+    let score =
+        precision*100;
+
+
+    score =
+        Math.round(
+            score*10
+        )/10;
+
+
+    showResult(
+        canvas,
+        x,
+        y,
+        bestColor,
+        score
+    );
+
+}
+
+
+/* =========================================================
+   RESULT
+   ========================================================= */
+
+function showResult(
+    originalCanvas,
+    x,
+    y,
+    bestColor,
+    score
+){
+
+    game.analyzed =
+        true;
+
+
+    game.roundFinished =
+        true;
+
+
+    clearTimer();
+
+
+    document.getElementById(
+        "previewPanel"
+    ).classList.add(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "cameraPanel"
+    ).classList.add(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "resultPanel"
+    ).classList.remove(
+        "hidden"
+    );
+
+
+    const resultCanvas =
+        document.getElementById(
+            "resultCanvas"
+        );
+
+
+    resultCanvas.width =
+        originalCanvas.width;
+
+
+    resultCanvas.height =
+        originalCanvas.height;
+
+
+    const ctx =
+        resultCanvas.getContext(
+            "2d"
+        );
+
+
+    ctx.drawImage(
+        originalCanvas,
+        0,
+        0
+    );
+
+
+    const radius =
+        Math.max(
+            16,
+            Math.min(
+                40,
+                originalCanvas.width/40
+            )
+        );
+
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x,
+        y,
+        radius,
+        0,
+        Math.PI*2
+    );
+
+    ctx.strokeStyle =
+        "white";
+
+    ctx.lineWidth =
+        5;
+
+    ctx.stroke();
+
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x,
+        y,
+        radius+5,
+        0,
+        Math.PI*2
+    );
+
+    ctx.strokeStyle =
+        "#111";
+
+    ctx.lineWidth =
+        2;
+
+    ctx.stroke();
+
+
+    const hex =
+        rgbToHex(
+            bestColor
+        );
+
+
+    document.getElementById(
+        "resultPixel"
+    ).textContent =
+        hex;
+
+
+    document.getElementById(
+        "resultTarget"
+    ).textContent =
+        rgbToHex(
+            game.target
+        );
+
+
+    document.getElementById(
+        "scoreValue"
+    ).textContent =
+        score
+            .toFixed(1)
+            .replace(".",",") +
+        " %";
+
+
+    let message =
+        "Continue.";
+
+
+    if(score >= 99.9){
+
+        message =
+            "Parfait.";
+
+    }else if(score >= 97){
+
+        message =
+            "Excellent.";
+
+    }else if(score >= 90){
+
+        message =
+            "Très bon.";
+
+    }else if(score >= 75){
+
+        message =
+            "Bon résultat.";
+
+    }
+
+
+    document.getElementById(
+        "resultText"
+    ).textContent =
+        message;
+
+
+    game.scores.push(
+        score
+    );
+
+
+    document.getElementById(
+        "nextRoundButton"
+    ).textContent =
+        game.currentRound >= game.rounds
+        ? "Terminer"
+        : "Couleur suivante";
+
+
+    if(
+        game.type === "multi"
+    ){
+
+        document.getElementById(
+            "nextRoundButton"
+        ).onclick =
+            submitMultiScore;
+
+    }else{
+
+        document.getElementById(
+            "nextRoundButton"
+        ).onclick =
+            nextRound;
+
+    }
+
+}
+
+
+/* =========================================================
+   NEXT ROUND
+   ========================================================= */
+
+function nextRound(){
+
+    if(
+        game.currentRound >=
+        game.rounds
+    ){
+
+        finishSolo();
+
+        return;
+
+    }
+
+
+    startRound();
+
+}
+
+
+/* =========================================================
+   SOLO FINAL
+   ========================================================= */
+
+function finishSolo(){
+
+    clearTimer();
+
+    stopCamera();
+
+
+    const total =
+        game.scores.reduce(
+            (a,b)=>a+b,
+            0
+        );
+
+
+    const average =
+        game.scores.length
+        ? total/game.scores.length
+        : 0;
+
+
+    document.getElementById(
+        "finalScore"
+    ).textContent =
+        average
+            .toFixed(1)
+            .replace(".",",") +
+        " %";
+
+
+    document.getElementById(
+        "finalTitle"
+    ).textContent =
+        average >= 95
+        ? "Excellent"
+        : "Résultats";
+
+
+    const list =
+        document.getElementById(
+            "roundScores"
+        );
+
+
+    list.innerHTML =
+        "";
+
+
+    game.scores.forEach(
+        (score,index)=>{
+
+            const el =
+                document.createElement(
+                    "div"
+                );
+
+
+            el.className =
+                "player";
+
+
+            el.innerHTML = `
+
+                <span>
+                    Manche ${index+1}
+                </span>
+
+                <strong>
+                    ${
+                        score
+                            .toFixed(1)
+                            .replace(".",",")
+                    } %
+                </strong>
+
+            `;
+
+
+            list.appendChild(
+                el
+            );
+
+        }
+    );
+
+
+    document.getElementById(
+        "soloResultsPanel"
+    ).classList.remove(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "podiumPanel"
+    ).classList.add(
+        "hidden"
+    );
+
+
+    showScreen(
+        "final"
+    );
+
+}
+
+
+/* =========================================================
+   MULTI MENU
+   ========================================================= */
+
+function openMulti(){
+
+    if(!ensurePlayerName())
+        return;
+
+    showScreen(
+        "multiMenu"
+    );
+
+}
+
+
+/* =========================================================
+   ROOM CODE
+   ========================================================= */
+
+function makeRoomCode(){
+
+    return Math.random()
+        .toString(36)
+        .substring(2,8)
+        .toUpperCase();
+
+}
+
+
+/* =========================================================
+   CREATE ROOM
+   ========================================================= */
+
+function createRoom(){
+
+    if(!ensurePlayerName())
+        return;
+
+
+    const code =
+        makeRoomCode();
+
+
+    room.code =
+        code;
+
+
+    room.host =
+        true;
+
+
+    room.players = {};
+
+
+    room.roundScores = {};
+
+
+    room.finished = {};
+
+
+    room.players[
+        playerId
+    ] = {
+
+        id:playerId,
+
+        name:playerName,
+
+        color:characterColor,
+
+        host:true,
+
+        scores:[]
+
+    };
+
+
+    room.peer =
+        new Peer(
+            "colorhunt-" +
+            code
+        );
+
+
+    room.peer.on(
+        "open",
+        ()=>{
+            openLobby();
+        }
+    );
+
+
+    room.peer.on(
+        "connection",
+        conn=>{
+            setupConnection(
+                conn
+            );
+        }
+    );
+
+
+    room.peer.on(
+        "error",
+        error=>{
+
+            console.error(
+                error
+            );
+
+            toast(
+                "Erreur de connexion."
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   JOIN ROOM
+   ========================================================= */
+
+function joinRoom(){
+
+    if(!ensurePlayerName())
+        return;
+
+
+    const input =
+        document.getElementById(
+            "joinCode"
+        );
+
+
+    const code =
+        input.value
+            .trim()
+            .toUpperCase();
+
+
+    if(!code){
+
+        toast(
+            "Entre un code."
+        );
+
+        return;
+
+    }
+
+
+    room.code =
+        code;
+
+
+    room.host =
+        false;
+
+
+    room.peer =
+        new Peer();
+
+
+    room.peer.on(
+        "open",
+        ()=>{
+
+            const conn =
+                room.peer.connect(
+                    "colorhunt-" +
+                    code,
+                    {
+                        reliable:true
+                    }
+                );
+
+
+            setupConnection(
+                conn
+            );
+
+        }
+    );
+
+
+    room.peer.on(
+        "error",
+        error=>{
+
+            console.error(
+                error
+            );
+
+            toast(
+                "Room introuvable."
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CONNECTION
+   ========================================================= */
+
+function setupConnection(conn){
+
+    room.connections[
+        conn.peer
+    ] =
+        conn;
+
+
+    conn.on(
+        "open",
+        ()=>{
+
+            conn.send({
+
+                type:"join",
+
+                player:{
+
+                    id:playerId,
+
+                    name:playerName,
+
+                    color:characterColor
+
+                }
+
+            });
+
+
+            if(!room.host){
+
+                showScreen(
+                    "lobby"
+                );
+
+            }
+
+        }
+    );
+
+
+    conn.on(
+        "data",
+        data=>{
+
+            handleNetworkData(
+                data
+            );
+
+        }
+    );
+
+
+    conn.on(
+        "close",
+        ()=>{
+
+            delete room.connections[
+                conn.peer
+            ];
+
+
+            if(room.host){
+
+                /*
+                    Si un joueur part,
+                    il est retiré de la room.
+                */
+
+                const id =
+                    extractPlayerId(
+                        conn.peer
+                    );
+
+                if(id){
+
+                    delete room.players[
+                        id
+                    ];
+
+                }
+
+                broadcastPlayers();
+
+            }
+
+            updatePlayersUI();
+
+        }
+    );
+
+}
+
+
+function extractPlayerId(peerId){
+
+    return null;
+
+}
+
+
+/* =========================================================
+   BROADCAST
+   ========================================================= */
+
+function broadcast(data){
+
+    Object.values(
+        room.connections
+    ).forEach(
+        conn=>{
+
+            if(
+                conn &&
+                conn.open
+            ){
+
+                conn.send(
+                    data
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+function sendToHost(data){
+
+    const conn =
+        room.peer.connect(
+            "colorhunt-" +
+            room.code,
+            {
+                reliable:true
+            }
+        );
+
+
+    conn.on(
+        "open",
+        ()=>{
+
+            conn.send(
+                data
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   NETWORK DATA
+   ========================================================= */
+
+function handleNetworkData(data){
+
+    /* =========================
+       JOIN
+       ========================= */
+
+    if(
+        data.type === "join"
+    ){
+
+        if(!room.host)
+            return;
+
+
+        const existing =
+            Object.values(
+                room.players
+            ).some(
+                player =>
+                    player.name
+                        .toLowerCase() ===
+                    data.player.name
+                        .toLowerCase()
+            );
+
+
+        if(existing){
+
+            /*
+                Refus du pseudo identique.
+            */
+
+            const sender =
+                room.connections[
+                    findConnectionForJoin(
+                        data.player.id
+                    )
+                ];
+
+
+            /*
+                Broadcast global n'est pas
+                utilisé ici : on cherche la
+                connexion ayant envoyé le join.
+            */
+
+            Object.values(
+                room.connections
+            ).forEach(
+                c=>{
+
+                    if(
+                        c &&
+                        c.open
+                    ){
+
+                        c.send({
+
+                            type:"nameTaken",
+
+                            name:
+                                data.player.name
+
+                        });
+
+                    }
+
+                }
+            );
+
+
+            return;
+
+        }
+
+
+        room.players[
+            data.player.id
+        ] = {
+
+            id:
+                data.player.id,
+
+            name:
+                data.player.name,
+
+            color:
+                data.player.color ||
+                "#007AFF",
+
+            host:false,
+
+            scores:[]
+
+        };
+
+
+        broadcastPlayers();
+
+        return;
+
+    }
+
+
+    /* =========================
+       PLAYERS
+       ========================= */
+
+    if(
+        data.type === "players"
+    ){
+
+        room.players =
+            data.players;
+
+        updatePlayersUI();
+
+        return;
+
+    }
+
+
+    /* =========================
+       NAME TAKEN
+       ========================= */
+
+    if(
+        data.type === "nameTaken"
+    ){
+
+        toast(
+            "Ce pseudo est déjà utilisé dans cette room."
+        );
+
+        leaveRoom();
+
+        return;
+
+    }
+
+
+    /* =========================
+       CONFIG
+       ========================= */
+
+    if(
+        data.type === "config"
+    ){
+
+        game.type =
+            "multi";
+
+        game.mode =
+            data.mode;
+
+        game.rounds =
+            data.rounds;
+
+        game.time =
+            data.time;
+
+        game.autoPhoto =
+            data.autoPhoto;
+
+        game.currentRound =
+            0;
+
+        game.scores =
+            [];
+
+
+        startMultiGameClient();
+
+        return;
+
+    }
+
+
+    /* =========================
+       ROUND
+       ========================= */
+
+    if(
+        data.type === "round"
+    ){
+
+        game.currentRound =
+            data.round;
+
+        game.target =
+            data.target;
+
+        game.photoTaken =
+            false;
+
+        game.analyzed =
+            false;
+
+        game.roundFinished =
+            false;
+
+
+        prepareNetworkRound();
+
+        return;
+
+    }
+
+
+    /* =========================
+       SCORE
+       ========================= */
+
+    if(
+        data.type === "score"
+    ){
+
+        if(!room.host)
+            return;
+
+
+        room.finished[
+            data.id
+        ] =
+            data.score;
+
+
+        updateWaiting();
+
+
+        checkAllPlayersFinished();
+
+        return;
+
+    }
+
+
+    /* =========================
+       ROUND FINISHED
+       ========================= */
+
+    if(
+        data.type === "roundFinished"
+    ){
+
+        if(
+            data.scores
+        ){
+
+            Object.keys(
+                data.scores
+            ).forEach(id=>{
+
+                if(
+                    room.players[id]
+                ){
+
+                    if(
+                        !room.players[id]
+                            .scores
+                    ){
+
+                        room.players[id]
+                            .scores = [];
+
+                    }
+
+
+                    room.players[id]
+                        .scores
+                        .push(
+                            data.scores[id]
+                        );
+
+                }
+
+            });
+
+        }
+
+
+        if(
+            game.currentRound <
+            game.rounds
+        ){
+
+            prepareNextNetworkRound();
+
+        }else{
+
+            showMultiFinal(
+                data.results
+            );
+
+        }
+
+        return;
+
+    }
+
+
+    /* =========================
+       FINAL
+       ========================= */
+
+    if(
+        data.type === "final"
+    ){
+
+        showMultiFinal(
+            data.results
+        );
+
+        return;
+
+    }
+
+}
+
+
+/* =========================================================
+   FIND CONNECTION
+   ========================================================= */
+
+function findConnectionForJoin(){
+
+    const keys =
+        Object.keys(
+            room.connections
+        );
+
+    return keys.length
+        ? keys[0]
+        : null;
+
+}
+
+
+/* =========================================================
+   BROADCAST PLAYERS
+   ========================================================= */
+
+function broadcastPlayers(){
+
+    broadcast({
+
+        type:"players",
+
+        players:
+            room.players
+
+    });
+
+
+    updatePlayersUI();
+
+}
+
+
+/* =========================================================
+   LOBBY
+   ========================================================= */
+
+function openLobby(){
+
+    document.getElementById(
+        "roomCodeDisplay"
+    ).textContent =
+        room.code;
+
+
+    showScreen(
+        "lobby"
+    );
+
+
+    updatePlayersUI();
+
+
+    if(
+        !room.host
+    ){
+
+        document.getElementById(
+            "hostConfig"
+        ).classList.add(
+            "hidden"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   PLAYERS UI
+   ========================================================= */
+
+function avatarHTML(color){
+
+    return `
+
+        <div
+            class="miniAvatar">
+
+            <div
+                class="head"
+                style="
+                    background:${color};
+                ">
+            </div>
+
+            <div
+                class="body"
+                style="
+                    background:${color};
+                ">
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+function updatePlayersUI(){
+
+    const list =
+        document.getElementById(
+            "playersList"
+        );
+
+
+    if(!list)
+        return;
+
+
+    list.innerHTML =
+        "";
+
+
+    Object.values(
+        room.players
+    ).forEach(
+        player=>{
+
+            const el =
+                document.createElement(
+                    "div"
+                );
+
+
+            el.className =
+                "player";
+
+
+            el.innerHTML = `
+
+                <div class="playerName">
+
+                    ${avatarHTML(
+                        escapeHTML(
+                            player.color ||
+                            "#007AFF"
+                        )
+                    )}
+
+                    <span>
+                        ${
+                            player.host
+                            ? "● "
+                            : ""
+                        }${escapeHTML(
+                            player.name
+                        )}
+                    </span>
+
+                </div>
+
+                <span class="playerStatus">
+
+                    ${
+                        player.host
+                        ? "Hôte"
+                        : "Connecté"
+                    }
+
+                </span>
+
+            `;
+
+
+            list.appendChild(
+                el
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   START MULTI
+   ========================================================= */
+
+function startMulti(){
+
+    if(!room.host)
+        return;
+
+
+    const mode =
+        document.getElementById(
+            "multiMode"
+        ).value;
+
+
+    const rounds =
+        Number(
+            document.getElementById(
+                "multiRounds"
+            ).value
+        );
+
+
+    const time =
+        document.getElementById(
+            "multiTime"
+        ).value;
+
+
+    const autoPhoto =
+        document.getElementById(
+            "multiAutoPhoto"
+        ).checked;
+
+
+    game.type =
+        "multi";
+
+
+    game.mode =
+        mode;
+
+
+    game.rounds =
+        rounds;
+
+
+    game.time =
+        time;
+
+
+    game.autoPhoto =
+        autoPhoto;
+
+
+    game.currentRound =
+        0;
+
+
+    game.scores =
+        [];
+
+
+    room.finished =
+        {};
+
+
+    Object.values(
+        room.players
+    ).forEach(
+        player=>{
+            player.scores = [];
+        }
+    );
+
+
+    broadcast({
+
+        type:"config",
+
+        mode,
+
+        rounds,
+
+        time,
+
+        autoPhoto
+
+    });
+
+
+    startMultiGameClient();
+
+
+    setTimeout(
+        ()=>{
+            startRound();
+        },
+        500
+    );
+
+}
+
+
+/* =========================================================
+   START MULTI CLIENT
+   ========================================================= */
+
+async function startMultiGameClient(){
+
+    game.type =
+        "multi";
+
+
+    document.getElementById(
+        "gameModeBadge"
+    ).textContent =
+        "Multijoueur";
+
+
+    document.getElementById(
+        "roundTotal"
+    ).textContent =
+        game.rounds;
+
+
+    showScreen(
+        "game"
+    );
+
+
+    await startCamera();
+
+}
+
+
+/* =========================================================
+   NETWORK ROUND
+   ========================================================= */
+
+async function prepareNetworkRound(){
+
+    clearTimer();
+
+
+    document.getElementById(
+        "roundNumber"
+    ).textContent =
+        game.currentRound;
+
+
+    document.getElementById(
+        "roundTotal"
+    ).textContent =
+        game.rounds;
+
+
+    document.getElementById(
+        "roundProgress"
+    ).style.width =
+        (
+            (
+                game.currentRound-1
+            )
+            /
+            game.rounds
+            *
+            100
+        ) +
+        "%";
+
+
+    document.getElementById(
+        "cameraPanel"
+    ).classList.remove(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "previewPanel"
+    ).classList.add(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "resultPanel"
+    ).classList.add(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "noPhotoPanel"
+    ).classList.add(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "targetPanel"
+    ).classList.remove(
+        "hidden"
+    );
+
+
+    displayTarget();
+
+
+    await handleModeStart();
+
+}
+
+
+/* =========================================================
+   NEXT NETWORK ROUND
+   ========================================================= */
+
+function prepareNextNetworkRound(){
+
+    showScreen(
+        "game"
+    );
+
+    startRound();
+
+}
+
+
+/* =========================================================
+   SUBMIT MULTI
+   ========================================================= */
+
+function submitMultiScore(value=null){
+
+    let score =
+        value;
+
+
+    if(score === null){
+
+        if(
+            !game.scores.length
+        )
+            return;
+
+
+        score =
+            game.scores[
+                game.scores.length-1
+            ];
+
+    }
+
+
+    clearTimer();
+
+
+    showScreen(
+        "waiting"
+    );
+
+
+    if(
+        room.host
+    ){
+
+        room.finished[
+            playerId
+        ] =
+            score;
+
+
+        updateWaiting();
+
+
+        checkAllPlayersFinished();
+
+
+    }else{
+
+        sendToHost({
+
+            type:"score",
+
+            id:playerId,
+
+            score
+
+        });
+
+    }
+
+}
+
+
+/* =========================================================
+   CHECK ALL
+   ========================================================= */
+
+function checkAllPlayersFinished(){
+
+    if(!room.host)
+        return;
+
+
+    const ids =
+        Object.keys(
+            room.players
+        );
+
+
+    const done =
+        ids.every(
+            id =>
+                room.finished[id]
+                !== undefined
+        );
+
+
+    updateWaiting();
+
+
+    if(!done)
+        return;
+
+
+    const roundScores =
+        {...room.finished};
+
+
+    ids.forEach(
+        id=>{
+
+            if(
+                room.players[id]
+            ){
+
+                if(
+                    !room.players[id]
+                        .scores
+                ){
+
+                    room.players[id]
+                        .scores = [];
+
+                }
+
+
+                room.players[id]
+                    .scores
+                    .push(
+                        roundScores[id]
+                    );
+
+            }
+
+        }
+    );
+
+
+    broadcast({
+
+        type:"roundFinished",
+
+        scores:
+            roundScores,
+
+        results:
+            buildMultiResults()
+
+    });
+
+
+    room.finished =
+        {};
+
+
+    if(
+        game.currentRound >=
+        game.rounds
+    ){
+
+        setTimeout(
+            finishMulti,
+            500
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   WAITING
+   ========================================================= */
+
+function updateWaiting(){
+
+    const list =
+        document.getElementById(
+            "waitingPlayers"
+        );
+
+
+    if(!list)
+        return;
+
+
+    list.innerHTML =
+        "";
+
+
+    Object.values(
+        room.players
+    ).forEach(
+        player=>{
+
+            const done =
+                room.finished[
+                    player.id
+                ] !== undefined;
+
+
+            const el =
+                document.createElement(
+                    "div"
+                );
+
+
+            el.className =
+                "player";
+
+
+            el.innerHTML = `
+
+                <div class="playerName">
+
+                    ${avatarHTML(
+                        player.color ||
+                        "#007AFF"
+                    )}
+
+                    <span>
+                        ${escapeHTML(
+                            player.name
+                        )}
+                    </span>
+
+                </div>
+
+                <span
+                    class="playerStatus">
+
+                    ${
+                        done
+                        ? "Terminé"
+                        : "En cours"
+                    }
+
+                </span>
+
+            `;
+
+
+            list.appendChild(
+                el
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   BUILD RESULTS
+   ========================================================= */
+
+function averageScores(scores){
+
+    if(
+        !scores ||
+        !scores.length
+    )
+        return 0;
+
+
+    return scores.reduce(
+        (a,b)=>a+b,
+        0
+    ) /
+    scores.length;
+
+}
+
+
+function buildMultiResults(){
+
+    return Object.values(
+        room.players
+    )
+    .map(
+        player=>({
+
+            id:
+                player.id,
+
+            name:
+                player.name,
+
+            color:
+                player.color ||
+                "#007AFF",
+
+            scores:
+                player.scores ||
+                [],
+
+            score:
+                averageScores(
+                    player.scores ||
+                    []
+                )
+
+        })
+    )
+    .sort(
+        (a,b)=>
+            b.score-a.score
+    );
+
+}
+
+
+/* =========================================================
+   FIN MULTI
+   ========================================================= */
+
+function finishMulti(){
+
+    if(!room.host)
+        return;
+
+
+    const results =
+        buildMultiResults();
+
+
+    broadcast({
+
+        type:"final",
+
+        results
+
+    });
+
+
+    showMultiFinal(
+        results
+    );
+
+}
+
+
+/* =========================================================
+   MULTI FINAL
+   ========================================================= */
+
+function showMultiFinal(results){
+
+    stopCamera();
+
+    clearTimer();
+
+
+    const local =
+        results.find(
+            player =>
+                player.id ===
+                playerId
+        );
+
+
+    document.getElementById(
+        "finalScore"
+    ).textContent =
+        local
+        ? local.score
+            .toFixed(1)
+            .replace(".",",") +
+            " %"
+        : "—";
+
+
+    document.getElementById(
+        "finalTitle"
+    ).textContent =
+        "Résultats";
+
+
+    document.getElementById(
+        "soloResultsPanel"
+    ).classList.add(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "podiumPanel"
+    ).classList.remove(
+        "hidden"
+    );
+
+
+    const podium =
+        document.getElementById(
+            "podium"
+        );
+
+
+    podium.innerHTML =
+        "";
+
+
+    const order = [
+
+        results[1],
+
+        results[0],
+
+        results[2]
+
+    ];
+
+
+    order.forEach(
+        (player,index)=>{
+
+            if(!player)
+                return;
+
+
+            const realPlace =
+                index === 1
+                ? 1
+                : index === 0
+                ? 2
+                : 3;
+
+
+            const el =
+                document.createElement(
+                    "div"
+                );
+
+
+            el.className =
+                "podiumPlace place" +
+                realPlace;
+
+
+            el.innerHTML = `
+
+                <div
+                    class="podiumAvatar"
+                    style="
+                        background:
+                        ${escapeHTML(
+                            player.color
+                        )};
+                    ">
+
+                </div>
+
+                <div class="podiumName">
+
+                    ${escapeHTML(
+                        player.name
+                    )}
+
+                </div>
+
+                <div class="podiumScore">
+
+                    ${
+                        player.score
+                            .toFixed(1)
+                            .replace(".",",")
+                    } %
+
+                </div>
+
+                <div class="podiumBlock">
+
+                    ${realPlace}
+
+                </div>
+
+            `;
+
+
+            podium.appendChild(
+                el
+            );
+
+        }
+    );
+
+
+    showScreen(
+        "final"
+    );
+
+}
+
+
+/* =========================================================
+   SHARE
+   ========================================================= */
+
+async function shareRoom(){
+
+    const url =
+        location.origin +
+        location.pathname +
+        "?room=" +
+        encodeURIComponent(
+            room.code
+        );
+
+
+    try{
+
+        if(
+            navigator.share
+        ){
+
+            await navigator.share({
+
+                title:
+                    "Color Hunt",
+
+                text:
+                    "Rejoins ma partie Color Hunt.",
+
+                url
+
+            });
+
+        }else{
+
+            await navigator.clipboard.writeText(
+                url
+            );
+
+            toast(
+                "Lien copié."
+            );
+
+        }
+
+    }catch(error){}
+
+}
+
+
+/* =========================================================
+   LEAVE ROOM
+   ========================================================= */
+
+function leaveRoom(){
+
+    stopCamera();
+
+    clearTimer();
+
+
+    if(room.peer){
+
+        room.peer.destroy();
+
+    }
+
+
+    room = {
+
+        code:null,
+
+        host:false,
+
+        peer:null,
+
+        connections:{},
+
+        players:{},
+
+        roundScores:{},
+
+        finished:{},
+
+        config:null
+
+    };
+
+
+    showScreen(
+        "home"
+    );
+
+}
+
+
+/* =========================================================
+   PLAY AGAIN
+   ========================================================= */
+
+function playAgain(){
+
+    if(
+        game.type === "solo"
+    ){
+
+        startSolo();
+
+    }else{
+
+        showScreen(
+            "lobby"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+   ========================================================= */
+
+function escapeHTML(value){
+
+    return String(value)
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================================
+   URL ROOM
+   ========================================================= */
+
+function checkRoomURL(){
+
+    const params =
+        new URLSearchParams(
+            location.search
+        );
+
+
+    const code =
+        params.get(
+            "room"
+        );
+
+
+    if(code){
+
+        showScreen(
+            "multiMenu"
+        );
+
+
+        document.getElementById(
+            "joinCode"
+        ).value =
+            code.toUpperCase();
+
+
+        toast(
+            "Room prête à rejoindre."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   INIT
+   ========================================================= */
+
+updateCharacterUI();
+
+updateModeDescription(
+    "solo"
+);
+
+checkRoomURL();
+
+</script>
+
+</body>
+</html>
