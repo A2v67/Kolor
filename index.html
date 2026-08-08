@@ -25,21 +25,31 @@
 
 :root{
     --bg:#f5f5f7;
-    --card:#ffffff;
-    --text:#111111;
+    --card:#fff;
+    --text:#111;
     --muted:#777;
-    --border:#e4e4e7;
+    --border:#e3e3e8;
     --blue:#007AFF;
-    --blue2:#005fcc;
+    --blueDark:#0064d6;
     --danger:#ff3b30;
 }
 
+html,
 body{
     margin:0;
-    min-height:100vh;
+    min-height:100%;
+}
+
+body{
     background:var(--bg);
     color:var(--text);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
 }
 
 button,
@@ -61,22 +71,27 @@ button{
 }
 
 
-/* =========================
+/* =====================================================
    HEADER
-========================= */
+===================================================== */
 
 header{
     height:70px;
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     padding:0 22px;
+
+    background:rgba(255,255,255,.88);
+
     border-bottom:1px solid var(--border);
-    background:rgba(255,255,255,.85);
+
     backdrop-filter:blur(18px);
+
     position:sticky;
     top:0;
-    z-index:50;
+    z-index:100;
 }
 
 .brand{
@@ -92,46 +107,67 @@ header{
 .headerProfile{
     width:46px;
     height:46px;
+
     border:0;
     border-radius:50%;
+
     background:#fff;
-    box-shadow:0 3px 12px rgba(0,0,0,.12);
+
+    box-shadow:
+        0 3px 15px rgba(0,0,0,.12);
+
     position:relative;
     overflow:hidden;
 }
 
 .pHead{
     position:absolute;
-    width:17px;
-    height:17px;
+
+    width:18px;
+    height:18px;
+
     border-radius:50%;
-    background:#007AFF;
+
     left:50%;
-    top:8px;
+    top:7px;
+
     transform:translateX(-50%);
+
+    background:#007AFF;
 }
 
 .pBody{
     position:absolute;
-    width:28px;
-    height:20px;
-    border-radius:14px 14px 7px 7px;
-    background:#007AFF;
+
+    width:29px;
+    height:21px;
+
+    border-radius:
+        16px 16px 8px 8px;
+
     left:50%;
     bottom:6px;
+
     transform:translateX(-50%);
+
+    background:#007AFF;
 }
 
 
-/* =========================
+/* =====================================================
    APP
-========================= */
+===================================================== */
 
 #app{
     width:100%;
-    max-width:650px;
+    max-width:680px;
+
     margin:auto;
-    padding:24px 16px 50px;
+
+    padding:
+        24px
+        16px
+        60px;
 }
 
 .screen{
@@ -143,60 +179,76 @@ header{
 }
 
 
-/* =========================
+/* =====================================================
    HOME
-========================= */
+===================================================== */
 
 .homeHero{
-    padding:35px 0 30px;
+    padding:35px 0;
 }
 
 .homeHero h1{
     font-size:42px;
     margin:20px 0 8px;
+
     letter-spacing:-2px;
 }
 
 .homeHero p{
     color:var(--muted);
     margin:0;
-    font-size:16px;
 }
 
 .homeCharacter{
     width:130px;
     height:130px;
-    margin:auto;
+
     position:relative;
+
+    margin:auto;
 }
 
 .characterHead{
-    width:48px;
-    height:48px;
+    width:50px;
+    height:50px;
+
     border-radius:50%;
-    background:#007AFF;
+
     position:absolute;
-    top:13px;
-    left:41px;
+
+    top:12px;
+    left:40px;
+
+    background:#007AFF;
 }
 
 .characterBody{
-    width:78px;
-    height:55px;
-    border-radius:40px 40px 15px 15px;
-    background:#007AFF;
+    width:80px;
+    height:57px;
+
+    border-radius:
+        45px 45px
+        15px 15px;
+
     position:absolute;
-    left:26px;
-    bottom:14px;
+
+    bottom:12px;
+    left:25px;
+
+    background:#007AFF;
 }
 
 .characterEye{
-    width:7px;
-    height:10px;
-    background:#111;
+    width:8px;
+    height:11px;
+
     border-radius:50%;
+
     position:absolute;
-    top:33px;
+
+    top:34px;
+
+    background:#fff;
 }
 
 .characterEye.one{
@@ -214,16 +266,28 @@ header{
 
 .actionButton{
     width:100%;
+
     border:1px solid var(--border);
+
     background:#fff;
+
     border-radius:18px;
+
     padding:18px;
+
     text-align:left;
+
     display:grid;
+
     grid-template-columns:38px 1fr;
+
     grid-template-rows:auto auto;
+
     column-gap:10px;
-    box-shadow:0 3px 12px rgba(0,0,0,.04);
+
+    box-shadow:
+        0 3px 14px rgba(0,0,0,.04);
+
     transition:.15s;
 }
 
@@ -231,14 +295,13 @@ header{
     transform:translateY(-2px);
 }
 
-.actionButton.primary{
-    border-color:#cfe3ff;
-}
-
 .actionButton .arrow{
     grid-row:1 / 3;
+
     font-size:32px;
+
     color:var(--blue);
+
     align-self:center;
 }
 
@@ -248,74 +311,96 @@ header{
 
 .actionButton small{
     color:var(--muted);
-    margin-top:3px;
 }
 
 
-/* =========================
+/* =====================================================
    NAV
-========================= */
+===================================================== */
 
 .nav{
     display:flex;
     align-items:center;
+
     gap:12px;
+
     margin-bottom:18px;
 }
 
 .back{
     border:0;
+
     background:transparent;
+
     padding:8px 0;
-    font-weight:600;
+
     color:var(--blue);
+
+    font-weight:700;
 }
 
 .badge{
-    background:#e9f2ff;
+    background:#e8f2ff;
+
     color:var(--blue);
-    border-radius:999px;
+
     padding:6px 12px;
+
+    border-radius:999px;
+
     font-size:13px;
+
     font-weight:800;
 }
 
 
-/* =========================
-   CARDS
-========================= */
+/* =====================================================
+   CARD
+===================================================== */
 
 .card{
     background:var(--card);
+
     border:1px solid var(--border);
+
     border-radius:20px;
+
     padding:20px;
+
     margin-bottom:14px;
-    box-shadow:0 3px 15px rgba(0,0,0,.04);
+
+    box-shadow:
+        0 3px 15px rgba(0,0,0,.04);
 }
 
 .cardTitle{
     font-size:19px;
+
     font-weight:800;
+
     margin-bottom:15px;
 }
 
 .description{
     color:var(--muted);
+
     font-size:14px;
+
     line-height:1.5;
+
     margin:10px 0 18px;
 }
 
 .small{
     color:var(--muted);
+
     font-size:13px;
 }
 
 
-/* =========================
+/* =====================================================
    FORM
-========================= */
+===================================================== */
 
 .field{
     margin-bottom:18px;
@@ -323,18 +408,26 @@ header{
 
 .field label{
     display:block;
+
     font-size:14px;
+
     font-weight:700;
+
     margin-bottom:7px;
 }
 
 select,
 .textInput{
     width:100%;
+
     border:1px solid var(--border);
+
     background:#fafafa;
+
     border-radius:12px;
+
     padding:13px;
+
     outline:none;
 }
 
@@ -345,53 +438,74 @@ select:focus,
 
 .toggleRow{
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
+
     gap:15px;
 }
 
 .toggleText{
     display:flex;
+
     flex-direction:column;
+
     gap:3px;
 }
 
 .toggleText span{
     color:var(--muted);
+
     font-size:13px;
 }
 
 .switch{
     position:relative;
+
     width:50px;
     height:30px;
+
     flex-shrink:0;
 }
 
 .switch input{
     opacity:0;
+
     width:0;
     height:0;
 }
 
 .slider{
     position:absolute;
+
     inset:0;
+
     background:#d1d1d6;
+
     border-radius:30px;
+
     transition:.2s;
 }
 
 .slider:before{
     content:"";
+
     position:absolute;
+
     width:24px;
     height:24px;
+
     left:3px;
     top:3px;
-    background:white;
+
+    background:#fff;
+
     border-radius:50%;
-    box-shadow:0 2px 5px rgba(0,0,0,.2);
+
+    box-shadow:
+        0 2px 5px rgba(0,0,0,.2);
+
     transition:.2s;
 }
 
@@ -404,36 +518,43 @@ select:focus,
 }
 
 
-/* =========================
+/* =====================================================
    BUTTONS
-========================= */
+===================================================== */
 
 .primaryButton,
 .secondaryButton,
 .dangerButton{
     width:100%;
-    border-radius:13px;
-    padding:13px 16px;
-    font-weight:800;
+
     border:0;
+
+    border-radius:13px;
+
+    padding:13px 16px;
+
+    font-weight:800;
 }
 
 .primaryButton{
     background:var(--blue);
+
     color:white;
 }
 
 .primaryButton:hover{
-    background:var(--blue2);
+    background:var(--blueDark);
 }
 
 .secondaryButton{
     background:#f1f1f4;
+
     color:#111;
 }
 
 .dangerButton{
     background:#fff0ef;
+
     color:var(--danger);
 }
 
@@ -442,36 +563,49 @@ select:focus,
 }
 
 
-/* =========================
+/* =====================================================
    ROOM
-========================= */
+===================================================== */
 
 .roomCode{
     font-size:40px;
+
     font-weight:900;
+
     letter-spacing:7px;
+
     margin:10px 0 20px;
 }
 
 .players{
     display:flex;
+
     flex-direction:column;
+
     gap:8px;
 }
 
 .playerRow{
     display:flex;
+
     align-items:center;
+
     gap:10px;
+
     padding:10px;
+
     background:#f7f7f8;
+
     border-radius:12px;
 }
 
 .playerDot{
-    width:15px;
-    height:15px;
+    width:17px;
+    height:17px;
+
     border-radius:50%;
+
+    flex-shrink:0;
 }
 
 .playerName{
@@ -479,119 +613,221 @@ select:focus,
 }
 
 
-/* =========================
+/* =====================================================
+   MINI CHARACTER OTHER PLAYERS
+===================================================== */
+
+.otherPlayerCharacter{
+    width:38px;
+    height:38px;
+
+    position:relative;
+
+    flex-shrink:0;
+}
+
+.otherPlayerHead{
+    position:absolute;
+
+    width:15px;
+    height:15px;
+
+    border-radius:50%;
+
+    left:11px;
+    top:1px;
+}
+
+.otherPlayerBody{
+    position:absolute;
+
+    width:25px;
+    height:18px;
+
+    border-radius:
+        15px 15px
+        5px 5px;
+
+    left:5px;
+    bottom:1px;
+}
+
+.otherPlayerEye{
+    position:absolute;
+
+    width:3px;
+    height:5px;
+
+    background:#fff;
+
+    border-radius:50%;
+
+    top:7px;
+}
+
+.otherPlayerEye.a{
+    left:15px;
+}
+
+.otherPlayerEye.b{
+    left:20px;
+}
+
+
+/* =====================================================
    GAME
-========================= */
+===================================================== */
 
 .roundHeader{
     display:flex;
+
     align-items:center;
+
     gap:10px;
+
     margin-bottom:12px;
 }
 
 .roundText{
     font-size:14px;
+
     font-weight:600;
 }
 
 .progress{
     width:100%;
+
     height:7px;
+
     background:#e5e5e7;
+
     border-radius:20px;
+
     overflow:hidden;
+
     margin-bottom:20px;
 }
 
 .progressBar{
     height:100%;
+
     width:100%;
+
     background:var(--blue);
+
     transition:width .2s linear;
 }
 
 .timer{
     font-size:34px;
+
     font-weight:900;
+
     margin:15px 0 20px;
 }
 
 .targetColor{
     width:100%;
+
     height:180px;
+
     border-radius:18px;
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
-    position:relative;
+
     overflow:hidden;
 }
 
 .targetHex{
     background:rgba(0,0,0,.55);
-    color:white;
+
+    color:#fff;
+
     padding:8px 12px;
+
     border-radius:10px;
+
     font-weight:800;
-    backdrop-filter:blur(6px);
 }
 
 .camera{
     width:100%;
+
     aspect-ratio:4 / 3;
+
     border-radius:16px;
+
     overflow:hidden;
+
     background:#111;
-    position:relative;
 }
 
 .camera video{
     width:100%;
     height:100%;
+
     object-fit:cover;
 }
 
 .cameraHint{
     color:var(--muted);
+
     font-size:14px;
+
     margin-top:10px;
 }
 
 .photo{
     width:100%;
+
     display:block;
+
     border-radius:15px;
 }
 
 .scoreBig{
     font-size:52px;
+
     font-weight:900;
+
     margin:12px 0;
 }
 
 .resultMessage{
     font-weight:700;
+
     margin-bottom:18px;
 }
 
 .resultGrid{
     display:grid;
+
     grid-template-columns:1fr 1fr;
+
     gap:10px;
 }
 
 .resultItem{
     background:#f5f5f7;
+
     padding:12px;
+
     border-radius:12px;
+
     display:flex;
+
     flex-direction:column;
+
     gap:4px;
 }
 
 .resultItem span{
     color:var(--muted);
+
     font-size:12px;
 }
 
@@ -600,46 +836,22 @@ select:focus,
 }
 
 
-/* =========================
-   REVERSE ZOOM
-========================= */
-
-.reversePixel{
-    position:absolute;
-    width:16px;
-    height:16px;
-    border:3px solid white;
-    border-radius:50%;
-    box-shadow:
-        0 0 0 2px #111,
-        0 0 12px rgba(0,0,0,.8);
-    pointer-events:none;
-    transform:translate(-50%,-50%);
-}
-
-.pixelZoom{
-    width:190px;
-    height:190px;
-    border-radius:18px;
-    margin:15px auto;
-    border:4px solid white;
-    box-shadow:0 4px 18px rgba(0,0,0,.2);
-    image-rendering:auto;
-    background:#ddd;
-}
-
-
-/* =========================
+/* =====================================================
    WAITING
-========================= */
+===================================================== */
 
 .waitingIcon{
     width:55px;
     height:55px;
+
     border:6px solid #ddd;
+
     border-top-color:var(--blue);
+
     border-radius:50%;
+
     animation:spin 1s linear infinite;
+
     margin:0 auto 18px;
 }
 
@@ -650,45 +862,126 @@ select:focus,
 }
 
 
-/* =========================
+/* =====================================================
    FIN
-========================= */
+===================================================== */
 
 .finalTitle{
     font-size:25px;
+
     font-weight:900;
 }
 
 .podium{
     display:flex;
+
     flex-direction:column;
-    gap:8px;
+
+    gap:10px;
 }
 
 .podiumRow{
     display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:13px;
-    border-radius:13px;
+
+    flex-direction:column;
+
+    gap:12px;
+
+    padding:14px;
+
+    border-radius:16px;
+
     background:#f6f6f7;
 }
 
-.podiumLeft{
+.podiumTop{
     display:flex;
+
     align-items:center;
+
     gap:10px;
 }
 
-.position{
+.podiumScore{
+    margin-left:auto;
+
+    font-size:20px;
+
     font-weight:900;
-    width:25px;
+}
+
+.finalPlayerCharacter{
+    width:55px;
+    height:55px;
+
+    position:relative;
+
+    flex-shrink:0;
+}
+
+.finalPlayerHead{
+    position:absolute;
+
+    width:22px;
+    height:22px;
+
+    border-radius:50%;
+
+    top:3px;
+    left:17px;
+}
+
+.finalPlayerBody{
+    position:absolute;
+
+    width:38px;
+    height:27px;
+
+    border-radius:
+        22px 22px
+        7px 7px;
+
+    bottom:3px;
+    left:8px;
+}
+
+.finalPlayerEye{
+    position:absolute;
+
+    width:5px;
+    height:7px;
+
+    background:#fff;
+
+    border-radius:50%;
+
+    top:11px;
+}
+
+.finalPlayerEye.a{
+    left:23px;
+}
+
+.finalPlayerEye.b{
+    left:31px;
+}
+
+.finalPhoto{
+    width:100%;
+
+    max-height:350px;
+
+    object-fit:contain;
+
+    border-radius:12px;
+
+    background:#111;
 }
 
 
-/* =========================
+/* =====================================================
    CHARACTER
-========================= */
+===================================================== */
 
 .characterEditor{
     text-align:center;
@@ -697,36 +990,52 @@ select:focus,
 .bigCharacter{
     width:180px;
     height:190px;
+
     margin:15px auto 25px;
+
     position:relative;
 }
 
 .bigCharacter .head{
     position:absolute;
+
     width:70px;
     height:70px;
+
     border-radius:50%;
+
     top:15px;
     left:55px;
+
     background:#007AFF;
 }
 
 .bigCharacter .body{
     position:absolute;
+
     width:115px;
     height:80px;
-    border-radius:60px 60px 18px 18px;
+
+    border-radius:
+        60px 60px
+        18px 18px;
+
     bottom:10px;
     left:32px;
+
     background:#007AFF;
 }
 
 .bigCharacter .eye{
     position:absolute;
+
     width:9px;
     height:13px;
+
     border-radius:50%;
-    background:#111;
+
+    background:#fff;
+
     top:43px;
 }
 
@@ -741,16 +1050,23 @@ select:focus,
 .colorInput{
     width:80px;
     height:50px;
+
     border:0;
+
     padding:0;
+
     background:transparent;
+
     cursor:pointer;
 }
 
 .colorSpectrum{
     height:20px;
+
     border-radius:20px;
+
     margin:15px 0;
+
     background:
         linear-gradient(
             90deg,
@@ -765,40 +1081,55 @@ select:focus,
 }
 
 .colorValue{
-    font-weight:900;
     font-size:20px;
+
+    font-weight:900;
 }
 
 
-/* =========================
+/* =====================================================
    TOAST
-========================= */
+===================================================== */
 
 #toast{
     position:fixed;
+
     left:50%;
     bottom:25px;
-    transform:translate(-50%,20px);
+
+    transform:
+        translate(-50%,20px);
+
     background:#111;
-    color:white;
+
+    color:#fff;
+
     padding:12px 17px;
+
     border-radius:12px;
+
     font-size:14px;
+
     opacity:0;
+
     pointer-events:none;
+
     transition:.2s;
-    z-index:100;
+
+    z-index:500;
 }
 
 #toast.show{
     opacity:1;
-    transform:translate(-50%,0);
+
+    transform:
+        translate(-50%,0);
 }
 
 
-/* =========================
+/* =====================================================
    MOBILE
-========================= */
+===================================================== */
 
 @media(max-width:500px){
 
@@ -807,7 +1138,10 @@ select:focus,
     }
 
     #app{
-        padding:18px 12px 40px;
+        padding:
+            18px
+            12px
+            40px;
     }
 
     .homeHero h1{
@@ -851,9 +1185,9 @@ select:focus,
 <main id="app">
 
 
-<!-- =========================
+<!-- =====================================================
      HOME
-========================= -->
+===================================================== -->
 
 <section
     id="home"
@@ -878,7 +1212,11 @@ select:focus,
 
         </div>
 
-        <h1>Color Hunt</h1>
+
+        <h1>
+            Color Hunt
+        </h1>
+
 
         <p>
             Trouve la couleur. Capture-la. Score.
@@ -893,9 +1231,13 @@ select:focus,
             class="actionButton primary"
             onclick="openSolo()">
 
-            <span class="arrow">›</span>
+            <span class="arrow">
+                ›
+            </span>
 
-            <strong>Solo</strong>
+            <strong>
+                Solo
+            </strong>
 
             <small>
                 Joue seul
@@ -908,9 +1250,13 @@ select:focus,
             class="actionButton"
             onclick="openMulti()">
 
-            <span class="arrow">›</span>
+            <span class="arrow">
+                ›
+            </span>
 
-            <strong>Multijoueur</strong>
+            <strong>
+                Multijoueur
+            </strong>
 
             <small>
                 Crée ou rejoins une partie
@@ -923,9 +1269,13 @@ select:focus,
             class="actionButton"
             onclick="openCharacter()">
 
-            <span class="arrow">›</span>
+            <span class="arrow">
+                ›
+            </span>
 
-            <strong>Personnage</strong>
+            <strong>
+                Personnage
+            </strong>
 
             <small>
                 Choisis ta couleur et ton pseudo
@@ -938,9 +1288,9 @@ select:focus,
 </section>
 
 
-<!-- =========================
+<!-- =====================================================
      SOLO
-========================= -->
+===================================================== -->
 
 <section
     id="solo"
@@ -975,6 +1325,7 @@ select:focus,
             <label>
                 Mode
             </label>
+
 
             <select
                 id="soloMode"
@@ -1012,15 +1363,36 @@ select:focus,
                 Nombre de manches
             </label>
 
+
             <select id="soloRounds">
 
-                <option value="1">1</option>
-                <option value="3">3</option>
-                <option value="5" selected>5</option>
-                <option value="7">7</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
+                <option value="1">
+                    1
+                </option>
+
+                <option value="3">
+                    3
+                </option>
+
+                <option value="5" selected>
+                    5
+                </option>
+
+                <option value="7">
+                    7
+                </option>
+
+                <option value="10">
+                    10
+                </option>
+
+                <option value="15">
+                    15
+                </option>
+
+                <option value="20">
+                    20
+                </option>
 
             </select>
 
@@ -1032,6 +1404,7 @@ select:focus,
             <label>
                 Temps par manche
             </label>
+
 
             <select id="soloTime">
 
@@ -1114,9 +1487,9 @@ select:focus,
 </section>
 
 
-<!-- =========================
+<!-- =====================================================
      MULTI
-========================= -->
+===================================================== -->
 
 <section
     id="multi"
@@ -1144,6 +1517,7 @@ select:focus,
         <div class="cardTitle">
             Créer une partie
         </div>
+
 
         <p class="description">
             Crée une room et partage son code.
@@ -1192,9 +1566,9 @@ select:focus,
 </section>
 
 
-<!-- =========================
+<!-- =====================================================
      ROOM
-========================= -->
+===================================================== -->
 
 <section
     id="room"
@@ -1209,6 +1583,7 @@ select:focus,
             ← Quitter
 
         </button>
+
 
         <span class="badge">
             Room
@@ -1314,13 +1689,33 @@ select:focus,
 
             <select id="multiRounds">
 
-                <option value="1">1</option>
-                <option value="3">3</option>
-                <option value="5" selected>5</option>
-                <option value="7">7</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
+                <option value="1">
+                    1
+                </option>
+
+                <option value="3">
+                    3
+                </option>
+
+                <option value="5" selected>
+                    5
+                </option>
+
+                <option value="7">
+                    7
+                </option>
+
+                <option value="10">
+                    10
+                </option>
+
+                <option value="15">
+                    15
+                </option>
+
+                <option value="20">
+                    20
+                </option>
 
             </select>
 
@@ -1418,9 +1813,9 @@ select:focus,
 </section>
 
 
-<!-- =========================
+<!-- =====================================================
      GAME
-========================= -->
+===================================================== -->
 
 <section
     id="game"
@@ -1451,7 +1846,10 @@ select:focus,
         <button
             class="secondaryButton inlineButton"
             onclick="quitGame()"
-            style="margin-left:auto;padding:8px 12px;">
+            style="
+                margin-left:auto;
+                padding:8px 12px;
+            ">
 
             Quitter
 
@@ -1533,8 +1931,12 @@ select:focus,
         </div>
 
 
-        <div class="cameraHint">
+        <div
+            id="cameraHint"
+            class="cameraHint">
+
             Trouve la couleur puis prends ta photo.
+
         </div>
 
 
@@ -1546,48 +1948,6 @@ select:focus,
             onclick="takePhoto()">
 
             Prendre la photo
-
-        </button>
-
-    </div>
-
-
-    <div
-        id="noPhotoPanel"
-        class="card hidden center">
-
-        <div class="cardTitle">
-            Résultat
-        </div>
-
-
-        <div
-            style="
-                font-size:18px;
-                font-weight:700;
-                margin-bottom:7px;
-            ">
-
-            Aucune photo
-
-        </div>
-
-
-        <div class="small">
-
-            Aucun cliché n'a été pris pour cette manche.
-
-        </div>
-
-
-        <br>
-
-
-        <button
-            class="primaryButton"
-            onclick="validateNoPhoto()">
-
-            Continuer
 
         </button>
 
@@ -1642,6 +2002,89 @@ select:focus,
 
 
     <div
+        id="waitingRoundPanel"
+        class="card hidden center">
+
+        <div class="waitingIcon"></div>
+
+
+        <div class="cardTitle">
+            Manche terminée
+        </div>
+
+
+        <div
+            id="waitingRoundText"
+            style="
+                font-size:18px;
+                font-weight:800;
+            ">
+
+            En attente des autres joueurs...
+
+        </div>
+
+
+        <p class="small">
+            La prochaine manche commencera lorsque tout le monde aura terminé.
+        </p>
+
+
+        <div
+            id="roundReadyList"
+            class="players"
+            style="
+                margin-top:15px;
+                text-align:left;
+            ">
+        </div>
+
+    </div>
+
+
+    <div
+        id="noPhotoPanel"
+        class="card hidden center">
+
+        <div class="cardTitle">
+            Résultat
+        </div>
+
+
+        <div
+            style="
+                font-size:18px;
+                font-weight:700;
+                margin-bottom:7px;
+            ">
+
+            Aucune photo
+
+        </div>
+
+
+        <div class="small">
+
+            Aucun cliché n'a été pris pour cette manche.
+
+        </div>
+
+
+        <br>
+
+
+        <button
+            class="primaryButton"
+            onclick="validateNoPhoto()">
+
+            Terminer la manche
+
+        </button>
+
+    </div>
+
+
+    <div
         id="reversePanel"
         class="card hidden center">
 
@@ -1652,7 +2095,14 @@ select:focus,
 
         <div
             id="reverseZoom"
-            class="pixelZoom">
+            style="
+                width:190px;
+                height:190px;
+                border-radius:18px;
+                margin:15px auto;
+                background-size:100% 100%;
+                background-position:center;
+            ">
         </div>
 
 
@@ -1678,7 +2128,7 @@ select:focus,
             class="primaryButton"
             onclick="reverseContinue()">
 
-            Continuer
+            J'ai mémorisé
 
         </button>
 
@@ -1754,27 +2204,14 @@ select:focus,
 
         </div>
 
-
-        <br>
-
-
-        <button
-            id="nextRoundButton"
-            class="primaryButton"
-            onclick="nextRound()">
-
-            Couleur suivante
-
-        </button>
-
     </div>
 
 </section>
 
 
-<!-- =========================
+<!-- =====================================================
      WAITING
-========================= -->
+===================================================== -->
 
 <section
     id="waiting"
@@ -1803,6 +2240,7 @@ select:focus,
 
         <p class="small">
             Les autres joueurs doivent terminer.
+
         </p>
 
     </div>
@@ -1834,9 +2272,9 @@ select:focus,
 </section>
 
 
-<!-- =========================
+<!-- =====================================================
      FIN
-========================= -->
+===================================================== -->
 
 <section
     id="finish"
@@ -1871,7 +2309,7 @@ select:focus,
 
     <div
         id="podiumPanel"
-        class="card hidden">
+        class="card">
 
         <div class="cardTitle center">
             Résultats
@@ -1881,23 +2319,6 @@ select:focus,
         <div
             id="podium"
             class="podium">
-        </div>
-
-    </div>
-
-
-    <div
-        id="soloResultsPanel"
-        class="card">
-
-        <div class="cardTitle">
-            Tes manches
-        </div>
-
-
-        <div
-            id="roundScores"
-            class="players">
         </div>
 
     </div>
@@ -1926,9 +2347,9 @@ select:focus,
 </section>
 
 
-<!-- =========================
+<!-- =====================================================
      CHARACTER
-========================= -->
+===================================================== -->
 
 <section
     id="character"
@@ -2055,23 +2476,25 @@ select:focus,
 
 <script>
 
-/* =========================================================
-   DONNÉES
-========================================================= */
-
-const savedName =
-    localStorage.getItem("colorhunt_name");
-
-const savedColor =
-    localStorage.getItem("colorhunt_color");
-
+/* =====================================================
+   PROFIL
+===================================================== */
 
 let playerName =
-    savedName || "Joueur";
+    localStorage.getItem(
+        "colorhunt_name"
+    ) || "Joueur";
+
 
 let characterColor =
-    savedColor || "#007AFF";
+    localStorage.getItem(
+        "colorhunt_color"
+    ) || "#007AFF";
 
+
+/* =====================================================
+   GAME
+===================================================== */
 
 let currentScreen = "home";
 
@@ -2093,6 +2516,17 @@ let timerInterval = null;
 
 let cameraStream = null;
 
+let currentPhotoData = null;
+
+let reverseColor = null;
+
+let reverseFirstPhoto = null;
+
+
+/* =====================================================
+   MULTI
+===================================================== */
+
 let peer = null;
 
 let roomCode = null;
@@ -2103,14 +2537,18 @@ let connections = [];
 
 let roomPlayers = [];
 
-let currentPhotoReady = false;
+let playerReady = {};
 
-let reverseColor = null;
+let playerRoundData = {};
+
+let hostRoundTimerDone = false;
+
+let hostRoundEnding = false;
 
 
-/* =========================================================
-   OUTILS
-========================================================= */
+/* =====================================================
+   UTILITAIRES
+===================================================== */
 
 function $(id){
     return document.getElementById(id);
@@ -2128,35 +2566,57 @@ function showToast(text){
     setTimeout(() => {
         toast.classList.remove("show");
     },2200);
+
 }
 
 
 function randomColor(){
 
-    const chars = "0123456789ABCDEF";
+    const chars =
+        "0123456789ABCDEF";
 
     let color = "#";
 
     for(let i=0;i<6;i++){
-        color += chars[
-            Math.floor(
-                Math.random()*16
-            )
-        ];
+
+        color +=
+            chars[
+                Math.floor(
+                    Math.random()*16
+                )
+            ];
+
     }
 
     return color;
+
 }
 
 
 function hexToRgb(hex){
 
-    hex = hex.replace("#","");
+    hex =
+        hex
+        .replace("#","")
+        .padEnd(6,"0");
 
     return {
-        r:parseInt(hex.substring(0,2),16),
-        g:parseInt(hex.substring(2,4),16),
-        b:parseInt(hex.substring(4,6),16)
+
+        r:parseInt(
+            hex.substring(0,2),
+            16
+        ),
+
+        g:parseInt(
+            hex.substring(2,4),
+            16
+        ),
+
+        b:parseInt(
+            hex.substring(4,6),
+            16
+        )
+
     };
 
 }
@@ -2165,11 +2625,22 @@ function hexToRgb(hex){
 function rgbToHex(r,g,b){
 
     return "#" +
-        [r,g,b]
-        .map(v =>
-            Math.max(0,Math.min(255,Math.round(v)))
-            .toString(16)
-            .padStart(2,"0")
+        [
+            r,
+            g,
+            b
+        ]
+        .map(
+            value =>
+                Math.max(
+                    0,
+                    Math.min(
+                        255,
+                        Math.round(value)
+                    )
+                )
+                .toString(16)
+                .padStart(2,"0")
         )
         .join("")
         .toUpperCase();
@@ -2179,29 +2650,41 @@ function rgbToHex(r,g,b){
 
 function colorDistance(a,b){
 
-    const c1 = hexToRgb(a);
-    const c2 = hexToRgb(b);
+    const c1 =
+        hexToRgb(a);
 
-    const dr = c1.r-c2.r;
-    const dg = c1.g-c2.g;
-    const db = c1.b-c2.b;
+    const c2 =
+        hexToRgb(b);
+
+
+    const dr =
+        c1.r-c2.r;
+
+    const dg =
+        c1.g-c2.g;
+
+    const db =
+        c1.b-c2.b;
+
 
     const distance =
         Math.sqrt(
-            dr*dr +
-            dg*dg +
+            dr*dr+
+            dg*dg+
             db*db
         );
+
 
     const max =
         Math.sqrt(
             255*255*3
         );
 
+
     return Math.round(
         Math.max(
             0,
-            100 -
+            100-
             (distance/max)*100
         )
     );
@@ -2209,24 +2692,49 @@ function colorDistance(a,b){
 }
 
 
-/* =========================================================
+function escapeHtml(value){
+
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+/* =====================================================
    NAVIGATION
-========================================================= */
+===================================================== */
 
 function showScreen(id){
 
     document
         .querySelectorAll(".screen")
-        .forEach(screen =>
-            screen.classList.remove("active")
+        .forEach(
+            screen =>
+                screen.classList.remove(
+                    "active"
+                )
         );
 
-    const target = $(id);
+
+    const target =
+        $(id);
+
 
     if(target){
-        target.classList.add("active");
-        currentScreen = id;
+
+        target.classList.add(
+            "active"
+        );
+
+        currentScreen =
+            id;
+
     }
+
 
     window.scrollTo({
         top:0,
@@ -2240,7 +2748,9 @@ function openSolo(){
 
     showScreen("solo");
 
-    updateModeDescription("solo");
+    updateModeDescription(
+        "solo"
+    );
 
 }
 
@@ -2249,16 +2759,20 @@ function openMulti(){
 
     showScreen("multi");
 
-    updateModeDescription("multi");
+    updateModeDescription(
+        "multi"
+    );
 
 }
 
 
 function openCharacter(){
 
-    $("playerName").value = playerName;
+    $("playerName").value =
+        playerName;
 
-    $("characterColor").value = characterColor;
+    $("characterColor").value =
+        characterColor;
 
     $("characterHex").textContent =
         characterColor.toUpperCase();
@@ -2272,9 +2786,9 @@ function openCharacter(){
 
 function goHome(){
 
-    stopCamera();
-
     clearTimer();
+
+    stopCamera();
 
     showScreen("home");
 
@@ -2296,9 +2810,9 @@ function playAgain(){
 }
 
 
-/* =========================================================
+/* =====================================================
    MODES
-========================================================= */
+===================================================== */
 
 function updateModeDescription(type){
 
@@ -2307,15 +2821,21 @@ function updateModeDescription(type){
             ? "soloMode"
             : "multiMode");
 
+
     const description =
         $(type === "solo"
             ? "soloModeDescription"
             : "multiModeDescription");
 
-    if(!select || !description) return;
+
+    if(!select || !description)
+        return;
 
 
-    if(select.value === "classic"){
+    if(
+        select.value ===
+        "classic"
+    ){
 
         description.textContent =
             "La couleur reste visible pendant toute la manche.";
@@ -2323,33 +2843,41 @@ function updateModeDescription(type){
     }
 
 
-    if(select.value === "memory"){
+    if(
+        select.value ===
+        "memory"
+    ){
 
         description.textContent =
-            "Mémorise la couleur : elle disparaît après quelques secondes.";
+            "Mémorise la couleur avant qu'elle disparaisse.";
 
     }
 
 
-    if(select.value === "reverse"){
+    if(
+        select.value ===
+        "reverse"
+    ){
 
         description.textContent =
-            "Une photo est prise, puis un pixel est choisi. Retrouve sa couleur.";
+            "Un pixel d'une photo est choisi. Retrouve exactement cette couleur.";
 
     }
 
 }
 
 
-/* =========================================================
+/* =====================================================
    PERSONNAGE
-========================================================= */
+===================================================== */
 
 function changeCharacterColor(color){
 
-    characterColor = color;
+    characterColor =
+        color;
 
-    $("characterHex").textContent =
+    $("characterHex")
+        .textContent =
         color.toUpperCase();
 
     updateCharacterPreview();
@@ -2359,101 +2887,122 @@ function changeCharacterColor(color){
 
 function updateCharacterPreview(){
 
-    [
+    const ids = [
+
         "bigCharacterHead",
         "bigCharacterBody",
         "homeCharacterHead",
         "homeCharacterBody"
-    ]
-    .forEach(id => {
 
-        const element = $(id);
+    ];
 
-        if(element){
-            element.style.background =
-                characterColor;
+
+    ids.forEach(
+        id => {
+
+            const element =
+                $(id);
+
+            if(element){
+
+                element.style.background =
+                    characterColor;
+
+            }
+
         }
-
-    });
+    );
 
 
     document
-        .querySelectorAll(".pHead,.pBody")
-        .forEach(element => {
-
-            element.style.background =
-                characterColor;
-
-        });
-
-}
-
-
-function changePlayerName(value){
-
-    playerName =
-        value.trim() || "Joueur";
+        .querySelectorAll(
+            ".pHead,.pBody"
+        )
+        .forEach(
+            element =>
+                element.style.background =
+                    characterColor
+        );
 
 }
 
 
 function saveCharacter(){
 
-    const input =
-        $("playerName").value.trim();
+    const value =
+        $("playerName")
+        .value
+        .trim();
+
 
     playerName =
-        input || "Joueur";
+        value || "Joueur";
+
 
     characterColor =
-        $("characterColor").value;
+        $("characterColor")
+        .value;
+
 
     localStorage.setItem(
         "colorhunt_name",
         playerName
     );
 
+
     localStorage.setItem(
         "colorhunt_color",
         characterColor
     );
 
+
     updateCharacterPreview();
 
-    showToast("Profil enregistré");
+    showToast(
+        "Profil enregistré"
+    );
 
-    setTimeout(() => {
-        showScreen("home");
-    },300);
+
+    setTimeout(
+        () =>
+            showScreen("home"),
+        300
+    );
 
 }
 
 
-/* =========================================================
+/* =====================================================
    CAMÉRA
-========================================================= */
+===================================================== */
 
 async function startCamera(){
 
     stopCamera();
 
+
     try{
 
         cameraStream =
-            await navigator.mediaDevices.getUserMedia({
+            await navigator
+                .mediaDevices
+                .getUserMedia({
 
-                video:{
-                    facingMode:{
-                        ideal:"environment"
-                    }
-                },
+                    video:{
+                        facingMode:{
+                            ideal:"environment"
+                        }
+                    },
 
-                audio:false
+                    audio:false
 
-            });
+                });
 
-        $("camera").srcObject =
+
+        $("camera")
+            .srcObject =
             cameraStream;
+
 
     }catch(error){
 
@@ -2474,8 +3023,9 @@ function stopCamera(){
 
         cameraStream
             .getTracks()
-            .forEach(track =>
-                track.stop()
+            .forEach(
+                track =>
+                    track.stop()
             );
 
         cameraStream = null;
@@ -2485,32 +3035,44 @@ function stopCamera(){
 }
 
 
-/* =========================================================
+/* =====================================================
    SOLO
-========================================================= */
+===================================================== */
 
 function startSolo(){
 
-    gameType = "solo";
+    gameType =
+        "solo";
+
 
     gameMode =
-        $("soloMode").value;
+        $("soloMode")
+        .value;
+
 
     totalRounds =
         parseInt(
-            $("soloRounds").value
+            $("soloRounds")
+            .value
         );
 
+
     roundTime =
-        $("soloTime").value === "infinite"
+        $("soloTime")
+        .value === "infinite"
             ? Infinity
             : parseInt(
-                $("soloTime").value
+                $("soloTime")
+                .value
             );
 
-    currentRound = 1;
+
+    currentRound =
+        1;
+
 
     roundScores = [];
+
 
     startGame();
 
@@ -2523,16 +3085,22 @@ function startGame(){
 
     showScreen("game");
 
-    $("gameModeBadge").textContent =
+    $("gameModeBadge")
+        .textContent =
         gameType === "solo"
             ? "Solo"
             : "Multijoueur";
 
-    $("roundTotal").textContent =
+
+    $("roundTotal")
+        .textContent =
         totalRounds;
 
-    $("roundNumber").textContent =
+
+    $("roundNumber")
+        .textContent =
         currentRound;
+
 
     startCamera();
 
@@ -2541,132 +3109,218 @@ function startGame(){
 }
 
 
-/* =========================================================
+/* =====================================================
    MANCHE
-========================================================= */
+===================================================== */
 
 function setupRound(){
 
     clearTimer();
 
-    currentPhotoReady = false;
 
-    reverseColor = null;
+    currentPhotoData =
+        null;
 
-    $("targetPanel").classList.remove("hidden");
 
-    $("cameraPanel").classList.remove("hidden");
+    reverseColor =
+        null;
 
-    $("previewPanel").classList.add("hidden");
 
-    $("resultPanel").classList.add("hidden");
+    reverseFirstPhoto =
+        null;
 
-    $("noPhotoPanel").classList.add("hidden");
 
-    $("reversePanel").classList.add("hidden");
+    $("targetPanel")
+        .classList.remove(
+            "hidden"
+        );
 
-    $("targetCountdown").textContent = "";
 
-    $("roundNumber").textContent =
-        currentRound;
+    $("cameraPanel")
+        .classList.remove(
+            "hidden"
+        );
 
-    $("roundProgress").style.width =
-        "100%";
+
+    $("previewPanel")
+        .classList.add(
+            "hidden"
+        );
+
+
+    $("resultPanel")
+        .classList.add(
+            "hidden"
+        );
+
+
+    $("waitingRoundPanel")
+        .classList.add(
+            "hidden"
+        );
+
+
+    $("noPhotoPanel")
+        .classList.add(
+            "hidden"
+        );
+
+
+    $("reversePanel")
+        .classList.add(
+            "hidden"
+        );
+
+
+    $("cameraHint")
+        .textContent =
+        "Trouve la couleur puis prends ta photo.";
 
 
     currentTarget =
         randomColor();
 
-    $("targetColor").style.background =
+
+    $("targetColor")
+        .style.background =
         currentTarget;
 
-    $("targetHex").textContent =
+
+    $("targetHex")
+        .textContent =
         currentTarget;
 
 
-    if(gameMode === "reverse"){
-
-        setupReverseRound();
-
-    }
-
-    else if(gameMode === "memory"){
+    if(gameMode === "memory"){
 
         setupMemoryRound();
 
+    }else{
+
+        if(gameMode === "reverse"){
+
+            $("targetPanel")
+                .classList.add(
+                    "hidden"
+                );
+
+        }
+
+        startRoundTimer();
+
     }
 
-    else{
 
-        setupClassicRound();
+    if(gameType === "multi"){
+
+        resetLocalRoundState();
 
     }
 
 }
 
 
-function setupClassicRound(){
-
-    startRoundTimer();
-
-}
-
+/* =====================================================
+   MÉMOIRE
+===================================================== */
 
 function setupMemoryRound(){
 
-    $("targetCountdown").textContent =
+    $("targetCountdown")
+        .textContent =
         "Mémorise !";
 
-    setTimeout(() => {
 
-        if(currentScreen !== "game") return;
+    setTimeout(
+        () => {
 
-        $("targetColor").style.background =
-            "#777";
+            if(
+                currentScreen !==
+                "game"
+            )
+                return;
 
-        $("targetHex").textContent =
-            "???";
 
-        $("targetCountdown").textContent =
-            "La couleur a disparu";
+            $("targetColor")
+                .style.background =
+                "#777";
 
-    },3000);
+
+            $("targetHex")
+                .textContent =
+                "???";
+
+
+            $("targetCountdown")
+                .textContent =
+                "La couleur a disparu";
+
+        },
+        3000
+    );
+
 
     startRoundTimer();
 
 }
 
 
-function setupReverseRound(){
+/* =====================================================
+   RESET MULTI ROUND
+===================================================== */
 
-    $("targetPanel").classList.add("hidden");
+function resetLocalRoundState(){
 
-    $("cameraPanel").classList.remove("hidden");
+    if(!isHost){
 
-    $("cameraHint").textContent =
-        "Prends une photo de ton environnement.";
+        return;
 
-    $("reversePanel").classList.add("hidden");
+    }
 
-    $("targetCountdown").textContent =
-        "";
 
-    startRoundTimer();
+    playerReady = {};
+
+    playerRoundData = {};
+
+    hostRoundTimerDone = false;
+
+    hostRoundEnding = false;
+
+
+    roomPlayers.forEach(
+        player => {
+
+            player.ready =
+                false;
+
+            player.roundScore =
+                null;
+
+        }
+    );
+
+
+    playerReady[playerName] =
+        false;
 
 }
 
 
-/* =========================================================
+/* =====================================================
    TIMER
-========================================================= */
+===================================================== */
 
 function startRoundTimer(){
 
     clearTimer();
 
-    if(roundTime === Infinity){
 
-        $("timer").textContent =
+    if(
+        roundTime === Infinity
+    ){
+
+        $("timer")
+            .textContent =
             "∞";
 
         return;
@@ -2677,8 +3331,10 @@ function startRoundTimer(){
     let remaining =
         roundTime;
 
-    $("timer").textContent =
-        remaining + " s";
+
+    $("timer")
+        .textContent =
+        remaining+" s";
 
 
     const start =
@@ -2686,39 +3342,52 @@ function startRoundTimer(){
 
 
     timerInterval =
-        setInterval(() => {
+        setInterval(
+            () => {
 
-            const elapsed =
-                Math.floor(
-                    (Date.now()-start)/1000
-                );
-
-            remaining =
-                Math.max(
-                    0,
-                    roundTime-elapsed
-                );
-
-            $("timer").textContent =
-                remaining + " s";
+                const elapsed =
+                    Math.floor(
+                        (
+                            Date.now()-
+                            start
+                        )/1000
+                    );
 
 
-            const percent =
-                (remaining/roundTime)*100;
+                remaining =
+                    Math.max(
+                        0,
+                        roundTime-elapsed
+                    );
 
-            $("roundProgress").style.width =
-                percent + "%";
+
+                $("timer")
+                    .textContent =
+                    remaining+" s";
 
 
-            if(remaining <= 0){
+                $("roundProgress")
+                    .style.width =
+                    (
+                        remaining/
+                        roundTime*
+                        100
+                    )+"%";
 
-                clearTimer();
 
-                timeUp();
+                if(
+                    remaining <= 0
+                ){
 
-            }
+                    clearTimer();
 
-        },200);
+                    timerFinished();
+
+                }
+
+            },
+            200
+        );
 
 }
 
@@ -2731,59 +3400,121 @@ function clearTimer(){
             timerInterval
         );
 
-        timerInterval = null;
+        timerInterval =
+            null;
 
     }
 
 }
 
 
-/* =========================================================
-   FIN DU TEMPS
-========================================================= */
+/* =====================================================
+   TIMER TERMINÉ
+===================================================== */
 
-function timeUp(){
+function timerFinished(){
 
     if(
-        gameMode === "reverse"
+        gameType === "solo"
     ){
 
-        showToast(
-            "Temps écoulé"
+        const auto =
+            $("soloAutoPhoto")
+            .checked;
+
+
+        if(
+            auto &&
+            cameraStream
+        ){
+
+            takePhoto();
+
+        }else{
+
+            showNoPhoto();
+
+        }
+
+
+        return;
+
+    }
+
+
+    /*
+       MULTI :
+
+       Le chrono est terminé.
+       Le joueur est automatiquement
+       considéré comme terminé s'il
+       n'a pas encore envoyé de photo.
+    */
+
+    if(
+        !currentPhotoData
+    ){
+
+        submitNoPhoto();
+
+    }
+
+
+    if(isHost){
+
+        hostRoundTimerDone =
+            true;
+
+        checkHostRoundReady();
+
+    }
+
+}
+
+
+/* =====================================================
+   PAS DE PHOTO
+===================================================== */
+
+function showNoPhoto(){
+
+    $("cameraPanel")
+        .classList.add(
+            "hidden"
         );
 
-    }
 
-
-    const autoPhoto =
-        gameType === "solo"
-            ? $("soloAutoPhoto").checked
-            : $("multiAutoPhoto").checked;
-
-
-    if(
-        autoPhoto &&
-        cameraStream
-    ){
-
-        takePhoto();
-
-    }else{
-
-        $("cameraPanel")
-            .classList.add("hidden");
-
-        $("noPhotoPanel")
-            .classList.remove("hidden");
-
-    }
+    $("noPhotoPanel")
+        .classList.remove(
+            "hidden"
+        );
 
 }
 
 
-/* =========================================================
+function validateNoPhoto(){
+
+    if(
+        gameType === "solo"
+    ){
+
+        roundScores.push(0);
+
+        nextSoloRound();
+
+        return;
+
+    }
+
+
+    submitNoPhoto();
+
+}
+
+
+/* =====================================================
    PHOTO
-========================================================= */
+===================================================== */
 
 function takePhoto(){
 
@@ -2801,25 +3532,33 @@ function takePhoto(){
     const video =
         $("camera");
 
+
     const canvas =
         $("photoCanvas");
 
+
     const width =
-        video.videoWidth || 640;
+        video.videoWidth ||
+        640;
+
 
     const height =
-        video.videoHeight || 480;
+        video.videoHeight ||
+        480;
 
 
     canvas.width =
         width;
+
 
     canvas.height =
         height;
 
 
     const ctx =
-        canvas.getContext("2d");
+        canvas.getContext(
+            "2d"
+        );
 
 
     ctx.drawImage(
@@ -2831,52 +3570,83 @@ function takePhoto(){
     );
 
 
-    currentPhotoReady = true;
+    currentPhotoData =
+        canvas.toDataURL(
+            "image/jpeg",
+            .78
+        );
+
 
     clearTimer();
 
+
     $("cameraPanel")
-        .classList.add("hidden");
+        .classList.add(
+            "hidden"
+        );
 
 
-    if(gameMode === "reverse"){
+    if(
+        gameMode ===
+        "reverse"
+    ){
 
         analyzeReversePhoto();
 
     }else{
 
         $("previewPanel")
-            .classList.remove("hidden");
+            .classList.remove(
+                "hidden"
+            );
 
     }
 
 }
 
 
+/* =====================================================
+   RETAKE
+===================================================== */
+
 function retakePhoto(){
 
+    currentPhotoData =
+        null;
+
+
     $("previewPanel")
-        .classList.add("hidden");
+        .classList.add(
+            "hidden"
+        );
+
 
     $("cameraPanel")
-        .classList.remove("hidden");
+        .classList.remove(
+            "hidden"
+        );
+
 
     startRoundTimer();
 
 }
 
 
-/* =========================================================
-   ANALYSE CLASSIQUE / MÉMOIRE
-========================================================= */
+/* =====================================================
+   ANALYSE
+===================================================== */
 
 function analyzePhoto(){
 
     const canvas =
         $("photoCanvas");
 
+
     const ctx =
-        canvas.getContext("2d");
+        canvas.getContext(
+            "2d"
+        );
+
 
     const image =
         ctx.getImageData(
@@ -2887,18 +3657,22 @@ function analyzePhoto(){
         );
 
 
-    let bestColor = null;
+    let bestColor =
+        "#000000";
 
-    let bestScore = -1;
+
+    let bestScore =
+        -1;
+
 
     const step =
         Math.max(
-            2,
+            3,
             Math.floor(
                 Math.min(
                     canvas.width,
                     canvas.height
-                ) / 80
+                )/70
             )
         );
 
@@ -2916,23 +3690,20 @@ function analyzePhoto(){
         ){
 
             const index =
-                (y*canvas.width+x)*4;
+                (
+                    y*
+                    canvas.width+
+                    x
+                )*4;
 
-            const r =
-                image.data[index];
-
-            const g =
-                image.data[index+1];
-
-            const b =
-                image.data[index+2];
 
             const color =
                 rgbToHex(
-                    r,
-                    g,
-                    b
+                    image.data[index],
+                    image.data[index+1],
+                    image.data[index+2]
                 );
+
 
             const score =
                 colorDistance(
@@ -2941,7 +3712,10 @@ function analyzePhoto(){
                 );
 
 
-            if(score > bestScore){
+            if(
+                score >
+                bestScore
+            ){
 
                 bestScore =
                     score;
@@ -2956,7 +3730,7 @@ function analyzePhoto(){
     }
 
 
-    showResult(
+    finishLocalPhoto(
         bestColor,
         bestScore
     );
@@ -2964,17 +3738,21 @@ function analyzePhoto(){
 }
 
 
-/* =========================================================
+/* =====================================================
    REVERSE
-========================================================= */
+===================================================== */
 
 function analyzeReversePhoto(){
 
     const canvas =
         $("photoCanvas");
 
+
     const ctx =
-        canvas.getContext("2d");
+        canvas.getContext(
+            "2d"
+        );
+
 
     const image =
         ctx.getImageData(
@@ -2985,39 +3763,34 @@ function analyzeReversePhoto(){
         );
 
 
-    /*
-        On choisit un pixel aléatoire
-        suffisamment éloigné des bords.
-    */
-
-    const margin =
-        0.15;
-
-
     const x =
         Math.floor(
-            canvas.width *
+            canvas.width*
             (
-                margin +
-                Math.random() *
-                (1-margin*2)
+                .15+
+                Math.random()*
+                .70
             )
         );
 
 
     const y =
         Math.floor(
-            canvas.height *
+            canvas.height*
             (
-                margin +
-                Math.random() *
-                (1-margin*2)
+                .15+
+                Math.random()*
+                .70
             )
         );
 
 
     const index =
-        (y*canvas.width+x)*4;
+        (
+            y*
+            canvas.width+
+            x
+        )*4;
 
 
     reverseColor =
@@ -3028,34 +3801,41 @@ function analyzeReversePhoto(){
         );
 
 
-    const zoom =
-        $("reverseZoom");
+    reverseFirstPhoto =
+        currentPhotoData;
 
-
-    /*
-        Zoom très important autour
-        du pixel sélectionné.
-    */
 
     const zoomCanvas =
-        document.createElement("canvas");
+        document.createElement(
+            "canvas"
+        );
+
 
     zoomCanvas.width =
-        100;
+        120;
 
     zoomCanvas.height =
-        100;
+        120;
 
 
     const zctx =
-        zoomCanvas.getContext("2d");
+        zoomCanvas.getContext(
+            "2d"
+        );
 
 
     zctx.imageSmoothingEnabled =
         false;
 
 
-    const size = 40;
+    const size =
+        Math.min(
+            50,
+            Math.min(
+                canvas.width,
+                canvas.height
+            )/4
+        );
 
 
     zctx.drawImage(
@@ -3072,37 +3852,40 @@ function analyzeReversePhoto(){
         size,
         0,
         0,
-        100,
-        100
+        120,
+        120
     );
 
 
-    zoom.style.backgroundImage =
+    $("reverseZoom")
+        .style.backgroundImage =
         `url(${zoomCanvas.toDataURL()})`;
 
-    zoom.style.backgroundSize =
-        "100% 100%";
 
-
-    $("reversePixelColor").textContent =
+    $("reversePixelColor")
+        .textContent =
         reverseColor;
 
 
     $("reversePanel")
-        .classList.remove("hidden");
+        .classList.remove(
+            "hidden"
+        );
 
 
     $("cameraPanel")
-        .classList.add("hidden");
+        .classList.add(
+            "hidden"
+        );
+
+
+    $("previewPanel")
+        .classList.add(
+            "hidden"
+        );
 
 }
 
-
-/*
-    Après avoir vu le pixel,
-    le joueur doit prendre une autre photo
-    contenant la couleur recherchée.
-*/
 
 function reverseContinue(){
 
@@ -3111,27 +3894,40 @@ function reverseContinue(){
 
 
     $("reversePanel")
-        .classList.add("hidden");
+        .classList.add(
+            "hidden"
+        );
 
 
     $("targetPanel")
-        .classList.remove("hidden");
+        .classList.remove(
+            "hidden"
+        );
 
 
-    $("targetColor").style.background =
+    $("targetColor")
+        .style.background =
         currentTarget;
 
 
-    $("targetHex").textContent =
+    $("targetHex")
+        .textContent =
         currentTarget;
 
 
     $("cameraPanel")
-        .classList.remove("hidden");
+        .classList.remove(
+            "hidden"
+        );
 
 
-    $("cameraHint").textContent =
+    $("cameraHint")
+        .textContent =
         "Trouve cette couleur puis prends une nouvelle photo.";
+
+
+    currentPhotoData =
+        null;
 
 
     startRoundTimer();
@@ -3139,49 +3935,166 @@ function reverseContinue(){
 }
 
 
-/* =========================================================
-   RÉSULTAT
-========================================================= */
+/* =====================================================
+   FIN PHOTO LOCALE
+===================================================== */
 
-function showResult(color,score){
+function finishLocalPhoto(
+    color,
+    score
+){
 
-    $("previewPanel")
-        .classList.add("hidden");
-
-
-    $("resultPanel")
-        .classList.remove("hidden");
-
-
-    $("scoreValue").textContent =
-        score + " %";
+    roundScores.push(
+        score
+    );
 
 
-    $("resultTarget").textContent =
-        currentTarget;
-
-
-    $("resultPixel").textContent =
-        color;
-
-
-    $("resultText").textContent =
-        getScoreText(score);
-
-
-    drawResultPixel(
+    drawResult(
         color
     );
 
 
-    roundScores.push(score);
+    if(
+        gameType === "solo"
+    ){
+
+        showLocalResult(
+            color,
+            score
+        );
 
 
-    if(gameType === "multi"){
-
-        sendRoundScore(score);
+        return;
 
     }
+
+
+    /*
+       MULTI :
+       on envoie immédiatement
+       le score + la photo.
+    */
+
+    submitMultiResult(
+        color,
+        score
+    );
+
+}
+
+
+/* =====================================================
+   RESULTAT SOLO
+===================================================== */
+
+function showLocalResult(
+    color,
+    score
+){
+
+    $("previewPanel")
+        .classList.add(
+            "hidden"
+        );
+
+
+    $("resultPanel")
+        .classList.remove(
+            "hidden"
+        );
+
+
+    $("scoreValue")
+        .textContent =
+        score+" %";
+
+
+    $("resultTarget")
+        .textContent =
+        currentTarget;
+
+
+    $("resultPixel")
+        .textContent =
+        color;
+
+
+    $("resultText")
+        .textContent =
+        getScoreText(score);
+
+}
+
+
+function drawResult(color){
+
+    const canvas =
+        $("resultCanvas");
+
+
+    canvas.width =
+        600;
+
+    canvas.height =
+        450;
+
+
+    const ctx =
+        canvas.getContext(
+            "2d"
+        );
+
+
+    const photo =
+        new Image();
+
+
+    photo.onload =
+        () => {
+
+            ctx.drawImage(
+                photo,
+                0,
+                0,
+                600,
+                450
+            );
+
+
+            ctx.fillStyle =
+                color;
+
+
+            ctx.beginPath();
+
+
+            ctx.arc(
+                550,
+                50,
+                25,
+                0,
+                Math.PI*2
+            );
+
+
+            ctx.fill();
+
+
+            ctx.strokeStyle =
+                "#fff";
+
+
+            ctx.lineWidth =
+                5;
+
+
+            ctx.stroke();
+
+        };
+
+
+    photo.src =
+        currentPhotoData;
 
 }
 
@@ -3208,85 +4121,15 @@ function getScoreText(score){
 }
 
 
-function drawResultPixel(color){
+/* =====================================================
+   SOLO MANCHE SUIVANTE
+===================================================== */
 
-    const canvas =
-        $("resultCanvas");
-
-    canvas.width =
-        600;
-
-    canvas.height =
-        450;
-
-
-    const ctx =
-        canvas.getContext("2d");
-
-
-    ctx.drawImage(
-        $("photoCanvas"),
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
-
-
-    /*
-        On ajoute une représentation
-        visuelle de la couleur trouvée.
-    */
-
-    ctx.fillStyle =
-        color;
-
-    ctx.beginPath();
-
-    ctx.arc(
-        canvas.width-50,
-        50,
-        25,
-        0,
-        Math.PI*2
-    );
-
-    ctx.fill();
-
-    ctx.strokeStyle =
-        "#fff";
-
-    ctx.lineWidth =
-        5;
-
-    ctx.stroke();
-
-}
-
-
-/* =========================================================
-   NO PHOTO
-========================================================= */
-
-function validateNoPhoto(){
-
-    roundScores.push(0);
-
-    nextRound();
-
-}
-
-
-/* =========================================================
-   MANCHE SUIVANTE
-========================================================= */
-
-function nextRound(){
-
-    clearTimer();
+function nextSoloRound(){
 
     if(
-        currentRound >= totalRounds
+        currentRound >=
+        totalRounds
     ){
 
         finishGame();
@@ -3303,668 +4146,730 @@ function nextRound(){
 }
 
 
-/* =========================================================
-   FIN
-========================================================= */
-
-function finishGame(){
-
-    clearTimer();
-
-    stopCamera();
-
-
-    showScreen("finish");
-
-
-    const total =
-        roundScores.reduce(
-            (a,b) => a+b,
-            0
-        );
-
-
-    const average =
-        roundScores.length
-            ? Math.round(
-                total /
-                roundScores.length
-            )
-            : 0;
-
-
-    $("finalScore").textContent =
-        average + " %";
-
-
-    $("finalTitle").textContent =
-        playerName;
-
-
-    const scores =
-        $("roundScores");
-
-
-    scores.innerHTML = "";
-
-
-    roundScores.forEach(
-        (score,index) => {
-
-            const row =
-                document.createElement(
-                    "div"
-                );
-
-            row.className =
-                "playerRow";
-
-
-            row.innerHTML = `
-                <span class="position">
-                    ${index+1}
-                </span>
-
-                <span class="playerName">
-                    Manche ${index+1}
-                </span>
-
-                <strong style="margin-left:auto">
-                    ${score} %
-                </strong>
-            `;
-
-
-            scores.appendChild(row);
-
-        }
-    );
-
-
-    if(gameType === "multi"){
-
-        $("soloResultsPanel")
-            .classList.add("hidden");
-
-        $("podiumPanel")
-            .classList.remove("hidden");
-
-        renderPodium();
-
-    }else{
-
-        $("soloResultsPanel")
-            .classList.remove("hidden");
-
-    }
-
-}
-
-
-/* =========================================================
-   PODIUM
-========================================================= */
-
-function renderPodium(){
-
-    const podium =
-        $("podium");
-
-    podium.innerHTML = "";
-
-
-    const players =
-        [...roomPlayers];
-
-
-    players.sort(
-        (a,b) =>
-            (b.score || 0) -
-            (a.score || 0)
-    );
-
-
-    players.forEach(
-        (player,index) => {
-
-            const row =
-                document.createElement(
-                    "div"
-                );
-
-            row.className =
-                "podiumRow";
-
-
-            row.innerHTML = `
-
-                <div class="podiumLeft">
-
-                    <span class="position">
-                        ${index+1}
-                    </span>
-
-                    <div
-                        class="playerDot"
-                        style="background:${player.color}">
-                    </div>
-
-                    <strong>
-                        ${escapeHtml(player.name)}
-                    </strong>
-
-                </div>
-
-                <strong>
-                    ${player.score || 0} %
-                </strong>
-            `;
-
-
-            podium.appendChild(row);
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   QUITTER
-========================================================= */
-
-function quitGame(){
-
-    const ok =
-        confirm(
-            "Quitter la partie ?"
-        );
-
-
-    if(!ok) return;
-
-
-    clearTimer();
-
-    stopCamera();
-
-
-    if(gameType === "multi"){
-
-        leaveRoom();
-
-    }else{
-
-        showScreen("home");
-
-    }
-
-}
-
-
-/* =========================================================
-   PEERJS MULTIJOUEUR
-========================================================= */
-
-function generateRoomCode(){
-
-    const chars =
-        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-
-    let code = "";
-
-    for(let i=0;i<6;i++){
-
-        code +=
-            chars[
-                Math.floor(
-                    Math.random()*
-                    chars.length
-                )
-            ];
-
-    }
-
-    return code;
-
-}
-
-
-function createRoom(){
-
-    isHost = true;
-
-    gameType = "multi";
-
-    roomCode =
-        generateRoomCode();
-
-
-    roomPlayers = [
-        {
-            name:playerName,
-            color:characterColor,
-            score:0
-        }
-    ];
-
-
-    showScreen("room");
-
-
-    $("roomCodeDisplay")
-        .textContent =
-        roomCode;
-
-
-    $("hostConfig")
-        .classList.remove("hidden");
-
-
-    renderPlayers();
-
-
-    peer =
-        new Peer(
-            "colorhunt-"+roomCode
-        );
-
-
-    peer.on(
-        "open",
-        () => {
-
-            showToast(
-                "Room créée"
-            );
-
-        }
-    );
-
-
-    peer.on(
-        "connection",
-        conn => {
-
-            connections.push(conn);
-
-            setupConnection(conn);
-
-        }
-    );
-
-
-    peer.on(
-        "error",
-        error => {
-
-            console.error(error);
-
-            showToast(
-                "Erreur réseau"
-            );
-
-        }
-    );
-
-}
-
-
-function joinRoom(){
-
-    const input =
-        $("joinCode")
-        .value
-        .trim()
-        .toUpperCase();
-
-
-    if(!input){
-
-        showToast(
-            "Entre un code"
-        );
+/* =====================================================
+   MULTI : ENVOI RÉSULTAT
+===================================================== */
+
+function submitMultiResult(
+    color,
+    score
+){
+
+    if(
+        playerReady[playerName]
+    ){
 
         return;
 
     }
 
 
-    isHost = false;
+    playerReady[playerName] =
+        true;
 
-    gameType = "multi";
 
-    roomCode =
-        input;
-
-
-    showScreen("room");
-
-
-    $("roomCodeDisplay")
-        .textContent =
-        roomCode;
-
-
-    $("hostConfig")
-        .classList.add("hidden");
-
-
-    peer =
-        new Peer();
-
-
-    peer.on(
-        "open",
-        () => {
-
-            const conn =
-                peer.connect(
-                    "colorhunt-"+roomCode
-                );
-
-
-            connections = [
-                conn
-            ];
-
-
-            setupConnection(conn);
-
-        }
-    );
-
-
-    peer.on(
-        "error",
-        error => {
-
-            console.error(error);
-
-            showToast(
-                "Room introuvable"
-            );
-
-        }
-    );
-
-}
-
-
-function setupConnection(conn){
-
-    conn.on(
-        "open",
-        () => {
-
-            conn.send({
-                type:"player",
-                name:playerName,
-                color:characterColor
-            });
-
-        }
-    );
-
-
-    conn.on(
-        "data",
-        data => {
-
-            handleNetworkData(
-                data,
-                conn
-            );
-
-        }
-    );
-
-
-    conn.on(
-        "close",
-        () => {
-
-            renderPlayers();
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   NETWORK
-========================================================= */
-
-function handleNetworkData(data,conn){
-
-    if(!data || !data.type)
-        return;
-
-
-    if(data.type === "player"){
-
-        if(isHost){
-
-            const exists =
-                roomPlayers.find(
-                    p =>
-                        p.name === data.name
-                );
-
-
-            if(!exists){
-
-                roomPlayers.push({
-                    name:data.name,
-                    color:data.color,
-                    score:0
-                });
-
-            }
-
-
-            broadcast({
-                type:"players",
-                players:roomPlayers
-            });
-
-
-            renderPlayers();
-
-        }
-
-    }
-
-
-    if(data.type === "players"){
-
-        roomPlayers =
-            data.players || [];
-
-        renderPlayers();
-
-    }
-
-
-    if(data.type === "start"){
-
-        gameMode =
-            data.mode;
-
-        totalRounds =
-            data.rounds;
-
-        roundTime =
-            data.time;
-
-        currentRound =
-            1;
-
-        roundScores = [];
-
-        startGame();
-
-    }
-
-
-    if(data.type === "score"){
-
-        const player =
-            roomPlayers.find(
-                p =>
-                    p.name === data.name
-            );
-
-
-        if(player){
-
-            player.score =
-                data.score;
-
-        }
-
-
-        renderPlayers();
-
-    }
-
-}
-
-
-function broadcast(data){
-
-    connections.forEach(
-        conn => {
-
-            if(
-                conn &&
-                conn.open
-            ){
-
-                conn.send(data);
-
-            }
-
-        }
-    );
-
-}
-
-
-function sendRoundScore(score){
-
-    const data = {
-
-        type:"score",
+    playerRoundData[playerName] = {
 
         name:playerName,
 
-        score:score
+        color:characterColor,
+
+        score:score,
+
+        photo:currentPhotoData,
+
+        pixelColor:color,
+
+        target:currentTarget
+
+    };
+
+
+    /*
+       Le joueur envoie sa photo
+       et son score à l'hôte.
+    */
+
+    if(isHost){
+
+        receivePlayerRoundData(
+            playerRoundData[playerName]
+        );
+
+    }else{
+
+        sendToHost({
+
+            type:"roundResult",
+
+            round:currentRound,
+
+            data:
+                playerRoundData[playerName]
+
+        });
+
+    }
+
+
+    showWaitingForPlayers();
+
+}
+
+
+/* =====================================================
+   MULTI : PAS DE PHOTO
+===================================================== */
+
+function submitNoPhoto(){
+
+    if(
+        playerReady[playerName]
+    ){
+
+        return;
+
+    }
+
+
+    playerReady[playerName] =
+        true;
+
+
+    playerRoundData[playerName] = {
+
+        name:playerName,
+
+        color:characterColor,
+
+        score:0,
+
+        photo:null,
+
+        pixelColor:null,
+
+        target:currentTarget
 
     };
 
 
     if(isHost){
 
-        const player =
-            roomPlayers.find(
-                p =>
-                    p.name === playerName
-            );
-
-
-        if(player){
-
-            player.score +=
-                score;
-
-        }
-
-
-        broadcast(data);
+        receivePlayerRoundData(
+            playerRoundData[playerName]
+        );
 
     }else{
 
-        if(
-            connections[0] &&
-            connections[0].open
-        ){
+        sendToHost({
 
-            connections[0]
-                .send(data);
+            type:"roundResult",
 
-        }
+            round:currentRound,
+
+            data:
+                playerRoundData[playerName]
+
+        });
 
     }
+
+
+    showWaitingForPlayers();
 
 }
 
 
-/* =========================================================
-   START MULTI
-========================================================= */
+/* =====================================================
+   ATTENTE
+===================================================== */
 
-function startMulti(){
+function showWaitingForPlayers(){
 
-    if(!isHost){
-
-        showToast(
-            "Seul l'hôte peut lancer"
+    $("cameraPanel")
+        .classList.add(
+            "hidden"
         );
 
-        return;
+
+    $("previewPanel")
+        .classList.add(
+            "hidden"
+        );
+
+
+    $("reversePanel")
+        .classList.add(
+            "hidden"
+        );
+
+
+    $("resultPanel")
+        .classList.add(
+            "hidden"
+        );
+
+
+    $("targetPanel")
+        .classList.add(
+            "hidden"
+        );
+
+
+    $("waitingRoundPanel")
+        .classList.remove(
+            "hidden"
+        );
+
+
+    renderRoundReadyList();
+
+}
+
+
+function renderRoundReadyList(){
+
+    const list =
+        $("roundReadyList");
+
+
+    list.innerHTML = "";
+
+
+    roomPlayers.forEach(
+        player => {
+
+            const ready =
+                !!playerReady[
+                    player.name
+                ];
+
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+
+            row.className =
+                "playerRow";
+
+
+            row.innerHTML = `
+
+                <div class="otherPlayerCharacter">
+
+                    <div
+                        class="otherPlayerHead"
+                        style="
+                            background:${player.color}
+                        ">
+                    </div>
+
+                    <div
+                        class="otherPlayerBody"
+                        style="
+                            background:${player.color}
+                        ">
+                    </div>
+
+                    <div class="otherPlayerEye a"></div>
+                    <div class="otherPlayerEye b"></div>
+
+                </div>
+
+
+                <span class="playerName">
+                    ${escapeHtml(player.name)}
+                </span>
+
+
+                <strong
+                    style="
+                        margin-left:auto;
+                        color:${ready ? "#34C759" : "#999"};
+                    ">
+
+                    ${ready ? "✓ Prêt" : "En cours"}
+
+                </strong>
+            `;
+
+
+            list.appendChild(
+                row
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   HÔTE REÇOIT UN RESULTAT
+===================================================== */
+
+function receivePlayerRoundData(data){
+
+    playerRoundData[
+        data.name
+    ] =
+        data;
+
+
+    playerReady[
+        data.name
+    ] =
+        true;
+
+
+    const player =
+        roomPlayers.find(
+            p =>
+                p.name ===
+                data.name
+        );
+
+
+    if(player){
+
+        player.roundScore =
+            data.score || 0;
+
+        player.lastPhoto =
+            data.photo || null;
 
     }
 
 
-    gameMode =
-        $("multiMode").value;
-
-
-    totalRounds =
-        parseInt(
-            $("multiRounds").value
-        );
-
-
-    roundTime =
-        $("multiTime").value === "infinite"
-            ? Infinity
-            : parseInt(
-                $("multiTime").value
-            );
-
-
-    currentRound =
-        1;
-
-
-    roundScores =
-        [];
-
+    /*
+       Le résultat est renvoyé
+       à TOUS les joueurs.
+    */
 
     broadcast({
 
-        type:"start",
+        type:"playerRoundResult",
 
-        mode:gameMode,
+        round:currentRound,
 
-        rounds:totalRounds,
-
-        time:roundTime
+        data:data
 
     });
 
 
-    startGame();
+    renderRoundReadyList();
+
+
+    checkHostRoundReady();
 
 }
 
 
-/* =========================================================
-   ROOM
-========================================================= */
+/* =====================================================
+   HÔTE : VÉRIFICATION
+===================================================== */
+
+function checkHostRoundReady(){
+
+    if(!isHost)
+        return;
+
+
+    if(hostRoundEnding)
+        return;
+
+
+    /*
+       On attend les deux conditions :
+
+       1. le chrono est terminé
+       2. tout le monde est prêt
+    */
+
+    if(!hostRoundTimerDone)
+        return;
+
+
+    const allReady =
+        roomPlayers.every(
+            player =>
+                !!playerReady[
+                    player.name
+                ]
+        );
+
+
+    if(!allReady)
+        return;
+
+
+    hostRoundEnding =
+        true;
+
+
+    /*
+       Petite pause pour que
+       tout le monde puisse voir
+       que la manche est terminée.
+    */
+
+    setTimeout(
+        () => {
+
+            broadcast({
+
+                type:"nextRound",
+
+                round:
+                    currentRound+1,
+
+                totalRounds:
+                    totalRounds
+
+            });
+
+
+            if(
+                currentRound >=
+                totalRounds
+            ){
+
+                finishMultiGame();
+
+            }else{
+
+                currentRound++;
+
+                setupRound();
+
+            }
+
+        },
+        1800
+    );
+
+}
+
+
+/* =====================================================
+   MULTI : RECEPTION RÉSULTAT
+===================================================== */
+
+function receiveRemoteRoundResult(data){
+
+    if(
+        data.round !==
+        currentRound
+    )
+        return;
+
+
+    playerRoundData[
+        data.data.name
+    ] =
+        data.data;
+
+
+    playerReady[
+        data.data.name
+    ] =
+        true;
+
+
+    const player =
+        roomPlayers.find(
+            p =>
+                p.name ===
+                data.data.name
+        );
+
+
+    if(player){
+
+        player.roundScore =
+            data.data.score || 0;
+
+        player.lastPhoto =
+            data.data.photo || null;
+
+    }
+
+
+    renderRoundReadyList();
+
+}
+
+
+/* =====================================================
+   MULTI : FIN
+===================================================== */
+
+function finishMultiGame(){
+
+    clearTimer();
+
+    stopCamera();
+
+
+    /*
+       Tous les résultats de toutes
+       les manches sont déjà conservés
+       côté hôte dans roomPlayers.
+    */
+
+    const finalPlayers =
+        roomPlayers.map(
+            player => ({
+
+                name:player.name,
+
+                color:player.color,
+
+                score:
+                    player.totalScore || 0,
+
+                rounds:
+                    player.roundHistory || [],
+
+                photos:
+                    player.photoHistory || []
+
+            })
+        );
+
+
+    /*
+       Pour le joueur local,
+       on ajoute ses manches.
+    */
+
+    const local =
+        finalPlayers.find(
+            p =>
+                p.name ===
+                playerName
+        );
+
+
+    if(local){
+
+        local.score =
+            roundScores.reduce(
+                (a,b) =>
+                    a+b,
+                0
+            );
+
+    }
+
+
+    broadcast({
+
+        type:"finalResults",
+
+        players:
+            finalPlayers
+
+    });
+
+
+    renderFinalResults(
+        finalPlayers
+    );
+
+}
+
+
+/* =====================================================
+   RÉSULTATS FINAUX REÇUS
+===================================================== */
+
+function renderFinalResults(
+    players
+){
+
+    showScreen("finish");
+
+
+    const sorted =
+        [...players].sort(
+            (a,b) =>
+                b.score-a.score
+        );
+
+
+    const podium =
+        $("podium");
+
+
+    podium.innerHTML = "";
+
+
+    sorted.forEach(
+        (player,index) => {
+
+            const average =
+                totalRounds
+                    ? Math.round(
+                        player.score/
+                        totalRounds
+                    )
+                    : 0;
+
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+
+            row.className =
+                "podiumRow";
+
+
+            let photosHtml =
+                "";
+
+
+            if(
+                player.photos &&
+                player.photos.length
+            ){
+
+                photosHtml =
+                    player.photos
+                    .map(
+                        photo =>
+                            photo
+                                ? `
+                                    <img
+                                        class="finalPhoto"
+                                        src="${photo}">
+                                  `
+                                : ""
+                    )
+                    .join("");
+
+            }
+
+
+            row.innerHTML = `
+
+                <div class="podiumTop">
+
+                    <div class="finalPlayerCharacter">
+
+                        <div
+                            class="finalPlayerHead"
+                            style="
+                                background:${player.color}
+                            ">
+                        </div>
+
+                        <div
+                            class="finalPlayerBody"
+                            style="
+                                background:${player.color}
+                            ">
+                        </div>
+
+                        <div class="finalPlayerEye a"></div>
+                        <div class="finalPlayerEye b"></div>
+
+                    </div>
+
+
+                    <strong>
+                        ${index+1}. ${escapeHtml(player.name)}
+                    </strong>
+
+
+                    <span class="podiumScore">
+                        ${average} %
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="small"
+                    style="margin-bottom:2px">
+
+                    Score total :
+                    ${player.score} points
+
+                </div>
+
+
+                ${
+                    photosHtml
+                        ? `
+                            <div
+                                style="
+                                    display:grid;
+                                    gap:8px;
+                                ">
+
+                                ${photosHtml}
+
+                            </div>
+                          `
+                        : `
+                            <div class="small">
+                                Aucune photo
+                            </div>
+                          `
+                }
+
+            `;
+
+
+            podium.appendChild(
+                row
+            );
+
+        }
+    );
+
+
+    const me =
+        sorted.find(
+            p =>
+                p.name ===
+                playerName
+        );
+
+
+    if(me){
+
+        const average =
+            totalRounds
+                ? Math.round(
+                    me.score/
+                    totalRounds
+                )
+                : 0;
+
+
+        $("finalTitle")
+            .textContent =
+            playerName;
+
+
+        $("finalScore")
+            .textContent =
+            average+" %";
+
+    }
+
+}
+
+
+/* =====================================================
+   ROOM : JOUEURS
+===================================================== */
 
 function renderPlayers(){
 
@@ -3994,40 +4899,721 @@ function renderPlayers(){
 
             row.innerHTML = `
 
-                <span
-                    class="playerDot"
-                    style="
-                        background:${player.color}
-                    ">
-                </span>
+                <div class="otherPlayerCharacter">
+
+                    <div
+                        class="otherPlayerHead"
+                        style="
+                            background:${player.color}
+                        ">
+                    </div>
+
+                    <div
+                        class="otherPlayerBody"
+                        style="
+                            background:${player.color}
+                        ">
+                    </div>
+
+                    <div class="otherPlayerEye a"></div>
+                    <div class="otherPlayerEye b"></div>
+
+                </div>
+
 
                 <span class="playerName">
-                    ${escapeHtml(player.name)}
+
+                    ${escapeHtml(
+                        player.name
+                    )}
+
                 </span>
+
 
                 ${
                     player.name === playerName
-                        ? `<span
-                            style="
-                                margin-left:auto;
-                                color:#777;
-                                font-size:12px;
-                            ">
-                            Toi
-                           </span>`
+                        ? `
+                            <span
+                                style="
+                                    margin-left:auto;
+                                    color:#777;
+                                    font-size:12px;
+                                ">
+
+                                Toi
+
+                            </span>
+                          `
                         : ""
                 }
 
             `;
 
 
-            container.appendChild(row);
+            container.appendChild(
+                row
+            );
+
+        }
+    );
+
+
+}
+
+
+/* =====================================================
+   ROOM CODE
+===================================================== */
+
+function generateRoomCode(){
+
+    const chars =
+        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+
+    let code = "";
+
+
+    for(
+        let i=0;
+        i<6;
+        i++
+    ){
+
+        code +=
+            chars[
+                Math.floor(
+                    Math.random()*
+                    chars.length
+                )
+            ];
+
+    }
+
+
+    return code;
+
+}
+
+
+/* =====================================================
+   CREATE ROOM
+===================================================== */
+
+function createRoom(){
+
+    isHost =
+        true;
+
+
+    gameType =
+        "multi";
+
+
+    roomCode =
+        generateRoomCode();
+
+
+    roomPlayers = [
+
+        {
+            name:playerName,
+            color:characterColor,
+            totalScore:0,
+            roundHistory:[],
+            photoHistory:[]
+        }
+
+    ];
+
+
+    showScreen("room");
+
+
+    $("roomCodeDisplay")
+        .textContent =
+        roomCode;
+
+
+    $("hostConfig")
+        .classList.remove(
+            "hidden"
+        );
+
+
+    renderPlayers();
+
+
+    peer =
+        new Peer(
+            "colorhunt-"+roomCode
+        );
+
+
+    peer.on(
+        "open",
+        () => {
+
+            showToast(
+                "Room créée"
+            );
+
+        }
+    );
+
+
+    peer.on(
+        "connection",
+        conn => {
+
+            connections.push(
+                conn
+            );
+
+            setupConnection(
+                conn
+            );
+
+        }
+    );
+
+
+    peer.on(
+        "error",
+        error => {
+
+            console.error(
+                error
+            );
+
+            showToast(
+                "Erreur réseau"
+            );
 
         }
     );
 
 }
 
+
+/* =====================================================
+   JOIN ROOM
+===================================================== */
+
+function joinRoom(){
+
+    const input =
+        $("joinCode")
+        .value
+        .trim()
+        .toUpperCase();
+
+
+    if(!input){
+
+        showToast(
+            "Entre un code"
+        );
+
+        return;
+
+    }
+
+
+    isHost =
+        false;
+
+
+    gameType =
+        "multi";
+
+
+    roomCode =
+        input;
+
+
+    showScreen(
+        "room"
+    );
+
+
+    $("roomCodeDisplay")
+        .textContent =
+        roomCode;
+
+
+    $("hostConfig")
+        .classList.add(
+            "hidden"
+        );
+
+
+    peer =
+        new Peer();
+
+
+    peer.on(
+        "open",
+        () => {
+
+            const conn =
+                peer.connect(
+                    "colorhunt-"+roomCode
+                );
+
+
+            connections = [
+                conn
+            ];
+
+
+            setupConnection(
+                conn
+            );
+
+        }
+    );
+
+
+    peer.on(
+        "error",
+        error => {
+
+            console.error(
+                error
+            );
+
+            showToast(
+                "Impossible de rejoindre"
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   CONNECTION
+===================================================== */
+
+function setupConnection(
+    conn
+){
+
+    conn.on(
+        "open",
+        () => {
+
+            conn.send({
+
+                type:"join",
+
+                player:{
+                    name:playerName,
+                    color:characterColor
+                }
+
+            });
+
+        }
+    );
+
+
+    conn.on(
+        "data",
+        data => {
+
+            handleNetworkData(
+                data,
+                conn
+            );
+
+        }
+    );
+
+
+    conn.on(
+        "close",
+        () => {
+
+            showToast(
+                "Un joueur est parti"
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   NETWORK
+===================================================== */
+
+function handleNetworkData(
+    data,
+    conn
+){
+
+    if(
+        !data ||
+        !data.type
+    )
+        return;
+
+
+    /* ==========================
+       JOUEUR REJOINT
+    ========================== */
+
+    if(
+        data.type ===
+        "join"
+    ){
+
+        if(!isHost)
+            return;
+
+
+        const player =
+            data.player;
+
+
+        const exists =
+            roomPlayers.some(
+                p =>
+                    p.name ===
+                    player.name
+            );
+
+
+        if(!exists){
+
+            roomPlayers.push({
+
+                name:
+                    player.name,
+
+                color:
+                    player.color,
+
+                totalScore:0,
+
+                roundHistory:[],
+
+                photoHistory:[]
+
+            });
+
+        }
+
+
+        broadcast({
+
+            type:"players",
+
+            players:
+                roomPlayers
+
+        });
+
+
+        renderPlayers();
+
+
+        return;
+
+    }
+
+
+    /* ==========================
+       LISTE JOUEURS
+    ========================== */
+
+    if(
+        data.type ===
+        "players"
+    ){
+
+        roomPlayers =
+            data.players || [];
+
+
+        renderPlayers();
+
+
+        return;
+
+    }
+
+
+    /* ==========================
+       START
+    ========================== */
+
+    if(
+        data.type ===
+        "start"
+    ){
+
+        gameMode =
+            data.mode;
+
+
+        totalRounds =
+            data.rounds;
+
+
+        roundTime =
+            data.time;
+
+
+        currentRound =
+            1;
+
+
+        roundScores = [];
+
+
+        startGame();
+
+
+        return;
+
+    }
+
+
+    /* ==========================
+       RÉSULTAT ROUND
+    ========================== */
+
+    if(
+        data.type ===
+        "roundResult"
+    ){
+
+        if(!isHost)
+            return;
+
+
+        receivePlayerRoundData(
+            data.data
+        );
+
+
+        return;
+
+    }
+
+
+    /* ==========================
+       RESULTAT D'UN JOUEUR
+    ========================== */
+
+    if(
+        data.type ===
+        "playerRoundResult"
+    ){
+
+        receiveRemoteRoundResult(
+            data
+        );
+
+
+        return;
+
+    }
+
+
+    /* ==========================
+       NOUVELLE MANCHE
+    ========================== */
+
+    if(
+        data.type ===
+        "nextRound"
+    ){
+
+        if(
+            data.round >
+            totalRounds
+        ){
+
+            return;
+
+        }
+
+
+        currentRound =
+            data.round;
+
+
+        setupRound();
+
+
+        return;
+
+    }
+
+
+    /* ==========================
+       RESULTATS FINAUX
+    ========================== */
+
+    if(
+        data.type ===
+        "finalResults"
+    ){
+
+        renderFinalResults(
+            data.players
+        );
+
+
+        return;
+
+    }
+
+}
+
+
+/* =====================================================
+   SEND TO HOST
+===================================================== */
+
+function sendToHost(
+    data
+){
+
+    if(
+        connections[0] &&
+        connections[0].open
+    ){
+
+        connections[0]
+            .send(data);
+
+    }
+
+}
+
+
+/* =====================================================
+   BROADCAST
+===================================================== */
+
+function broadcast(
+    data
+){
+
+    connections.forEach(
+        conn => {
+
+            if(
+                conn &&
+                conn.open
+            ){
+
+                conn.send(
+                    data
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   MULTI START
+===================================================== */
+
+function startMulti(){
+
+    if(!isHost){
+
+        showToast(
+            "Seul l'hôte peut lancer la partie"
+        );
+
+        return;
+
+    }
+
+
+    gameMode =
+        $("multiMode")
+        .value;
+
+
+    totalRounds =
+        parseInt(
+            $("multiRounds")
+            .value
+        );
+
+
+    roundTime =
+        $("multiTime")
+        .value === "infinite"
+            ? Infinity
+            : parseInt(
+                $("multiTime")
+                .value
+            );
+
+
+    currentRound =
+        1;
+
+
+    roundScores =
+        [];
+
+
+    roomPlayers.forEach(
+        player => {
+
+            player.totalScore =
+                0;
+
+            player.roundHistory =
+                [];
+
+            player.photoHistory =
+                [];
+
+        }
+    );
+
+
+    broadcast({
+
+        type:"start",
+
+        mode:
+            gameMode,
+
+        rounds:
+            totalRounds,
+
+        time:
+            roundTime
+
+    });
+
+
+    startGame();
+
+}
+
+
+/* =====================================================
+   SHARE
+===================================================== */
 
 function shareRoom(){
 
@@ -4040,8 +5626,13 @@ function shareRoom(){
     ){
 
         navigator.share({
-            title:"Color Hunt",
-            text:text
+
+            title:
+                "Color Hunt",
+
+            text:
+                text
+
         });
 
     }else{
@@ -4051,7 +5642,7 @@ function shareRoom(){
             .then(
                 () =>
                     showToast(
-                        "Lien copié"
+                        "Code copié"
                     )
             );
 
@@ -4059,6 +5650,47 @@ function shareRoom(){
 
 }
 
+
+/* =====================================================
+   QUITTER
+===================================================== */
+
+function quitGame(){
+
+    if(
+        !confirm(
+            "Quitter la partie ?"
+        )
+    )
+        return;
+
+
+    clearTimer();
+
+    stopCamera();
+
+
+    if(
+        gameType ===
+        "multi"
+    ){
+
+        leaveRoom();
+
+    }else{
+
+        showScreen(
+            "home"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   LEAVE ROOM
+===================================================== */
 
 function leaveRoom(){
 
@@ -4080,7 +5712,6 @@ function leaveRoom(){
 
     connections = [];
 
-    roomPlayers = [];
 
     if(peer){
 
@@ -4093,52 +5724,390 @@ function leaveRoom(){
     }
 
 
+    roomPlayers = [];
+
+    playerReady = {};
+
+    playerRoundData = {};
+
     roomCode = null;
 
     isHost = false;
 
-    showScreen("home");
+
+    showScreen(
+        "home"
+    );
 
 }
 
 
-/* =========================================================
-   UTILITAIRE
-========================================================= */
+/* =====================================================
+   PATCH IMPORTANT :
+   STOCKAGE DES RÉSULTATS PAR ROUND
+===================================================== */
 
-function escapeHtml(value){
+function receivePlayerRoundData(
+    data
+){
 
-    return String(value)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
+    if(!isHost)
+        return;
+
+
+    playerRoundData[
+        data.name
+    ] =
+        data;
+
+
+    playerReady[
+        data.name
+    ] =
+        true;
+
+
+    const player =
+        roomPlayers.find(
+            p =>
+                p.name ===
+                data.name
+        );
+
+
+    if(player){
+
+        player.roundScore =
+            data.score || 0;
+
+
+        player.totalScore =
+            (player.totalScore || 0)
+            +
+            (data.score || 0);
+
+
+        if(
+            !player.roundHistory
+        ){
+
+            player.roundHistory =
+                [];
+
+        }
+
+
+        if(
+            !player.photoHistory
+        ){
+
+            player.photoHistory =
+                [];
+
+        }
+
+
+        player.roundHistory[
+            currentRound-1
+        ] =
+            data.score || 0;
+
+
+        player.photoHistory[
+            currentRound-1
+        ] =
+            data.photo || null;
+
+
+        player.lastPhoto =
+            data.photo || null;
+
+    }
+
+
+    /*
+       Envoyer le résultat aux
+       autres joueurs.
+    */
+
+    broadcast({
+
+        type:
+            "playerRoundResult",
+
+        round:
+            currentRound,
+
+        data:
+            data
+
+    });
+
+
+    renderRoundReadyList();
+
+
+    checkHostRoundReady();
 
 }
 
 
-/* =========================================================
-   INITIALISATION
-========================================================= */
+/* =====================================================
+   PATCH FINAL MULTI
+===================================================== */
+
+function finishMultiGame(){
+
+    clearTimer();
+
+    stopCamera();
+
+
+    const finalPlayers =
+        roomPlayers.map(
+            player => ({
+
+                name:
+                    player.name,
+
+                color:
+                    player.color,
+
+                score:
+                    player.totalScore || 0,
+
+                rounds:
+                    player.roundHistory || [],
+
+                photos:
+                    player.photoHistory || []
+
+            })
+        );
+
+
+    broadcast({
+
+        type:
+            "finalResults",
+
+        players:
+            finalPlayers
+
+    });
+
+
+    renderFinalResults(
+        finalPlayers
+    );
+
+}
+
+
+/* =====================================================
+   REMPLACEMENT DE CHECK HOST
+===================================================== */
+
+function checkHostRoundReady(){
+
+    if(!isHost)
+        return;
+
+
+    if(hostRoundEnding)
+        return;
+
+
+    if(!hostRoundTimerDone)
+        return;
+
+
+    const allReady =
+        roomPlayers.every(
+            player =>
+                !!playerReady[
+                    player.name
+                ]
+        );
+
+
+    if(!allReady){
+
+        renderRoundReadyList();
+
+        return;
+
+    }
+
+
+    hostRoundEnding =
+        true;
+
+
+    setTimeout(
+        () => {
+
+            if(
+                currentRound >=
+                totalRounds
+            ){
+
+                finishMultiGame();
+
+                return;
+
+            }
+
+
+            currentRound++;
+
+
+            broadcast({
+
+                type:
+                    "nextRound",
+
+                round:
+                    currentRound
+
+            });
+
+
+            setupRound();
+
+        },
+        1800
+    );
+
+}
+
+
+/* =====================================================
+   PATCH SETUP ROUND
+===================================================== */
+
+const originalSetupRound =
+    setupRound;
+
+
+setupRound =
+    function(){
+
+        originalSetupRound();
+
+
+        if(
+            gameType ===
+            "multi" &&
+            isHost
+        ){
+
+            playerReady = {};
+
+            playerRoundData = {};
+
+            hostRoundTimerDone =
+                false;
+
+            hostRoundEnding =
+                false;
+
+
+            roomPlayers.forEach(
+                player => {
+
+                    player.ready =
+                        false;
+
+                    player.roundScore =
+                        null;
+
+                }
+            );
+
+
+            renderRoundReadyList();
+
+        }
+
+    };
+
+
+/* =====================================================
+   PATCH TIMER FINISHED
+===================================================== */
+
+const originalTimerFinished =
+    timerFinished;
+
+
+timerFinished =
+    function(){
+
+        if(
+            gameType ===
+            "multi"
+        ){
+
+            if(
+                !currentPhotoData
+            ){
+
+                submitNoPhoto();
+
+            }
+
+
+            if(isHost){
+
+                hostRoundTimerDone =
+                    true;
+
+
+                checkHostRoundReady();
+
+            }
+
+
+            return;
+
+        }
+
+
+        originalTimerFinished();
+
+    };
+
+
+/* =====================================================
+   INIT
+===================================================== */
 
 function init(){
 
-    $("playerName").value =
+    $("playerName")
+        .value =
         playerName;
 
-    $("characterColor").value =
+
+    $("characterColor")
+        .value =
         characterColor;
 
-    $("characterHex").textContent =
-        characterColor.toUpperCase();
+
+    $("characterHex")
+        .textContent =
+        characterColor
+        .toUpperCase();
 
 
     updateCharacterPreview();
 
+
     updateModeDescription(
         "solo"
     );
+
 
     updateModeDescription(
         "multi"
@@ -4154,3 +6123,4 @@ init();
 </body>
 
 </html>
+```
