@@ -59,10 +59,7 @@ button{
     padding-bottom:40px;
 }
 
-
-/* =========================================================
-HEADER
-========================================================= */
+/* ================= HEADER ================= */
 
 .header{
     display:flex;
@@ -111,10 +108,7 @@ HEADER
     bottom:7px;
 }
 
-
-/* =========================================================
-HOME
-========================================================= */
+/* ================= HOME ================= */
 
 .center{
     text-align:center;
@@ -253,10 +247,7 @@ HOME
     opacity:.65;
 }
 
-
-/* =========================================================
-NAV
-========================================================= */
+/* ================= NAV ================= */
 
 .nav{
     display:flex;
@@ -282,10 +273,7 @@ NAV
     font-weight:800;
 }
 
-
-/* =========================================================
-CARDS
-========================================================= */
+/* ================= CARDS ================= */
 
 .card{
     background:white;
@@ -427,27 +415,21 @@ select:focus,
     transform:translateX(21px);
 }
 
-
-/* =========================================================
-ROOM
-========================================================= */
+/* ================= ROOM ================= */
 
 .roomCode{
     font-size:36px;
     font-weight:950;
     letter-spacing:7px;
-    margin:10px 0 20px;
-    word-break:break-all;
+    margin:10px 0 12px;
+    text-align:center;
 }
 
 .roomLink{
-    background:#f5f5f7;
-    padding:12px;
-    border-radius:13px;
     font-size:13px;
-    color:#666;
+    color:#777;
     word-break:break-all;
-    margin-bottom:12px;
+    margin-bottom:15px;
 }
 
 .players{
@@ -504,10 +486,7 @@ ROOM
     color:#777;
 }
 
-
-/* =========================================================
-GAME
-========================================================= */
+/* ================= GAME ================= */
 
 .roundHeader{
     display:flex;
@@ -675,10 +654,7 @@ GAME
     font-size:13px;
 }
 
-
-/* =========================================================
-CHARACTER
-========================================================= */
+/* ================= CHARACTER ================= */
 
 .characterEditor{
     text-align:center;
@@ -744,10 +720,7 @@ CHARACTER
     margin-top:5px;
 }
 
-
-/* =========================================================
-TOAST
-========================================================= */
+/* ================= TOAST ================= */
 
 #toast{
     position:fixed;
@@ -763,15 +736,12 @@ TOAST
     pointer-events:none;
     transition:.25s;
     z-index:999;
-    max-width:90%;
-    text-align:center;
 }
 
 #toast.show{
     opacity:1;
     transform:translate(-50%,0);
 }
-
 
 @media(max-width:500px){
 
@@ -791,12 +761,16 @@ TOAST
         font-size:34px;
     }
 
+    .roomCode{
+        font-size:31px;
+        letter-spacing:5px;
+    }
+
 }
 
 </style>
 
 </head>
-
 
 <body>
 
@@ -821,9 +795,7 @@ id="headerProfile">
 </header>
 
 
-<!-- =====================================================
-HOME
-===================================================== -->
+<!-- ================= HOME ================= -->
 
 <section id="screen-home">
 
@@ -914,9 +886,7 @@ Choisis ta couleur et ton pseudo
 </section>
 
 
-<!-- =====================================================
-SOLO
-===================================================== -->
+<!-- ================= SOLO ================= -->
 
 <section id="screen-solo" class="hidden">
 
@@ -1064,9 +1034,7 @@ Commencer
 </section>
 
 
-<!-- =====================================================
-MULTI
-===================================================== -->
+<!-- ================= MULTI ================= -->
 
 <section id="screen-multi" class="hidden">
 
@@ -1094,7 +1062,7 @@ Créer une partie
 </div>
 
 <p class="description">
-Crée une room et partage son code à 5 caractères ou son lien.
+Crée une room et partage le code ou le lien.
 </p>
 
 <button
@@ -1117,10 +1085,9 @@ Rejoindre
 <input
 id="joinCode"
 class="textInput"
-maxlength="5"
-placeholder="Ex. K7P4Q"
-autocomplete="off"
-style="text-transform:uppercase;letter-spacing:4px;font-weight:900;text-align:center;">
+maxlength="80"
+placeholder="Code ou lien de room"
+autocomplete="off">
 
 <br><br>
 
@@ -1137,9 +1104,7 @@ Rejoindre
 </section>
 
 
-<!-- =====================================================
-ROOM
-===================================================== -->
+<!-- ================= ROOM ================= -->
 
 <section id="screen-room" class="hidden">
 
@@ -1178,25 +1143,13 @@ class="roomCode">
 id="roomLinkDisplay"
 class="roomLink">
 
-Lien de la room
-
 </div>
 
 <button
 class="secondaryButton"
 onclick="shareRoom()">
 
-Partager le lien
-
-</button>
-
-<br><br>
-
-<button
-class="secondaryButton"
-onclick="copyRoomCode()">
-
-Copier le code
+Partager le code / lien
 
 </button>
 
@@ -1305,33 +1258,6 @@ Temps par manche
 </div>
 
 
-<div class="toggleRow">
-
-<div class="toggleText">
-
-<strong>
-Photo automatique
-</strong>
-
-<span>
-Capture à la fin du compte à rebours
-</span>
-
-</div>
-
-<label class="switch">
-
-<input
-id="multiAutoPhoto"
-type="checkbox"
-checked>
-
-<span class="slider"></span>
-
-</label>
-
-</div>
-
 <br>
 
 <button
@@ -1347,9 +1273,7 @@ Lancer la partie
 </section>
 
 
-<!-- =====================================================
-GAME
-===================================================== -->
+<!-- ================= GAME ================= -->
 
 <section id="screen-game" class="hidden">
 
@@ -1671,62 +1595,7 @@ Pixel trouvé
 </section>
 
 
-<!-- =====================================================
-WAITING
-===================================================== -->
-
-<section id="screen-waiting" class="hidden">
-
-<div class="card center">
-
-<div class="waitingIcon"></div>
-
-<div class="cardTitle">
-En attente
-</div>
-
-<div
-style="font-size:20px;font-weight:700;">
-
-Photo validée
-
-</div>
-
-<p class="small">
-Les autres joueurs doivent terminer.
-</p>
-
-</div>
-
-
-<div class="card">
-
-<div class="cardTitle">
-Progression
-</div>
-
-<div
-id="waitingPlayers"
-class="players">
-</div>
-
-</div>
-
-
-<button
-class="dangerButton"
-onclick="quitGame()">
-
-Quitter la partie
-
-</button>
-
-</section>
-
-
-<!-- =====================================================
-FINAL
-===================================================== -->
+<!-- ================= FINAL ================= -->
 
 <section id="screen-final" class="hidden">
 
@@ -1790,9 +1659,7 @@ Accueil
 </section>
 
 
-<!-- =====================================================
-CHARACTER
-===================================================== -->
+<!-- ================= CHARACTER ================= -->
 
 <section id="screen-character" class="hidden">
 
@@ -1905,12 +1772,7 @@ Enregistrer
 <script>
 
 /* =========================================================
-COLOR HUNT
-========================================================= */
-
-
-/* =========================================================
-DOM
+   DOM
 ========================================================= */
 
 function $(id){
@@ -1935,6 +1797,10 @@ function showScreen(name){
 }
 
 
+/* =========================================================
+   TOAST
+========================================================= */
+
 function toast(message){
 
     const el = $("toast");
@@ -1953,7 +1819,7 @@ function toast(message){
 
 
 /* =========================================================
-PLAYER
+   PLAYER
 ========================================================= */
 
 const player = {
@@ -1972,7 +1838,6 @@ const player = {
 
 };
 
-
 localStorage.setItem(
     "colorhunt_player_id",
     player.id
@@ -1980,7 +1845,7 @@ localStorage.setItem(
 
 
 /* =========================================================
-GAME STATE
+   GAME
 ========================================================= */
 
 let game = {
@@ -2036,13 +1901,8 @@ let nextRoundTimeout = null;
 
 
 /* =========================================================
-ROOM CODE
+   ROOM CODE
 ========================================================= */
-
-/*
-    Caractères volontairement faciles à lire.
-    On retire O / I / 1 / 0 pour éviter les confusions.
-*/
 
 function generateRoomCode(){
 
@@ -2067,36 +1927,26 @@ function generateRoomCode(){
 }
 
 
-/* =========================================================
-ROOM LINK
-========================================================= */
+/*
+    PeerJS utilise un ID unique.
+    On conserve un code public court de 5 caractères
+    séparé de l'identifiant PeerJS.
+*/
 
-function getRoomLink(){
+function roomLink(){
 
     return (
-        window.location.origin +
-        window.location.pathname +
-        "#room=" +
+        location.origin +
+        location.pathname +
+        "?room=" +
         game.roomCode
     );
 
 }
 
 
-function updateRoomLink(){
-
-    if(!$("roomLinkDisplay"))
-        return;
-
-    $("roomLinkDisplay")
-        .textContent =
-        getRoomLink();
-
-}
-
-
 /* =========================================================
-CHARACTER
+   CHARACTER
 ========================================================= */
 
 function updateCharacter(){
@@ -2108,8 +1958,7 @@ function updateCharacter(){
             player.color
         );
 
-    $("characterHex")
-        .textContent =
+    $("characterHex").textContent =
         player.color.toUpperCase();
 
 }
@@ -2167,40 +2016,6 @@ function saveCharacter(){
 
     updateCharacter();
 
-    /*
-        Si le joueur est dans une room,
-        on actualise également son personnage.
-    */
-
-    if(
-        game.type === "multi" &&
-        game.players[player.id]
-    ){
-
-        game.players[player.id].name =
-            player.name;
-
-        game.players[player.id].color =
-            player.color;
-
-        if(isHost){
-
-            broadcastRoom();
-
-        }else{
-
-            sendToHost({
-
-                type:"PLAYER_UPDATE",
-
-                player:createPlayerData(player)
-
-            });
-
-        }
-
-    }
-
     toast("Personnage enregistré");
 
     setTimeout(()=>{
@@ -2211,7 +2026,7 @@ function saveCharacter(){
 
 
 /* =========================================================
-NAVIGATION
+   NAVIGATION
 ========================================================= */
 
 function openSolo(){
@@ -2220,21 +2035,13 @@ function openSolo(){
 
 
 function openMulti(){
-
     showScreen("multi");
-
-    /*
-        Si un lien room a été détecté,
-        on garde le code.
-    */
-
 }
 
 
 function goHome(){
 
     stopCamera();
-
     clearTimers();
 
     game.active = false;
@@ -2245,7 +2052,7 @@ function goHome(){
 
 
 /* =========================================================
-MODE
+   MODE
 ========================================================= */
 
 function updateModeDescription(type){
@@ -2274,7 +2081,7 @@ function updateModeDescription(type){
 
 
 /* =========================================================
-COLORS
+   COLORS
 ========================================================= */
 
 function randomColor(){
@@ -2331,11 +2138,8 @@ function hexToRgb(hex){
 
 function colorScore(target,pixel){
 
-    const a =
-        hexToRgb(target);
-
-    const b =
-        hexToRgb(pixel);
+    const a = hexToRgb(target);
+    const b = hexToRgb(pixel);
 
     const distance =
         Math.sqrt(
@@ -2345,9 +2149,7 @@ function colorScore(target,pixel){
         );
 
     const max =
-        Math.sqrt(
-            255*255*3
-        );
+        Math.sqrt(255*255*3);
 
     return Math.round(
         Math.max(
@@ -2361,7 +2163,7 @@ function colorScore(target,pixel){
 
 
 /* =========================================================
-CAMERA
+   CAMERA
 ========================================================= */
 
 async function startCamera(){
@@ -2369,33 +2171,20 @@ async function startCamera(){
     if(cameraStream)
         return;
 
-    if(
-        !navigator.mediaDevices ||
-        !navigator.mediaDevices.getUserMedia
-    ){
-
-        toast("Caméra non disponible");
-
-        return;
-
-    }
-
     try{
 
         cameraStream =
-            await navigator
-                .mediaDevices
-                .getUserMedia({
+            await navigator.mediaDevices.getUserMedia({
 
-                    video:{
-                        facingMode:{
-                            ideal:"environment"
-                        }
-                    },
+                video:{
+                    facingMode:{
+                        ideal:"environment"
+                    }
+                },
 
-                    audio:false
+                audio:false
 
-                });
+            });
 
         $("camera").srcObject =
             cameraStream;
@@ -2430,7 +2219,7 @@ function stopCamera(){
 
 
 /* =========================================================
-SOLO
+   SOLO
 ========================================================= */
 
 function startSolo(){
@@ -2445,9 +2234,7 @@ function startSolo(){
     game.round = 1;
 
     game.totalRounds =
-        Number(
-            $("soloRounds").value
-        );
+        Number($("soloRounds").value);
 
     const time =
         $("soloTime").value;
@@ -2479,34 +2266,22 @@ function startSolo(){
 
 
 /* =========================================================
-PEERJS
+   PEER
 ========================================================= */
 
-function createPeer(customId=null){
+function createPeer(){
 
     if(peer)
         return;
 
-    /*
-        Pour l'hôte :
-        PeerJS reçoit directement le code court.
-
-        Pour un joueur :
-        PeerJS génère un ID privé normal.
-    */
-
-    peer =
-        customId
-        ? new Peer(customId)
-        : new Peer();
-
+    peer = new Peer();
 
     peer.on("open",id=>{
 
         peerReady = true;
 
         console.log(
-            "Peer ID:",
+            "PeerJS connecté:",
             id
         );
 
@@ -2527,50 +2302,6 @@ function createPeer(customId=null){
             error
         );
 
-        /*
-            Le code existe déjà.
-            On recrée automatiquement
-            une nouvelle room.
-        */
-
-        if(
-            isHost &&
-            error.type === "unavailable-id"
-        ){
-
-            toast(
-                "Code déjà utilisé, nouveau code..."
-            );
-
-            try{
-                peer.destroy();
-            }catch(e){}
-
-            peer = null;
-            peerReady = false;
-
-            setTimeout(()=>{
-                createRoom();
-            },400);
-
-            return;
-
-        }
-
-
-        if(
-            error.type === "peer-unavailable"
-        ){
-
-            toast(
-                "Room introuvable"
-            );
-
-            return;
-
-        }
-
-
         toast("Erreur réseau");
 
     });
@@ -2579,50 +2310,12 @@ function createPeer(customId=null){
 
 
 /* =========================================================
-CREATE ROOM
+   CREATE ROOM
 ========================================================= */
 
 function createRoom(){
 
-    /*
-        Nettoyage d'une ancienne connexion.
-    */
-
-    if(peer){
-
-        try{
-            peer.destroy();
-        }catch(e){}
-
-        peer = null;
-        peerReady = false;
-
-    }
-
-
-    isHost = true;
-
-    game.type = "multi";
-
-    game.players = {};
-
-
-    /*
-        Création du code court.
-    */
-
-    const roomCode =
-        generateRoomCode();
-
-
-    /*
-        IMPORTANT :
-        le code court devient l'ID PeerJS
-        de l'hôte.
-    */
-
-    createPeer(roomCode);
-
+    createPeer();
 
     const wait =
         setInterval(()=>{
@@ -2632,40 +2325,45 @@ function createRoom(){
 
             clearInterval(wait);
 
+            isHost = true;
+
+            game.type = "multi";
 
             game.roomCode =
-                peer.id;
+                generateRoomCode();
 
             game.hostId =
                 peer.id;
 
+            game.players = {};
 
             game.players[player.id] =
                 createPlayerData(player);
-
 
             $("roomCodeDisplay")
                 .textContent =
                 game.roomCode;
 
-
-            updateRoomLink();
-
+            $("roomLinkDisplay")
+                .textContent =
+                roomLink();
 
             $("hostConfig")
-                .classList
-                .remove("hidden");
-
+                .classList.remove("hidden");
 
             renderPlayers();
 
             showScreen("room");
 
-
-            toast(
-                "Room créée : "+
+            history.replaceState(
+                null,
+                "",
+                location.pathname +
+                "?room=" +
                 game.roomCode
             );
+
+            toast("Room créée");
 
         },100);
 
@@ -2673,19 +2371,15 @@ function createRoom(){
 
 
 /* =========================================================
-JOIN ROOM
+   JOIN ROOM
 ========================================================= */
 
-function joinRoom(codeFromLink=null){
+function joinRoom(){
 
-    const code =
-        (
-            codeFromLink ||
-            $("joinCode").value
-        )
-        .trim()
-        .toUpperCase();
-
+    let code =
+        $("joinCode")
+            .value
+            .trim();
 
     if(!code){
 
@@ -2697,129 +2391,251 @@ function joinRoom(codeFromLink=null){
 
     }
 
+    /*
+        Permet aussi de coller directement
+        un lien :
+        https://site.com/?room=ABCDE
+    */
 
-    if(!/^[A-Z0-9]{5}$/.test(code)){
+    try{
+
+        if(code.includes("?room=")){
+
+            const url =
+                new URL(code);
+
+            code =
+                url.searchParams
+                    .get("room")
+                    ?.trim()
+                    .toUpperCase()
+                    || "";
+
+        }
+
+    }catch(e){}
+
+
+    code =
+        code
+        .replace(/[^A-Z0-9]/gi,"")
+        .toUpperCase();
+
+    if(code.length !== 5){
 
         toast(
-            "Le code doit faire 5 caractères"
+            "Le code doit contenir 5 caractères"
         );
 
         return;
 
     }
 
-
     /*
-        Nettoyage d'une ancienne connexion.
+        Pour retrouver le PeerJS de l'hôte,
+        on utilise un petit registre via
+        PeerJS lui-même.
+
+        Le code court est converti en ID PeerJS
+        grâce au système de signalisation ci-dessous.
     */
 
-    if(peer){
-
-        try{
-            peer.destroy();
-        }catch(e){}
-
-        peer = null;
-        peerReady = false;
-
-    }
-
-
-    isHost = false;
-
-    game.type = "multi";
-
-    game.roomCode = code;
-
-    game.hostId = code;
-
-
     /*
-        Le joueur possède son propre PeerJS ID.
+        IMPORTANT :
+        PeerJS ne permet pas de chercher un peer
+        par son nom/code arbitraire.
+
+        On utilise donc un ID PeerJS composé
+        directement du code de room.
     */
 
-    createPeer();
-
-
-    const wait =
-        setInterval(()=>{
-
-            if(!peerReady)
-                return;
-
-            clearInterval(wait);
-
-
-            const connection =
-                peer.connect(
-                    code,
-                    {
-                        reliable:true
-                    }
-                );
-
-
-            setupConnection(connection);
-
-
-            connection.on("open",()=>{
-
-                game.hostId = code;
-
-
-                $("roomCodeDisplay")
-                    .textContent =
-                    code;
-
-
-                updateRoomLink();
-
-
-                $("hostConfig")
-                    .classList
-                    .add("hidden");
-
-
-                showScreen("room");
-
-
-                sendTo(
-                    connection,
-                    {
-
-                        type:"JOIN",
-
-                        player:
-                            createPlayerData(
-                                player
-                            )
-
-                    }
-                );
-
-
-                toast(
-                    "Room rejointe"
-                );
-
-            });
-
-
-            connection.on("error",()=>{
-
-                toast(
-                    "Impossible de rejoindre cette room"
-                );
-
-            });
-
-        },100);
+    createRoomPeerAsHostCode(code);
 
 }
 
 
 /* =========================================================
-PLAYER DATA
+   PEER ROOM COURT
+========================================================= */
+
+function createRoomPeerAsHostCode(code){
+
+    /*
+        Si on rejoint une room, l'hôte possède
+        un PeerJS ID :
+        colorhunt-room-ABCDE
+    */
+
+    if(peer)
+        return joinPeerRoom(code);
+
+    peer =
+        new Peer(
+            "colorhunt-room-"+code
+        );
+
+    peer.on("open",()=>{
+
+        /*
+            Si l'ID est libre, cette personne
+            vient d'occuper la room.
+            On refuse car elle n'est pas l'hôte.
+        */
+
+        toast(
+            "Cette room n'existe pas"
+        );
+
+        peer.destroy();
+
+        peer = null;
+        peerReady = false;
+
+    });
+
+
+    peer.on("connection",connection=>{
+        setupConnection(connection);
+    });
+
+
+    peer.on("error",error=>{
+
+        console.error(error);
+
+        /*
+            Si l'ID existe déjà, PeerJS donne
+            souvent "unavailable-id".
+            Dans ce cas il faut rejoindre
+            avec un PeerJS temporaire.
+        */
+
+        if(
+            error &&
+            (
+                error.type === "unavailable-id" ||
+                error.type === "peer-unavailable"
+            )
+        ){
+
+            if(peer){
+
+                try{
+                    peer.destroy();
+                }catch(e){}
+
+            }
+
+            peer = new Peer();
+
+            peer.on("open",id=>{
+
+                peerReady = true;
+
+                joinPeerRoom(code);
+
+            });
+
+            peer.on("error",err=>{
+
+                console.error(err);
+
+                toast(
+                    "Room introuvable"
+                );
+
+            });
+
+            peer.on("connection",connection=>{
+                setupConnection(connection);
+            });
+
+        }
+
+    });
+
+}
+
+
+function joinPeerRoom(code){
+
+    if(!peerReady)
+        return;
+
+    isHost = false;
+
+    game.type = "multi";
+
+    game.roomCode =
+        code;
+
+    /*
+        On utilise directement l'ID
+        PeerJS de l'hôte.
+    */
+
+    const hostPeerId =
+        "colorhunt-room-"+code;
+
+    game.hostId =
+        hostPeerId;
+
+    const connection =
+        peer.connect(
+            hostPeerId,
+            {
+                reliable:true
+            }
+        );
+
+    setupConnection(connection);
+
+    connection.on("open",()=>{
+
+        $("roomCodeDisplay")
+            .textContent =
+            code;
+
+        $("roomLinkDisplay")
+            .textContent =
+            location.origin +
+            location.pathname +
+            "?room=" +
+            code;
+
+        $("hostConfig")
+            .classList.add("hidden");
+
+        showScreen("room");
+
+        sendTo(
+            connection,
+            {
+
+                type:"JOIN",
+
+                player:createPlayerData(player)
+
+            }
+        );
+
+        toast("Room rejointe");
+
+    });
+
+    connection.on("error",()=>{
+
+        toast(
+            "Impossible de rejoindre cette room"
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   PLAYER DATA
 ========================================================= */
 
 function createPlayerData(p){
@@ -2848,14 +2664,13 @@ function createPlayerData(p){
 
 
 /* =========================================================
-CONNECTION
+   CONNECTION
 ========================================================= */
 
 function setupConnection(connection){
 
     if(!connection)
         return;
-
 
     connections[
         connection.peer
@@ -2948,9 +2763,7 @@ function sendToHost(data){
     const connection =
         connections[game.hostId]
         ||
-        Object.values(
-            connections
-        )[0];
+        Object.values(connections)[0];
 
     if(connection){
 
@@ -2965,7 +2778,7 @@ function sendToHost(data){
 
 
 /* =========================================================
-MESSAGES
+   MESSAGES
 ========================================================= */
 
 function handleMessage(connection,data){
@@ -2973,22 +2786,12 @@ function handleMessage(connection,data){
     if(!data || !data.type)
         return;
 
-
     switch(data.type){
 
         case "JOIN":
 
             hostReceivedJoin(
                 connection,
-                data
-            );
-
-            break;
-
-
-        case "PLAYER_UPDATE":
-
-            hostReceivedPlayerUpdate(
                 data
             );
 
@@ -3032,6 +2835,15 @@ function handleMessage(connection,data){
             break;
 
 
+        case "ROUND_RESULTS":
+
+            receiveRoundResults(
+                data
+            );
+
+            break;
+
+
         case "PLAYER_LEFT":
 
             playerDisconnected(
@@ -3055,7 +2867,7 @@ function handleMessage(connection,data){
 
 
 /* =========================================================
-HOST JOIN
+   HOST JOIN
 ========================================================= */
 
 function hostReceivedJoin(
@@ -3066,23 +2878,14 @@ function hostReceivedJoin(
     if(!isHost)
         return;
 
-
     const p =
         data.player;
-
 
     if(!p || !p.id)
         return;
 
-
     game.players[p.id] =
         createPlayerData(p);
-
-
-    /*
-        Envoie immédiatement l'état
-        complet de la room au nouveau joueur.
-    */
 
     sendTo(
         connection,
@@ -3090,7 +2893,7 @@ function hostReceivedJoin(
 
             type:"ROOM_STATE",
 
-            hostId:player.id,
+            hostId:peer.id,
 
             roomCode:game.roomCode,
 
@@ -3099,7 +2902,6 @@ function hostReceivedJoin(
         }
     );
 
-
     broadcastRoom();
 
     renderPlayers();
@@ -3108,42 +2910,7 @@ function hostReceivedJoin(
 
 
 /* =========================================================
-HOST PLAYER UPDATE
-========================================================= */
-
-function hostReceivedPlayerUpdate(data){
-
-    if(!isHost)
-        return;
-
-
-    const p =
-        data.player;
-
-
-    if(
-        !p ||
-        !game.players[p.id]
-    )
-        return;
-
-
-    game.players[p.id].name =
-        p.name;
-
-    game.players[p.id].color =
-        p.color;
-
-
-    broadcastRoom();
-
-    renderPlayers();
-
-}
-
-
-/* =========================================================
-BROADCAST ROOM
+   ROOM STATE
 ========================================================= */
 
 function broadcastRoom(){
@@ -3152,7 +2919,7 @@ function broadcastRoom(){
 
         type:"ROOM_STATE",
 
-        hostId:player.id,
+        hostId:peer.id,
 
         roomCode:game.roomCode,
 
@@ -3160,15 +2927,8 @@ function broadcastRoom(){
 
     });
 
-
-    renderPlayers();
-
 }
 
-
-/* =========================================================
-ROOM STATE
-========================================================= */
 
 function receiveRoomState(data){
 
@@ -3181,41 +2941,43 @@ function receiveRoomState(data){
     game.players =
         data.players || {};
 
-
     $("roomCodeDisplay")
         .textContent =
         game.roomCode;
 
+    $("roomLinkDisplay")
+        .textContent =
+        location.origin +
+        location.pathname +
+        "?room=" +
+        game.roomCode;
 
-    updateRoomLink();
 
-
-    if(game.hostId === player.id){
+    if(game.hostId === peer?.id){
 
         isHost = true;
 
         $("hostConfig")
-            .classList
-            .remove("hidden");
+            .classList.remove("hidden");
 
     }else{
 
         isHost = false;
 
         $("hostConfig")
-            .classList
-            .add("hidden");
+            .classList.add("hidden");
 
     }
 
-
     renderPlayers();
+
+    renderReadyPlayers();
 
 }
 
 
 /* =========================================================
-RENDER PLAYERS
+   RENDER PLAYERS
 ========================================================= */
 
 function renderPlayers(){
@@ -3226,26 +2988,18 @@ function renderPlayers(){
     if(!list)
         return;
 
-
     list.innerHTML = "";
-
 
     Object
         .values(game.players)
-        .filter(
-            p=>p.connected !== false
-        )
+        .filter(p=>p.connected !== false)
         .forEach(p=>{
 
             const row =
-                document.createElement(
-                    "div"
-                );
-
+                document.createElement("div");
 
             row.className =
                 "playerRow";
-
 
             row.innerHTML = `
 
@@ -3277,7 +3031,6 @@ function renderPlayers(){
 
             `;
 
-
             list.appendChild(row);
 
         });
@@ -3286,7 +3039,7 @@ function renderPlayers(){
 
 
 /* =========================================================
-ESCAPE
+   ESCAPE
 ========================================================= */
 
 function escapeHTML(value){
@@ -3302,7 +3055,7 @@ function escapeHTML(value){
 
 
 /* =========================================================
-START MULTI
+   START MULTI
 ========================================================= */
 
 function startMulti(){
@@ -3317,7 +3070,6 @@ function startMulti(){
 
     }
 
-
     const active =
         Object
             .values(game.players)
@@ -3325,37 +3077,27 @@ function startMulti(){
                 p=>p.connected !== false
             );
 
-
     if(active.length === 0){
 
-        toast(
-            "Aucun joueur"
-        );
+        toast("Aucun joueur");
 
         return;
 
     }
 
-
     game.mode =
         $("multiMode").value;
 
-
     game.totalRounds =
-        Number(
-            $("multiRounds").value
-        );
-
+        Number($("multiRounds").value);
 
     const time =
         $("multiTime").value;
-
 
     game.duration =
         time === "infinite"
             ? Infinity
             : Number(time);
-
 
     game.round = 1;
 
@@ -3366,37 +3108,26 @@ function startMulti(){
 
     game.finished = false;
 
-
     active.forEach(p=>{
 
         p.ready = false;
-
         p.score = 0;
-
         p.roundScore = 0;
-
         p.results = [];
 
     });
 
-
-    /*
-        Timestamp commun.
-    */
-
     const startAt =
         Date.now()+1500;
 
-
     game.startAt =
         startAt;
-
 
     broadcast({
 
         type:"GAME_START",
 
-        hostId:player.id,
+        hostId:peer.id,
 
         mode:game.mode,
 
@@ -3412,7 +3143,6 @@ function startMulti(){
 
     });
 
-
     startRound(
         game.target,
         1,
@@ -3423,7 +3153,7 @@ function startMulti(){
 
 
 /* =========================================================
-RECEIVE GAME START
+   RECEIVE GAME START
 ========================================================= */
 
 function receiveGameStart(data){
@@ -3452,7 +3182,6 @@ function receiveGameStart(data){
 
     game.finished = false;
 
-
     startRound(
         data.target,
         data.round,
@@ -3463,7 +3192,7 @@ function receiveGameStart(data){
 
 
 /* =========================================================
-ROUND
+   ROUND
 ========================================================= */
 
 function startRound(
@@ -3474,12 +3203,9 @@ function startRound(
 
     clearTimers();
 
+    game.round = round;
 
-    game.round =
-        round;
-
-    game.target =
-        target;
+    game.target = target;
 
     game.finished = false;
 
@@ -3491,11 +3217,9 @@ function startRound(
 
     game.score = 0;
 
-
     game.startAt =
         startAt ||
         Date.now();
-
 
     game.endAt =
         game.duration === Infinity
@@ -3508,11 +3232,9 @@ function startRound(
         .textContent =
         game.round;
 
-
     $("roundTotal")
         .textContent =
         game.totalRounds;
-
 
     $("gameModeBadge")
         .textContent =
@@ -3523,59 +3245,42 @@ function startRound(
         .style.background =
         target;
 
-
     $("targetHex")
         .textContent =
         target;
 
 
-    $("targetCountdown")
-        .textContent =
-        "";
-
-
     $("targetPanel")
-        .classList
-        .remove("hidden");
-
+        .classList.remove("hidden");
 
     $("cameraPanel")
-        .classList
-        .remove("hidden");
-
+        .classList.remove("hidden");
 
     $("previewPanel")
-        .classList
-        .add("hidden");
-
+        .classList.add("hidden");
 
     $("resultPanel")
-        .classList
-        .add("hidden");
-
+        .classList.add("hidden");
 
     $("waitingRoundPanel")
-        .classList
-        .add("hidden");
-
+        .classList.add("hidden");
 
     $("noPhotoPanel")
-        .classList
-        .add("hidden");
-
+        .classList.add("hidden");
 
     $("reversePanel")
-        .classList
-        .add("hidden");
+        .classList.add("hidden");
 
 
     $("cameraHint")
         .textContent =
         "Trouve la couleur puis prends ta photo.";
 
+    $("targetCountdown")
+        .textContent = "";
+
 
     showScreen("game");
-
 
     startCamera();
 
@@ -3588,16 +3293,13 @@ function startRound(
                 if(game.finished)
                     return;
 
-
                 $("targetColor")
                     .style.background =
                     "#777";
 
-
                 $("targetHex")
                     .textContent =
                     "???";
-
 
                 $("targetCountdown")
                     .textContent =
@@ -3619,7 +3321,6 @@ function startRound(
 
     updateTimer();
 
-
     timerInterval =
         setInterval(
             updateTimer,
@@ -3630,14 +3331,13 @@ function startRound(
 
 
 /* =========================================================
-TIMER
+   TIMER
 ========================================================= */
 
 function updateTimer(){
 
     if(game.finished)
         return;
-
 
     if(
         game.startAt &&
@@ -3649,18 +3349,13 @@ function updateTimer(){
                 (game.startAt-Date.now())/1000
             );
 
-
         $("timer")
             .textContent =
-            wait > 0
-            ? "Départ "+wait
-            : "GO !";
-
+            "Départ "+wait;
 
         $("roundProgress")
             .style.transform =
             "scaleX(1)";
-
 
         return;
 
@@ -3673,12 +3368,6 @@ function updateTimer(){
             .textContent =
             "∞";
 
-
-        $("roundProgress")
-            .style.transform =
-            "scaleX(1)";
-
-
         return;
 
     }
@@ -3690,12 +3379,10 @@ function updateTimer(){
             game.endAt-Date.now()
         );
 
-
     const seconds =
         Math.ceil(
             remaining/1000
         );
-
 
     $("timer")
         .textContent =
@@ -3712,7 +3399,6 @@ function updateTimer(){
             )
         );
 
-
     $("roundProgress")
         .style.transform =
         `scaleX(${progress})`;
@@ -3720,9 +3406,7 @@ function updateTimer(){
 
     if(remaining <= 0){
 
-        clearInterval(
-            timerInterval
-        );
+        clearInterval(timerInterval);
 
         timerInterval = null;
 
@@ -3734,7 +3418,7 @@ function updateTimer(){
 
 
 /* =========================================================
-TIME OVER
+   TIME OVER
 ========================================================= */
 
 function timeOver(){
@@ -3742,12 +3426,10 @@ function timeOver(){
     if(game.finished)
         return;
 
-
     if(game.photoTaken){
 
         const result =
             calculatePhotoScore();
-
 
         finishLocalRound(
             result.score,
@@ -3767,7 +3449,7 @@ function timeOver(){
 
 
 /* =========================================================
-TAKE PHOTO
+   PHOTO
 ========================================================= */
 
 function takePhoto(){
@@ -3775,14 +3457,11 @@ function takePhoto(){
     if(game.finished)
         return;
 
-
     const video =
         $("camera");
 
-
     const canvas =
         $("photoCanvas");
-
 
     if(
         !video.videoWidth ||
@@ -3797,14 +3476,11 @@ function takePhoto(){
 
     }
 
-
     canvas.width =
         video.videoWidth;
 
-
     canvas.height =
         video.videoHeight;
-
 
     const ctx =
         canvas.getContext(
@@ -3814,7 +3490,6 @@ function takePhoto(){
             }
         );
 
-
     ctx.drawImage(
         video,
         0,
@@ -3823,24 +3498,19 @@ function takePhoto(){
         canvas.height
     );
 
-
     game.photoTaken = true;
 
-
     $("cameraPanel")
-        .classList
-        .add("hidden");
-
+        .classList.add("hidden");
 
     $("previewPanel")
-        .classList
-        .remove("hidden");
+        .classList.remove("hidden");
 
 }
 
 
 /* =========================================================
-RETAKE
+   RETAKE
 ========================================================= */
 
 function retakePhoto(){
@@ -3848,24 +3518,19 @@ function retakePhoto(){
     if(game.finished)
         return;
 
-
     game.photoTaken = false;
 
-
     $("previewPanel")
-        .classList
-        .add("hidden");
-
+        .classList.add("hidden");
 
     $("cameraPanel")
-        .classList
-        .remove("hidden");
+        .classList.remove("hidden");
 
 }
 
 
 /* =========================================================
-ANALYZE
+   ANALYZE
 ========================================================= */
 
 function analyzePhoto(){
@@ -3877,11 +3542,6 @@ function analyzePhoto(){
         return;
 
 
-    /*
-        REVERSE :
-        première analyse = choix du pixel.
-    */
-
     if(
         game.mode === "reverse" &&
         !game.reversePhase
@@ -3889,7 +3549,6 @@ function analyzePhoto(){
 
         const canvas =
             $("photoCanvas");
-
 
         const ctx =
             canvas.getContext(
@@ -3899,55 +3558,40 @@ function analyzePhoto(){
                 }
             );
 
-
         const pixel =
             chooseRandomPixel(
                 canvas,
                 ctx
             );
 
-
         game.target =
             pixel;
 
-
-        game.reversePhase =
-            true;
-
+        game.reversePhase = true;
 
         $("reversePixelColor")
             .textContent =
             pixel;
 
-
         $("targetColor")
             .style.background =
             pixel;
-
 
         $("targetHex")
             .textContent =
             pixel;
 
-
         $("reverseZoom")
             .style.backgroundImage =
             `url(${canvas.toDataURL("image/jpeg",.9)})`;
 
-
         $("previewPanel")
-            .classList
-            .add("hidden");
-
+            .classList.add("hidden");
 
         $("reversePanel")
-            .classList
-            .remove("hidden");
+            .classList.remove("hidden");
 
-
-        game.photoTaken =
-            false;
-
+        game.photoTaken = false;
 
         return;
 
@@ -3956,7 +3600,6 @@ function analyzePhoto(){
 
     const result =
         calculatePhotoScore();
-
 
     finishLocalRound(
         result.score,
@@ -3967,7 +3610,7 @@ function analyzePhoto(){
 
 
 /* =========================================================
-REVERSE CONTINUE
+   REVERSE
 ========================================================= */
 
 function reverseContinue(){
@@ -3975,37 +3618,29 @@ function reverseContinue(){
     if(game.finished)
         return;
 
-
     $("reversePanel")
-        .classList
-        .add("hidden");
-
+        .classList.add("hidden");
 
     $("cameraPanel")
-        .classList
-        .remove("hidden");
-
+        .classList.remove("hidden");
 
     $("cameraHint")
         .textContent =
         "Retrouve cette couleur et prends ta photo.";
 
-
-    game.photoTaken =
-        false;
+    game.photoTaken = false;
 
 }
 
 
 /* =========================================================
-PHOTO SCORE
+   SCORE
 ========================================================= */
 
 function calculatePhotoScore(){
 
     const canvas =
         $("photoCanvas");
-
 
     const ctx =
         canvas.getContext(
@@ -4015,18 +3650,11 @@ function calculatePhotoScore(){
             }
         );
 
-
     const x =
-        Math.floor(
-            canvas.width/2
-        );
-
+        Math.floor(canvas.width/2);
 
     const y =
-        Math.floor(
-            canvas.height/2
-        );
-
+        Math.floor(canvas.height/2);
 
     const data =
         ctx.getImageData(
@@ -4036,12 +3664,10 @@ function calculatePhotoScore(){
             7
         ).data;
 
-
     let r=0;
     let g=0;
     let b=0;
     let count=0;
-
 
     for(
         let i=0;
@@ -4057,14 +3683,12 @@ function calculatePhotoScore(){
 
     }
 
-
     const pixel =
         rgbToHex(
             r/count,
             g/count,
             b/count
         );
-
 
     return {
 
@@ -4082,7 +3706,7 @@ function calculatePhotoScore(){
 
 
 /* =========================================================
-RANDOM PIXEL
+   RANDOM PIXEL
 ========================================================= */
 
 function chooseRandomPixel(
@@ -4093,22 +3717,16 @@ function chooseRandomPixel(
     const x =
         Math.floor(
             canvas.width*
-            (
-                .25+
-                Math.random()*.5
-            )
+            (.25+
+            Math.random()*.5)
         );
-
 
     const y =
         Math.floor(
             canvas.height*
-            (
-                .25+
-                Math.random()*.5
-            )
+            (.25+
+            Math.random()*.5)
         );
-
 
     const data =
         ctx.getImageData(
@@ -4117,7 +3735,6 @@ function chooseRandomPixel(
             1,
             1
         ).data;
-
 
     return rgbToHex(
         data[0],
@@ -4129,7 +3746,7 @@ function chooseRandomPixel(
 
 
 /* =========================================================
-FINISH LOCAL ROUND
+   FINISH LOCAL ROUND
 ========================================================= */
 
 function finishLocalRound(
@@ -4140,25 +3757,17 @@ function finishLocalRound(
     if(game.finished)
         return;
 
-
     game.finished = true;
 
-
-    clearInterval(
-        timerInterval
-    );
-
+    clearInterval(timerInterval);
 
     timerInterval = null;
-
 
     game.score =
         Number(score) || 0;
 
 
-    /*
-        SOLO
-    */
+    /* ================= SOLO ================= */
 
     if(game.type === "solo"){
 
@@ -4174,12 +3783,10 @@ function finishLocalRound(
 
         });
 
-
         showResult(
             pixel,
             game.score
         );
-
 
         if(
             game.round >=
@@ -4202,7 +3809,6 @@ function finishLocalRound(
                     game.target =
                         randomColor();
 
-
                     startRound(
                         game.target,
                         game.round
@@ -4217,26 +3823,57 @@ function finishLocalRound(
     }
 
 
+    /* ================= MULTI ================= */
+
     /*
-        MULTI
+        CORRECTION IMPORTANTE :
+
+        L'hôte ne peut pas utiliser sendToHost()
+        puisqu'il EST l'hôte.
+
+        On traite donc directement son résultat.
     */
 
-    sendToHost({
+    if(isHost){
 
-        type:"ROUND_READY",
+        hostReceivedReady(
+            null,
+            {
 
-        playerId:player.id,
+                type:"ROUND_READY",
 
-        round:game.round,
+                playerId:player.id,
 
-        score:game.score,
+                round:game.round,
 
-        target:game.target,
+                score:game.score,
 
-        pixel:pixel
+                target:game.target,
 
-    });
+                pixel:pixel
 
+            }
+        );
+
+    }else{
+
+        sendToHost({
+
+            type:"ROUND_READY",
+
+            playerId:player.id,
+
+            round:game.round,
+
+            score:game.score,
+
+            target:game.target,
+
+            pixel:pixel
+
+        });
+
+    }
 
     showWaiting();
 
@@ -4244,40 +3881,28 @@ function finishLocalRound(
 
 
 /* =========================================================
-WAITING
+   WAITING
 ========================================================= */
 
 function showWaiting(){
 
     $("cameraPanel")
-        .classList
-        .add("hidden");
-
+        .classList.add("hidden");
 
     $("previewPanel")
-        .classList
-        .add("hidden");
-
+        .classList.add("hidden");
 
     $("noPhotoPanel")
-        .classList
-        .add("hidden");
-
+        .classList.add("hidden");
 
     $("reversePanel")
-        .classList
-        .add("hidden");
-
+        .classList.add("hidden");
 
     $("resultPanel")
-        .classList
-        .add("hidden");
-
+        .classList.add("hidden");
 
     $("waitingRoundPanel")
-        .classList
-        .remove("hidden");
-
+        .classList.remove("hidden");
 
     renderReadyPlayers();
 
@@ -4285,7 +3910,7 @@ function showWaiting(){
 
 
 /* =========================================================
-HOST READY
+   HOST READY
 ========================================================= */
 
 function hostReceivedReady(
@@ -4296,19 +3921,16 @@ function hostReceivedReady(
     if(!isHost)
         return;
 
-
     if(
-        data.round !==
-        game.round
+        !data ||
+        data.round !== game.round
     )
         return;
-
 
     const p =
         game.players[
             data.playerId
         ];
-
 
     if(
         !p ||
@@ -4316,21 +3938,26 @@ function hostReceivedReady(
     )
         return;
 
+    /*
+        Empêche les doubles validations.
+    */
 
     if(p.ready)
         return;
 
-
     p.ready = true;
-
 
     p.roundScore =
         Number(data.score) || 0;
 
+    /*
+        Très important :
+        on ne rajoute pas deux fois le score
+        si le même message arrive.
+    */
 
     p.score +=
         p.roundScore;
-
 
     p.results.push({
 
@@ -4344,7 +3971,6 @@ function hostReceivedReady(
 
     });
 
-
     broadcastRoomProgress();
 
     checkRoundFinished();
@@ -4353,7 +3979,7 @@ function hostReceivedReady(
 
 
 /* =========================================================
-ROOM PROGRESS
+   ROOM PROGRESS
 ========================================================= */
 
 function broadcastRoomProgress(){
@@ -4362,7 +3988,7 @@ function broadcastRoomProgress(){
 
         type:"ROOM_STATE",
 
-        hostId:player.id,
+        hostId:peer.id,
 
         roomCode:game.roomCode,
 
@@ -4370,6 +3996,7 @@ function broadcastRoomProgress(){
 
     });
 
+    renderPlayers();
 
     renderReadyPlayers();
 
@@ -4377,14 +4004,13 @@ function broadcastRoomProgress(){
 
 
 /* =========================================================
-CHECK ALL PLAYERS
+   CHECK ROUND
 ========================================================= */
 
 function checkRoundFinished(){
 
     if(!isHost)
         return;
-
 
     const activePlayers =
         Object
@@ -4393,27 +4019,35 @@ function checkRoundFinished(){
                 p=>p.connected !== false
             );
 
-
     if(activePlayers.length === 0)
         return;
 
+    /*
+        LA CORRECTION PRINCIPALE :
+
+        Dès que TOUS les joueurs connectés
+        ont ready=true, la manche est terminée.
+    */
 
     const everyoneReady =
         activePlayers.every(
             p=>p.ready === true
         );
 
-
     if(!everyoneReady)
         return;
 
+    /*
+        On empêche cette fonction de relancer
+        plusieurs fois.
+    */
+
+    if(game.roundFinishing)
+        return;
+
+    game.roundFinishing = true;
 
     clearTimers();
-
-
-    /*
-        Tout le monde a terminé.
-    */
 
     broadcast({
 
@@ -4425,12 +4059,12 @@ function checkRoundFinished(){
 
     });
 
-
-    showWaiting();
-
+    renderReadyPlayers();
 
     nextRoundTimeout =
         setTimeout(()=>{
+
+            game.roundFinishing = false;
 
             if(
                 game.round >=
@@ -4451,14 +4085,31 @@ function checkRoundFinished(){
 
 
 /* =========================================================
-NEXT MULTI ROUND
+   RECEIVE ROUND RESULTS
+========================================================= */
+
+function receiveRoundResults(data){
+
+    game.players =
+        data.players ||
+        game.players;
+
+    renderReadyPlayers();
+
+    $("waitingRoundPanel")
+        .classList.remove("hidden");
+
+}
+
+
+/* =========================================================
+   NEXT ROUND
 ========================================================= */
 
 function startNextMultiRound(){
 
     if(!isHost)
         return;
-
 
     const activePlayers =
         Object
@@ -4467,18 +4118,14 @@ function startNextMultiRound(){
                 p=>p.connected !== false
             );
 
-
     if(activePlayers.length === 0)
         return;
-
 
     const nextRound =
         game.round+1;
 
-
     const target =
         randomColor();
-
 
     activePlayers.forEach(p=>{
 
@@ -4488,22 +4135,19 @@ function startNextMultiRound(){
 
     });
 
-
     const startAt =
         Date.now()+1500;
-
 
     game.round =
         nextRound;
 
-
     game.target =
         target;
-
 
     game.startAt =
         startAt;
 
+    game.roundFinishing = false;
 
     broadcast({
 
@@ -4519,7 +4163,6 @@ function startNextMultiRound(){
 
     });
 
-
     startRound(
         target,
         nextRound,
@@ -4530,7 +4173,7 @@ function startNextMultiRound(){
 
 
 /* =========================================================
-RECEIVE ROUND STATE
+   RECEIVE ROUND STATE
 ========================================================= */
 
 function receiveRoundState(data){
@@ -4539,17 +4182,15 @@ function receiveRoundState(data){
         data.players ||
         game.players;
 
-
     game.round =
         data.round;
-
 
     game.target =
         data.target;
 
-
     game.active = true;
 
+    game.roundFinishing = false;
 
     startRound(
         data.target,
@@ -4561,28 +4202,23 @@ function receiveRoundState(data){
 
 
 /* =========================================================
-READY PLAYERS
+   READY PLAYERS
 ========================================================= */
 
 function renderReadyPlayers(){
 
     const containers = [
 
-        $("roundReadyList"),
-
-        $("waitingPlayers")
+        $("roundReadyList")
 
     ];
-
 
     containers.forEach(container=>{
 
         if(!container)
             return;
 
-
         container.innerHTML = "";
-
 
         Object
             .values(game.players)
@@ -4592,14 +4228,10 @@ function renderReadyPlayers(){
             .forEach(p=>{
 
                 const row =
-                    document.createElement(
-                        "div"
-                    );
-
+                    document.createElement("div");
 
                 row.className =
                     "playerRow";
-
 
                 row.innerHTML = `
 
@@ -4630,7 +4262,6 @@ function renderReadyPlayers(){
 
                 `;
 
-
                 container.appendChild(row);
 
             });
@@ -4641,30 +4272,50 @@ function renderReadyPlayers(){
 
 
 /* =========================================================
-DISCONNECT
+   DISCONNECT
 ========================================================= */
 
 function playerDisconnected(id){
 
+    /*
+        id peut être un PeerJS ID ou un playerId.
+        On recherche d'abord directement.
+    */
+
+    if(!game.players[id]){
+
+        const found =
+            Object
+                .values(game.players)
+                .find(
+                    p=>p.peerId === id
+                );
+
+        if(found)
+            id = found.id;
+
+    }
+
     if(!game.players[id])
         return;
-
 
     game.players[id].connected =
         false;
 
-
     delete connections[id];
 
-
     renderPlayers();
-
     renderReadyPlayers();
-
 
     if(isHost){
 
         broadcastRoomProgress();
+
+        /*
+            Si quelqu'un quitte pendant une manche,
+            on vérifie immédiatement si les autres
+            sont tous prêts.
+        */
 
         checkRoundFinished();
 
@@ -4674,7 +4325,7 @@ function playerDisconnected(id){
 
 
 /* =========================================================
-LEAVE ROOM
+   LEAVE ROOM
 ========================================================= */
 
 function leaveRoom(){
@@ -4725,28 +4376,10 @@ function leaveRoom(){
 
         });
 
-
     connections = {};
 
-
-    if(peer){
-
-        try{
-            peer.destroy();
-        }catch(e){}
-
-        peer = null;
-
-    }
-
-
-    peerReady = false;
-
-
     stopCamera();
-
     clearTimers();
-
 
     game.active = false;
 
@@ -4756,25 +4389,18 @@ function leaveRoom(){
 
     game.players = {};
 
-    game.roomCode = "";
-
-    game.hostId = "";
-
-
     showScreen("home");
 
 }
 
 
 /* =========================================================
-QUIT GAME
+   QUIT GAME
 ========================================================= */
 
 function quitGame(){
 
-    if(
-        game.type === "multi"
-    ){
+    if(game.type === "multi"){
 
         leaveRoom();
 
@@ -4794,7 +4420,7 @@ function quitGame(){
 
 
 /* =========================================================
-RESULT
+   RESULT
 ========================================================= */
 
 function showResult(
@@ -4803,19 +4429,15 @@ function showResult(
 ){
 
     $("resultPanel")
-        .classList
-        .remove("hidden");
-
+        .classList.remove("hidden");
 
     $("scoreValue")
         .textContent =
         score+" %";
 
-
     $("resultTarget")
         .textContent =
         game.target;
-
 
     $("resultPixel")
         .textContent =
@@ -4858,10 +4480,8 @@ function showResult(
     const source =
         $("photoCanvas");
 
-
     const destination =
         $("resultCanvas");
-
 
     if(
         source.width &&
@@ -4871,10 +4491,8 @@ function showResult(
         destination.width =
             source.width;
 
-
         destination.height =
             source.height;
-
 
         destination
             .getContext("2d")
@@ -4890,7 +4508,7 @@ function showResult(
 
 
 /* =========================================================
-FINAL SOLO
+   FINAL SOLO
 ========================================================= */
 
 function finishSolo(){
@@ -4899,14 +4517,12 @@ function finishSolo(){
 
     stopCamera();
 
-
     const total =
         game.rounds.reduce(
             (sum,r)=>
                 sum+r.score,
             0
         );
-
 
     const average =
         game.rounds.length
@@ -4916,16 +4532,13 @@ function finishSolo(){
         )
         : 0;
 
-
     $("finalTitle")
         .textContent =
         player.name;
 
-
     $("finalScore")
         .textContent =
         average+" %";
-
 
     $("podium")
         .innerHTML = `
@@ -4952,14 +4565,13 @@ function finishSolo(){
 
         `;
 
-
     showScreen("final");
 
 }
 
 
 /* =========================================================
-FINAL MULTI
+   FINAL MULTI
 ========================================================= */
 
 function finishMulti(){
@@ -4967,22 +4579,21 @@ function finishMulti(){
     if(!isHost)
         return;
 
-
     clearTimers();
 
     stopCamera();
 
     game.active = false;
 
-
     broadcast({
 
         type:"FINAL",
 
-        players:game.players
+        players:game.players,
+
+        totalRounds:game.totalRounds
 
     });
-
 
     showFinal(
         game.players
@@ -4992,7 +4603,7 @@ function finishMulti(){
 
 
 /* =========================================================
-RECEIVE FINAL
+   RECEIVE FINAL
 ========================================================= */
 
 function receiveFinal(data){
@@ -5000,14 +4611,11 @@ function receiveFinal(data){
     game.players =
         data.players || {};
 
-
     game.active = false;
-
 
     clearTimers();
 
     stopCamera();
-
 
     showFinal(
         game.players
@@ -5017,7 +4625,7 @@ function receiveFinal(data){
 
 
 /* =========================================================
-SHOW FINAL
+   SHOW FINAL
 ========================================================= */
 
 function showFinal(players){
@@ -5033,12 +4641,10 @@ function showFinal(players){
                     b.score-a.score
             );
 
-
     const mine =
         list.find(
             p=>p.id === player.id
         );
-
 
     const average =
         mine
@@ -5050,7 +4656,6 @@ function showFinal(players){
             )
         )
         : 0;
-
 
     $("finalScore")
         .textContent =
@@ -5078,7 +4683,6 @@ function showFinal(players){
     const podium =
         $("podium");
 
-
     podium.innerHTML = "";
 
 
@@ -5093,16 +4697,11 @@ function showFinal(players){
                 )
             );
 
-
         const row =
-            document.createElement(
-                "div"
-            );
-
+            document.createElement("div");
 
         row.className =
             "podiumItem";
-
 
         row.innerHTML = `
 
@@ -5146,7 +4745,6 @@ function showFinal(players){
 
         `;
 
-
         podium.appendChild(row);
 
     });
@@ -5158,7 +4756,7 @@ function showFinal(players){
 
 
 /* =========================================================
-REJOUER
+   PLAY AGAIN
 ========================================================= */
 
 function playAgain(){
@@ -5171,12 +4769,29 @@ function playAgain(){
 
     }
 
-
     if(isHost){
+
+        /*
+            Réinitialisation propre de tous
+            les joueurs avant une nouvelle partie.
+        */
+
+        Object
+            .values(game.players)
+            .forEach(p=>{
+
+                p.ready = false;
+                p.score = 0;
+                p.roundScore = 0;
+                p.results = [];
+
+            });
 
         showScreen("room");
 
         renderPlayers();
+
+        broadcastRoom();
 
     }else{
 
@@ -5188,7 +4803,7 @@ function playAgain(){
 
 
 /* =========================================================
-SHARE ROOM
+   SHARE
 ========================================================= */
 
 async function shareRoom(){
@@ -5196,19 +4811,8 @@ async function shareRoom(){
     const code =
         game.roomCode;
 
-
     const link =
-        getRoomLink();
-
-
-    const text =
-        "Rejoins ma partie Color Hunt !\n\n"+
-        "Code : "+
-        code+
-        "\n"+
-        "Lien : "+
-        link;
-
+        roomLink();
 
     try{
 
@@ -5218,43 +4822,44 @@ async function shareRoom(){
 
                 title:"Color Hunt",
 
-                text:text,
+                text:
+                    "Rejoins ma partie Color Hunt !\n\n"+
+                    "Code : "+code+
+                    "\n\nLien : "+link,
 
                 url:link
 
             });
 
-            return;
+        }else{
+
+            await navigator.clipboard.writeText(
+                link
+            );
+
+            toast(
+                "Lien copié"
+            );
 
         }
-
-
-        await navigator
-            .clipboard
-            .writeText(link);
-
-
-        toast(
-            "Lien de room copié"
-        );
-
 
     }catch(error){
 
         try{
 
-            await navigator
-                .clipboard
-                .writeText(link);
-
+            await navigator.clipboard.writeText(
+                link
+            );
 
             toast(
-                "Lien de room copié"
+                "Lien copié"
             );
 
         }catch(e){
 
-            console.error(e);
+            toast(
+                "Code : "+code
+            );
 
         }
 
@@ -5264,96 +4869,7 @@ async function shareRoom(){
 
 
 /* =========================================================
-COPY CODE
-========================================================= */
-
-async function copyRoomCode(){
-
-    try{
-
-        await navigator
-            .clipboard
-            .writeText(
-                game.roomCode
-            );
-
-
-        toast(
-            "Code "+game.roomCode+" copié"
-        );
-
-    }catch(error){
-
-        toast(
-            "Code : "+
-            game.roomCode
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-ROOM LINK
-========================================================= */
-
-function checkRoomLink(){
-
-    const hash =
-        window.location.hash;
-
-
-    if(
-        !hash ||
-        !hash.toLowerCase().startsWith("#room=")
-    )
-        return;
-
-
-    const code =
-        hash
-            .substring(6)
-            .trim()
-            .toUpperCase();
-
-
-    if(
-        !/^[A-Z0-9]{5}$/.test(code)
-    ){
-
-        history.replaceState(
-            null,
-            "",
-            window.location.pathname+
-            window.location.search
-        );
-
-        return;
-
-    }
-
-
-    $("joinCode").value =
-        code;
-
-
-    showScreen("multi");
-
-
-    setTimeout(()=>{
-
-        toast(
-            "Room "+code+" détectée"
-        );
-
-    },300);
-
-}
-
-
-/* =========================================================
-TIMERS
+   TIMERS
 ========================================================= */
 
 function clearTimers(){
@@ -5368,7 +4884,6 @@ function clearTimers(){
 
     }
 
-
     if(memoryTimeout){
 
         clearTimeout(
@@ -5378,7 +4893,6 @@ function clearTimers(){
         memoryTimeout = null;
 
     }
-
 
     if(nextRoundTimeout){
 
@@ -5394,7 +4908,43 @@ function clearTimers(){
 
 
 /* =========================================================
-INIT
+   URL ROOM AUTOMATIQUE
+========================================================= */
+
+function checkRoomURL(){
+
+    const params =
+        new URLSearchParams(
+            location.search
+        );
+
+    const room =
+        params
+            .get("room")
+            ?.trim()
+            .toUpperCase();
+
+    if(room){
+
+        $("joinCode")
+            .value =
+            room;
+
+        showScreen("multi");
+
+        /*
+            On ne rejoint pas immédiatement :
+            l'utilisateur peut encore voir
+            l'écran avant la connexion.
+        */
+
+    }
+
+}
+
+
+/* =========================================================
+   INIT
 ========================================================= */
 
 document.documentElement
@@ -5408,12 +4958,13 @@ document.documentElement
 $("playerName").value =
     player.name;
 
-
 $("characterColor").value =
     player.color;
 
 
 updateCharacter();
+
+checkRoomURL();
 
 
 console.log(
@@ -5422,7 +4973,7 @@ console.log(
 
 
 /* =========================================================
-PAGE CACHE
+   VISIBILITY
 ========================================================= */
 
 document.addEventListener(
@@ -5443,7 +4994,7 @@ document.addEventListener(
 
 
 /* =========================================================
-FERMETURE PAGE
+   BEFORE UNLOAD
 ========================================================= */
 
 window.addEventListener(
@@ -5451,33 +5002,41 @@ window.addEventListener(
     ()=>{
 
         if(
-            game.type === "multi" &&
-            game.active
+            game.type === "multi"
         ){
 
-            sendToHost({
+            if(isHost){
 
-                type:"PLAYER_LEFT",
+                Object
+                    .values(connections)
+                    .forEach(connection=>{
 
-                playerId:player.id
+                        sendTo(
+                            connection,
+                            {
 
-            });
+                                type:"PLAYER_LEFT",
+
+                                playerId:player.id
+
+                            }
+                        );
+
+                    });
+
+            }else{
+
+                sendToHost({
+
+                    type:"PLAYER_LEFT",
+
+                    playerId:player.id
+
+                });
+
+            }
 
         }
-
-    }
-);
-
-
-/* =========================================================
-START
-========================================================= */
-
-window.addEventListener(
-    "load",
-    ()=>{
-
-        checkRoomLink();
 
     }
 );
@@ -5485,5 +5044,4 @@ window.addEventListener(
 </script>
 
 </body>
-
 </html>
