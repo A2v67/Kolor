@@ -1,0 +1,2920 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090a0d">
+<title>COLOR HUNT</title>
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<style>
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+:root{
+    --bg:#08090c;
+    --card:rgba(255,255,255,.055);
+    --card2:rgba(255,255,255,.085);
+    --line:rgba(255,255,255,.12);
+    --text:#f5f5f7;
+    --muted:#8e929b;
+    --accent:#55e8ff;
+    --accent2:#a970ff;
+    --green:#58e6a5;
+    --red:#ff5577;
+}
+html,body{
+    margin:0;
+    min-height:100%;
+    background:
+        radial-gradient(circle at 20% 0%,rgba(80,150,255,.14),transparent 32%),
+        radial-gradient(circle at 90% 100%,rgba(180,70,255,.12),transparent 35%),
+        var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",
+                 "Helvetica Neue",Arial,sans-serif;
+}
+body{
+    overflow-x:hidden;
+}
+body:before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent 0,
+            transparent 3px,
+            rgba(255,255,255,.018) 4px
+        );
+}
+button,
+input,
+select{
+    font:inherit;
+}
+button{
+    color:inherit;
+}
+.app{
+    width:min(720px,100%);
+    margin:auto;
+    min-height:100vh;
+    padding:
+        max(14px,env(safe-area-inset-top))
+        15px
+        max(28px,env(safe-area-inset-bottom));
+}
+/* =========================
+   HEADER
+========================= */
+.header{
+    text-align:center;
+    padding:22px 0 18px;
+}
+.logo{
+    display:inline-block;
+    font-size:36px;
+    font-weight:900;
+    letter-spacing:-2px;
+    line-height:1;
+}
+.logo span{
+    display:inline-block;
+    background:linear-gradient(
+        100deg,
+        #fff,
+        var(--accent),
+        var(--accent2),
+        #fff
+    );
+    background-size:250% 100%;
+    -webkit-background-clip:text;
+    color:transparent;
+    animation:gradient 5s linear infinite;
+}
+@keyframes gradient{
+    to{background-position:250% 0}
+}
+.subtitle{
+    margin-top:8px;
+    color:#777d88;
+    font-size:10px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+}
+/* =========================
+   SCREENS
+========================= */
+.screen{
+    display:none;
+    animation:screenIn .3s ease;
+}
+.screen.active{
+    display:block;
+}
+@keyframes screenIn{
+    from{
+        opacity:0;
+        transform:translateY(12px) scale(.985);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+/* =========================
+   CARDS
+========================= */
+.card{
+    position:relative;
+    padding:19px;
+    margin:12px 0;
+    border:1px solid var(--line);
+    border-radius:24px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.075),
+            rgba(255,255,255,.025)
+        );
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.08),
+        0 18px 50px rgba(0,0,0,.25);
+    backdrop-filter:blur(18px);
+}
+.card:after{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:24px;
+    pointer-events:none;
+    background:
+        linear-gradient(
+            120deg,
+            rgba(255,255,255,.04),
+            transparent 30%
+        );
+}
+.title{
+    position:relative;
+    z-index:1;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:2px;
+    color:var(--accent);
+    text-transform:uppercase;
+    margin-bottom:14px;
+}
+.center{
+    text-align:center;
+}
+.muted{
+    color:var(--muted);
+}
+.tiny{
+    font-size:11px;
+    color:var(--muted);
+}
+.big{
+    font-size:30px;
+    font-weight:900;
+}
+/* =========================
+   BUTTONS
+========================= */
+.menu{
+    display:grid;
+    gap:11px;
+}
+.button{
+    position:relative;
+    width:100%;
+    border:1px solid var(--line);
+    border-radius:19px;
+    padding:17px;
+    background:rgba(255,255,255,.055);
+    text-align:left;
+    transition:.18s;
+    overflow:hidden;
+}
+.button:active{
+    transform:scale(.97);
+}
+.button:hover{
+    border-color:rgba(255,255,255,.25);
+    background:rgba(255,255,255,.08);
+}
+.button strong{
+    display:block;
+    font-size:17px;
+}
+.button small{
+    display:block;
+    margin-top:5px;
+    color:var(--muted);
+}
+.button .symbol{
+    float:right;
+    font-size:25px;
+    opacity:.85;
+}
+.primary{
+    width:100%;
+    border:0;
+    border-radius:16px;
+    padding:15px;
+    color:#05070a;
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            #77cfff
+        );
+    font-weight:900;
+    box-shadow:
+        0 8px 28px rgba(85,232,255,.16),
+        inset 0 1px rgba(255,255,255,.8);
+    transition:.15s;
+}
+.primary:active{
+    transform:scale(.97);
+}
+.secondary{
+    width:100%;
+    border:1px solid var(--line);
+    border-radius:15px;
+    padding:13px;
+    background:rgba(255,255,255,.055);
+}
+.danger{
+    border-color:rgba(255,85,119,.3);
+    color:#ff8aa2;
+}
+/* =========================
+   FORM
+========================= */
+label{
+    display:block;
+    margin:13px 0 7px;
+    font-size:11px;
+    color:var(--muted);
+}
+select,
+input{
+    width:100%;
+    padding:13px;
+    border:1px solid var(--line);
+    border-radius:13px;
+    outline:none;
+    color:white;
+    background:#111318;
+}
+select:focus,
+input:focus{
+    border-color:var(--accent);
+}
+/* =========================
+   TOGGLE
+========================= */
+.toggleRow{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    padding:12px 0;
+}
+.toggleText strong{
+    display:block;
+    font-size:14px;
+}
+.toggleText small{
+    display:block;
+    margin-top:3px;
+    color:var(--muted);
+    font-size:11px;
+}
+.switch{
+    position:relative;
+    width:50px;
+    height:29px;
+    flex:none;
+}
+.switch input{
+    display:none;
+}
+.slider{
+    position:absolute;
+    inset:0;
+    border-radius:30px;
+    background:#292d34;
+    transition:.2s;
+}
+.slider:before{
+    content:"";
+    position:absolute;
+    width:23px;
+    height:23px;
+    left:3px;
+    top:3px;
+    border-radius:50%;
+    background:#fff;
+    transition:.2s;
+}
+.switch input:checked + .slider{
+    background:var(--accent);
+}
+.switch input:checked + .slider:before{
+    transform:translateX(21px);
+}
+/* =========================
+   TOP BAR
+========================= */
+.topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin:5px 0 12px;
+}
+.back{
+    border:0;
+    background:none;
+    color:var(--accent);
+    padding:8px 0;
+}
+.badge{
+    padding:7px 10px;
+    border:1px solid var(--line);
+    border-radius:9px;
+    background:rgba(255,255,255,.05);
+    color:var(--accent);
+    font-size:10px;
+    font-weight:800;
+}
+/* =========================
+   COLOR TARGET
+========================= */
+.target{
+    height:205px;
+    border-radius:22px;
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    padding:15px;
+    border:1px solid rgba(255,255,255,.25);
+    box-shadow:
+        inset 0 0 50px rgba(255,255,255,.12),
+        0 15px 45px rgba(0,0,0,.3);
+    transition:.5s;
+}
+.hex{
+    padding:8px 12px;
+    border-radius:10px;
+    background:rgba(0,0,0,.48);
+    backdrop-filter:blur(12px);
+    font-family:monospace;
+    font-weight:800;
+}
+/* =========================
+   CAMERA
+========================= */
+.camera{
+    overflow:hidden;
+    border-radius:20px;
+    background:#000;
+    border:1px solid var(--line);
+}
+video,
+canvas{
+    display:block;
+    width:100%;
+}
+video{
+    aspect-ratio:4/3;
+    object-fit:cover;
+}
+.photo{
+    border-radius:20px;
+}
+.marker{
+    position:absolute;
+    width:38px;
+    height:38px;
+    border:3px solid white;
+    border-radius:50%;
+    box-shadow:
+        0 0 0 3px #ff3b86,
+        0 0 20px #ff3b86;
+    transform:translate(-50%,-50%);
+    pointer-events:none;
+}
+/* =========================
+   TIMER
+========================= */
+.timer{
+    text-align:center;
+    font-size:16px;
+    font-weight:800;
+    margin:8px 0;
+}
+.timer.warning{
+    color:#ff6685;
+    animation:pulse .6s infinite alternate;
+}
+@keyframes pulse{
+    to{transform:scale(1.08)}
+}
+.progress{
+    height:5px;
+    border-radius:10px;
+    background:#181b20;
+    overflow:hidden;
+    margin:10px 0 16px;
+}
+.progress div{
+    height:100%;
+    width:0;
+    background:linear-gradient(
+        90deg,
+        var(--accent),
+        var(--accent2)
+    );
+    transition:width .3s linear;
+}
+/* =========================
+   SCORE
+========================= */
+.score{
+    text-align:center;
+    font-size:58px;
+    font-weight:900;
+    letter-spacing:-3px;
+    background:linear-gradient(
+        120deg,
+        white,
+        var(--accent)
+    );
+    -webkit-background-clip:text;
+    color:transparent;
+    animation:scoreIn .45s ease;
+}
+@keyframes scoreIn{
+    from{
+        transform:scale(.5);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+.statGrid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+}
+.stat{
+    padding:13px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:rgba(255,255,255,.035);
+}
+.stat span{
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+}
+.stat strong{
+    display:block;
+    margin-top:4px;
+    font-size:16px;
+}
+/* =========================
+   PLAYERS
+========================= */
+.players{
+    display:grid;
+    gap:7px;
+}
+.player{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    padding:12px;
+    border:1px solid var(--line);
+    border-radius:13px;
+    background:rgba(255,255,255,.035);
+}
+.ready{
+    color:var(--green);
+}
+.waiting{
+    color:#ffc65a;
+}
+/* =========================
+   PODIUM
+========================= */
+.podium{
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    gap:8px;
+    min-height:245px;
+    padding-top:20px;
+}
+.podiumPlace{
+    width:31%;
+    text-align:center;
+}
+.podiumAvatar{
+    width:58px;
+    height:58px;
+    margin:auto auto 8px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    border:2px solid rgba(255,255,255,.5);
+    box-shadow:0 8px 25px rgba(0,0,0,.3);
+}
+.podiumBar{
+    border-radius:14px 14px 5px 5px;
+    background:linear-gradient(
+        180deg,
+        rgba(255,255,255,.18),
+        rgba(255,255,255,.05)
+    );
+    border:1px solid var(--line);
+    padding:13px 5px;
+}
+.podiumPlace.first .podiumBar{
+    height:145px;
+    border-color:#ffe16b;
+}
+.podiumPlace.second .podiumBar{
+    height:110px;
+}
+.podiumPlace.third .podiumBar{
+    height:85px;
+}
+.podiumName{
+    font-size:11px;
+    font-weight:800;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.podiumScore{
+    color:var(--accent);
+    font-weight:900;
+    margin-top:4px;
+}
+/* =========================
+   CHARACTER
+========================= */
+.characterBox{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:190px;
+}
+.avatar{
+    position:relative;
+    width:115px;
+    height:150px;
+}
+.avatarBody{
+    position:absolute;
+    width:74px;
+    height:85px;
+    left:20px;
+    bottom:0;
+    border-radius:30px 30px 20px 20px;
+    background:var(--avatarColor,#55e8ff);
+    box-shadow:
+        inset 0 7px rgba(255,255,255,.18),
+        0 15px 35px rgba(0,0,0,.35);
+}
+.avatarHead{
+    position:absolute;
+    width:82px;
+    height:82px;
+    left:16px;
+    top:3px;
+    border-radius:50%;
+    background:#f1c7a7;
+    border:4px solid var(--hair,#20232a);
+    box-shadow:inset 0 -5px rgba(0,0,0,.08);
+}
+.eye{
+    position:absolute;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#111;
+    top:38px;
+}
+.eye.left{left:23px}
+.eye.right{right:23px}
+.mouth{
+    position:absolute;
+    width:22px;
+    height:9px;
+    border-bottom:3px solid #111;
+    border-radius:50%;
+    left:27px;
+    top:54px;
+}
+.accessory{
+    position:absolute;
+    z-index:5;
+}
+.accessory.none{
+    display:none;
+}
+.accessory.glasses{
+    width:70px;
+    height:20px;
+    top:36px;
+    left:22px;
+    border-top:4px solid #111;
+    border-bottom:4px solid #111;
+}
+.accessory.star{
+    top:-7px;
+    right:4px;
+    font-size:30px;
+}
+.accessory.halo{
+    top:-12px;
+    left:18px;
+    width:80px;
+    height:25px;
+    border:4px solid #fff;
+    border-radius:50%;
+    box-shadow:0 0 15px var(--accent);
+}
+.customGrid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+}
+.colorChoice,
+.accessChoice{
+    min-height:48px;
+    border:1px solid var(--line);
+    border-radius:13px;
+    background:rgba(255,255,255,.04);
+}
+.colorChoice.selected,
+.accessChoice.selected{
+    border-color:var(--accent);
+    box-shadow:0 0 0 1px var(--accent);
+}
+/* =========================
+   FINAL PHOTO
+========================= */
+.finalPhoto{
+    width:100%;
+    border-radius:15px;
+    display:block;
+    margin-top:8px;
+}
+.resultPlayer{
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:12px;
+    margin-bottom:10px;
+    background:rgba(255,255,255,.035);
+}
+.resultHeader{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+/* =========================
+   HIDDEN / TOAST
+========================= */
+.hidden{
+    display:none!important;
+}
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    z-index:999;
+    transform:translate(-50%,30px);
+    opacity:0;
+    pointer-events:none;
+    padding:12px 17px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:rgba(20,22,27,.92);
+    backdrop-filter:blur(20px);
+    transition:.25s;
+    white-space:nowrap;
+    max-width:90%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+.divider{
+    height:1px;
+    background:var(--line);
+    margin:16px 0;
+}
+@media(max-width:420px){
+    .logo{font-size:31px}
+    .target{height:165px}
+    .score{font-size:48px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="header">
+    <div class="logo"><span>COLOR HUNT</span></div>
+    <div class="subtitle">Y2K COLOR CHALLENGE</div>
+</header>
+<!-- ================= HOME ================= -->
+<section id="home" class="screen active">
+    <div class="card center">
+        <div class="title">FIND THE COLOR</div>
+        <div class="big">Capture. Compare. Score.</div>
+        <p class="muted">
+            Trouve la couleur dans le monde réel,
+            prends une photo et laisse l'algorithme
+            chercher le pixel le plus proche.
+        </p>
+    </div>
+    <div class="menu">
+        <button class="button" onclick="openSolo()">
+            <span class="symbol">◉</span>
+            <strong>SOLO</strong>
+            <small>Jouer seul</small>
+        </button>
+        <button class="button" onclick="openMulti()">
+            <span class="symbol">◎</span>
+            <strong>MULTIJOUEUR</strong>
+            <small>Créer ou rejoindre une room</small>
+        </button>
+        <button class="button" onclick="openCharacter()">
+            <span class="symbol">◈</span>
+            <strong>MON PERSONNAGE</strong>
+            <small>Personnalise ton avatar</small>
+        </button>
+    </div>
+</section>
+<!-- ================= CHARACTER ================= -->
+<section id="character" class="screen">
+    <div class="topbar">
+        <button class="back" onclick="showScreen('home')">
+            ← Retour
+        </button>
+        <span class="badge">PERSONNAGE</span>
+    </div>
+    <div class="card">
+        <div class="title">AVATAR</div>
+        <div class="characterBox">
+            <div id="avatar" class="avatar">
+                <div class="avatarHead">
+                    <div class="eye left"></div>
+                    <div class="eye right"></div>
+                    <div class="mouth"></div>
+                </div>
+                <div class="avatarBody"></div>
+                <div id="avatarAccessory"
+                     class="accessory none">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="title">COULEUR</div>
+        <div class="customGrid">
+            <button class="colorChoice"
+                    data-color="#55e8ff"
+                    style="background:#55e8ff"
+                    onclick="setAvatarColor('#55e8ff',this)">
+            </button>
+            <button class="colorChoice"
+                    data-color="#a970ff"
+                    style="background:#a970ff"
+                    onclick="setAvatarColor('#a970ff',this)">
+            </button>
+            <button class="colorChoice"
+                    data-color="#ff5aa8"
+                    style="background:#ff5aa8"
+                    onclick="setAvatarColor('#ff5aa8',this)">
+            </button>
+            <button class="colorChoice"
+                    data-color="#55e6a5"
+                    style="background:#55e6a5"
+                    onclick="setAvatarColor('#55e6a5',this)">
+            </button>
+            <button class="colorChoice"
+                    data-color="#ffca55"
+                    style="background:#ffca55"
+                    onclick="setAvatarColor('#ffca55',this)">
+            </button>
+            <button class="colorChoice"
+                    data-color="#ff7055"
+                    style="background:#ff7055"
+                    onclick="setAvatarColor('#ff7055',this)">
+            </button>
+            <button class="colorChoice"
+                    data-color="#ffffff"
+                    style="background:#ffffff"
+                    onclick="setAvatarColor('#ffffff',this)">
+            </button>
+            <button class="colorChoice"
+                    data-color="#22252c"
+                    style="background:#22252c"
+                    onclick="setAvatarColor('#22252c',this)">
+            </button>
+        </div>
+    </div>
+    <div class="card">
+        <div class="title">ACCESSOIRE</div>
+        <div class="customGrid">
+            <button class="accessChoice selected"
+                    onclick="setAccessory('none',this)">
+                —
+            </button>
+            <button class="accessChoice"
+                    onclick="setAccessory('glasses',this)">
+                ◉
+            </button>
+            <button class="accessChoice"
+                    onclick="setAccessory('star',this)">
+                ★
+            </button>
+            <button class="accessChoice"
+                    onclick="setAccessory('halo',this)">
+                ◯
+            </button>
+        </div>
+    </div>
+</section>
+<!-- ================= SOLO CONFIG ================= -->
+<section id="soloConfig" class="screen">
+    <div class="topbar">
+        <button class="back" onclick="showScreen('home')">
+            ← Retour
+        </button>
+        <span class="badge">SOLO</span>
+    </div>
+    <div class="card">
+        <div class="title">PARTIE SOLO</div>
+        <label>MODE</label>
+        <select id="soloMode"
+                onchange="updateMode('solo')">
+            <option value="classic">Classique</option>
+            <option value="blind">À l'aveugle</option>
+            <option value="memory">Mémoire</option>
+            <option value="rapid">Rapide</option>
+            <option value="challenge">Défi</option>
+        </select>
+        <div id="soloDescription"
+             class="tiny"
+             style="margin-top:8px">
+            La couleur reste visible pendant la recherche.
+        </div>
+        <label>NOMBRE DE MANCHES</label>
+        <select id="soloRounds">
+            <option>1</option>
+            <option>3</option>
+            <option selected>5</option>
+            <option>7</option>
+            <option>10</option>
+            <option>15</option>
+            <option>20</option>
+        </select>
+        <label>TEMPS PAR MANCHE</label>
+        <select id="soloTime"
+                onchange="updateTimeUI('solo')">
+            <option value="15">15 secondes</option>
+            <option value="30" selected>30 secondes</option>
+            <option value="60">1 minute</option>
+            <option value="120">2 minutes</option>
+            <option value="300">5 minutes</option>
+            <option value="inf">∞ Infini</option>
+        </select>
+        <div id="soloAutoBox"></div>
+        <button class="primary"
+                style="margin-top:18px"
+                onclick="startSolo()">
+            COMMENCER
+        </button>
+    </div>
+</section>
+<!-- ================= MULTI MENU ================= -->
+<section id="multiMenu" class="screen">
+    <div class="topbar">
+        <button class="back" onclick="showScreen('home')">
+            ← Retour
+        </button>
+        <span class="badge">MULTI</span>
+    </div>
+    <div class="card">
+        <div class="title">TON PSEUDO</div>
+        <input id="multiName"
+               maxlength="18"
+               placeholder="Pseudo">
+        <p class="tiny">
+            Le pseudo doit être unique dans la room.
+        </p>
+    </div>
+    <div class="menu">
+        <button class="button"
+                onclick="createRoom()">
+            <span class="symbol">+</span>
+            <strong>CRÉER UNE ROOM</strong>
+            <small>Tu seras l'hôte</small>
+        </button>
+        <div class="card">
+            <div class="title">
+                REJOINDRE
+            </div>
+            <input id="joinCode"
+                   maxlength="8"
+                   placeholder="CODE DE ROOM">
+            <button class="primary"
+                    style="margin-top:12px"
+                    onclick="joinRoom()">
+                REJOINDRE
+            </button>
+        </div>
+    </div>
+</section>
+<!-- ================= LOBBY ================= -->
+<section id="lobby" class="screen">
+    <div class="topbar">
+        <button class="back"
+                onclick="leaveRoom()">
+            ← Quitter
+        </button>
+        <span class="badge">ROOM</span>
+    </div>
+    <div class="card center">
+        <div class="title">CODE DE ROOM</div>
+        <div id="roomCode"
+             style="
+             font-size:34px;
+             font-weight:900;
+             letter-spacing:7px;
+             color:var(--accent)">
+            ------
+        </div>
+        <button class="secondary"
+                style="margin-top:13px"
+                onclick="shareRoom()">
+            PARTAGER
+        </button>
+    </div>
+    <div class="card">
+        <div class="title">JOUEURS</div>
+        <div id="players"
+             class="players">
+        </div>
+    </div>
+    <div id="hostSettings"
+         class="card">
+        <div class="title">CONFIGURATION</div>
+        <label>MODE</label>
+        <select id="multiMode"
+                onchange="updateMode('multi')">
+            <option value="classic">Classique</option>
+            <option value="blind">À l'aveugle</option>
+            <option value="memory">Mémoire</option>
+            <option value="rapid">Rapide</option>
+            <option value="challenge">Défi</option>
+        </select>
+        <div id="multiDescription"
+             class="tiny"
+             style="margin-top:8px">
+            La couleur reste visible pendant la recherche.
+        </div>
+        <label>NOMBRE DE MANCHES</label>
+        <select id="multiRounds">
+            <option>1</option>
+            <option>3</option>
+            <option selected>5</option>
+            <option>7</option>
+            <option>10</option>
+            <option>15</option>
+            <option>20</option>
+        </select>
+        <label>TEMPS PAR MANCHE</label>
+        <select id="multiTime"
+                onchange="updateTimeUI('multi')">
+            <option value="15">15 secondes</option>
+            <option value="30" selected>30 secondes</option>
+            <option value="60">1 minute</option>
+            <option value="120">2 minutes</option>
+            <option value="300">5 minutes</option>
+            <option value="inf">∞ Infini</option>
+        </select>
+        <div id="multiAutoBox"></div>
+        <button class="primary"
+                style="margin-top:18px"
+                onclick="startMulti()">
+            LANCER LA PARTIE
+        </button>
+    </div>
+</section>
+<!-- ================= GAME ================= -->
+<section id="game" class="screen">
+    <div class="topbar">
+        <span class="badge"
+              id="gameType">
+            SOLO
+        </span>
+        <span class="badge">
+            <span id="currentRound">1</span>
+            /
+            <span id="totalRounds">5</span>
+        </span>
+    </div>
+    <div class="progress">
+        <div id="progressBar"></div>
+    </div>
+    <div id="timer"
+         class="timer">
+    </div>
+    <div id="targetCard"
+         class="card">
+        <div class="title center">
+            COULEUR CIBLE
+        </div>
+        <div id="target"
+             class="target">
+            <span id="targetHex"
+                  class="hex">
+                #FFFFFF
+            </span>
+        </div>
+        <div id="modeMessage"
+             class="tiny center"
+             style="margin-top:10px">
+        </div>
+    </div>
+    <div id="cameraCard"
+         class="card">
+        <div class="title">
+            PHOTO
+        </div>
+        <div class="camera">
+            <video id="video"
+                   autoplay
+                   playsinline>
+            </video>
+        </div>
+        <button class="primary"
+                style="margin-top:12px"
+                onclick="takePhoto(false)">
+            PRENDRE LA PHOTO
+        </button>
+    </div>
+    <div id="previewCard"
+         class="card hidden">
+        <div class="title">
+            APERÇU
+        </div>
+        <canvas id="photo"
+                class="photo">
+        </canvas>
+        <div class="tiny"
+             style="margin-top:8px">
+            Vérifie ta photo avant l'analyse.
+        </div>
+        <div style="
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:8px;
+            margin-top:12px">
+            <button class="secondary"
+                    onclick="retake()">
+                REFAIRE
+            </button>
+            <button class="primary"
+                    onclick="analyze()">
+                ANALYSER
+            </button>
+        </div>
+    </div>
+    <div id="resultCard"
+         class="card hidden">
+        <div class="title center">
+            RÉSULTAT
+        </div>
+        <canvas id="resultPhoto"
+                class="photo">
+        </canvas>
+        <div class="statGrid"
+             style="margin-top:12px">
+            <div class="stat">
+                <span>CIBLE</span>
+                <strong id="resultTarget">
+                    #FFFFFF
+                </strong>
+            </div>
+            <div class="stat">
+                <span>PIXEL TROUVÉ</span>
+                <strong id="resultPixel">
+                    #FFFFFF
+                </strong>
+            </div>
+        </div>
+        <div id="resultScore"
+             class="score"
+             style="margin-top:12px">
+            0 %
+        </div>
+        <div id="resultMessage"
+             class="center muted">
+        </div>
+        <button id="continueButton"
+                class="primary"
+                style="margin-top:15px"
+                onclick="continueGame()">
+            CONTINUER
+        </button>
+    </div>
+</section>
+<!-- ================= WAITING ================= -->
+<section id="waiting" class="screen">
+    <div class="card center">
+        <div class="title">
+            MANCHE TERMINÉE
+        </div>
+        <div class="big">
+            En attente...
+        </div>
+        <p class="muted">
+            Tous les joueurs doivent terminer
+            avant la prochaine couleur.
+        </p>
+    </div>
+    <div class="card">
+        <div class="title">JOUEURS</div>
+        <div id="waitingPlayers"
+             class="players">
+        </div>
+    </div>
+</section>
+<!-- ================= FINAL ================= -->
+<section id="final" class="screen">
+    <div class="card center">
+        <div class="title">
+            FIN DE LA PARTIE
+        </div>
+        <div id="finalWinner"
+             class="big">
+            RÉSULTATS
+        </div>
+        <div id="finalLocalScore"
+             class="score">
+            0 %
+        </div>
+    </div>
+    <div id="finalPodiumCard"
+         class="card hidden">
+        <div class="title center">
+            PODIUM
+        </div>
+        <div id="podium"
+             class="podium">
+        </div>
+    </div>
+    <div class="card">
+        <div class="title">
+            RÉSULTATS DES JOUEURS
+        </div>
+        <div id="finalResults">
+        </div>
+    </div>
+    <div class="menu">
+        <button class="primary"
+                onclick="replay()">
+            REJOUER
+        </button>
+        <button class="secondary"
+                onclick="showScreen('home')">
+            ACCUEIL
+        </button>
+    </div>
+</section>
+</div>
+<div id="toast"
+     class="toast">
+</div>
+<script>
+/* =========================================================
+   COLOR HUNT
+   SINGLE FILE
+   ========================================================= */
+/* =========================
+   GLOBAL STATE
+========================= */
+const state = {
+    mode:"classic",
+    type:"solo",
+    rounds:5,
+    round:0,
+    target:null,
+    scores:[],
+    photos:[],
+    photoTaken:false,
+    timer:null,
+    timeLeft:null,
+    infinite:false,
+    autoPhoto:false,
+    camera:null,
+    peer:null,
+    room:null,
+    host:false,
+    connections:{},
+    players:{},
+    finished:{},
+    roundResults:{}
+};
+const playerId =
+    localStorage.getItem("ch_player_id") ||
+    crypto.randomUUID();
+localStorage.setItem(
+    "ch_player_id",
+    playerId
+);
+let playerName =
+    localStorage.getItem("ch_player_name") ||
+    "";
+/* =========================
+   NAVIGATION
+========================= */
+function showScreen(id){
+    document
+        .querySelectorAll(".screen")
+        .forEach(x=>x.classList.remove("active"));
+    const el=document.getElementById(id);
+    if(el)
+        el.classList.add("active");
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+function toast(message){
+    const el=document.getElementById("toast");
+    el.textContent=message;
+    el.classList.add("show");
+    clearTimeout(window.__toast);
+    window.__toast=setTimeout(()=>{
+        el.classList.remove("show");
+    },2400);
+}
+/* =========================
+   CHARACTER
+========================= */
+const character = {
+    color:
+        localStorage.getItem("ch_avatar_color") ||
+        "#55e8ff",
+    accessory:
+        localStorage.getItem("ch_avatar_accessory") ||
+        "none"
+};
+function openCharacter(){
+    showScreen("character");
+    updateAvatar();
+}
+function setAvatarColor(color,button){
+    character.color=color;
+    localStorage.setItem(
+        "ch_avatar_color",
+        color
+    );
+    document
+        .querySelectorAll(".colorChoice")
+        .forEach(x=>x.classList.remove("selected"));
+    button.classList.add("selected");
+    updateAvatar();
+}
+function setAccessory(accessory,button){
+    character.accessory=accessory;
+    localStorage.setItem(
+        "ch_avatar_accessory",
+        accessory
+    );
+    document
+        .querySelectorAll(".accessChoice")
+        .forEach(x=>x.classList.remove("selected"));
+    button.classList.add("selected");
+    updateAvatar();
+}
+function updateAvatar(){
+    const avatar=document.getElementById("avatar");
+    if(!avatar)
+        return;
+    avatar.style.setProperty(
+        "--avatarColor",
+        character.color
+    );
+    const accessory=
+        document.getElementById("avatarAccessory");
+    accessory.className=
+        "accessory "+
+        character.accessory;
+    if(character.accessory==="star"){
+        accessory.textContent="★";
+    }else{
+        accessory.textContent="";
+    }
+    document
+        .querySelectorAll(".colorChoice")
+        .forEach(x=>{
+            x.classList.toggle(
+                "selected",
+                x.dataset.color===character.color
+            );
+        });
+    document
+        .querySelectorAll(".accessChoice")
+        .forEach(x=>{
+            x.classList.remove("selected");
+        });
+}
+/* =========================
+   MODES
+========================= */
+const descriptions={
+    classic:
+        "La couleur reste visible pendant toute la recherche.",
+    blind:
+        "La couleur apparaît brièvement puis disparaît.",
+    memory:
+        "Mémorise la couleur avant de commencer.",
+    rapid:
+        "Le temps est limité et le chrono est important.",
+    challenge:
+        "Le jeu ajoute une contrainte spéciale."
+};
+function updateMode(type){
+    const select=document.getElementById(
+        type==="solo"
+        ?"soloMode"
+        :"multiMode"
+    );
+    const description=document.getElementById(
+        type==="solo"
+        ?"soloDescription"
+        :"multiDescription"
+    );
+    if(select && description){
+        description.textContent=
+            descriptions[select.value];
+    }
+}
+/* =========================
+   TIME CONFIG
+========================= */
+function updateTimeUI(type){
+    const select=document.getElementById(
+        type==="solo"
+        ?"soloTime"
+        :"multiTime"
+    );
+    const box=document.getElementById(
+        type==="solo"
+        ?"soloAutoBox"
+        :"multiAutoBox"
+    );
+    if(!select || !box)
+        return;
+    box.innerHTML=`
+        <div class="toggleRow">
+            <div class="toggleText">
+                <strong>Photo automatique</strong>
+                <small>
+                    Si aucune photo n'est prise,
+                    une photo sera capturée à la fin.
+                </small>
+            </div>
+            <label class="switch">
+                <input
+                    id="${type}AutoPhoto"
+                    type="checkbox"
+                    checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+    `;
+}
+/* =========================
+   SOLO
+========================= */
+function openSolo(){
+    showScreen("soloConfig");
+    updateMode("solo");
+    updateTimeUI("solo");
+}
+function startSolo(){
+    state.type="solo";
+    state.mode=
+        document.getElementById("soloMode").value;
+    state.rounds=
+        Number(
+            document.getElementById("soloRounds").value
+        );
+    const time=
+        document.getElementById("soloTime").value;
+    state.infinite=time==="inf";
+    state.timeLeft=
+        state.infinite
+        ? null
+        : Number(time);
+    state.autoPhoto=
+        document.getElementById("soloAutoPhoto")?.checked ??
+        true;
+    state.round=0;
+    state.scores=[];
+    state.photos=[];
+    document.getElementById("gameType")
+        .textContent="SOLO";
+    document.getElementById("totalRounds")
+        .textContent=state.rounds;
+    startCamera().then(()=>{
+        showScreen("game");
+        startRound();
+    });
+}
+/* =========================
+   CAMERA
+========================= */
+async function startCamera(){
+    stopCamera();
+    try{
+        state.camera=
+            await navigator.mediaDevices.getUserMedia({
+                video:{
+                    facingMode:{
+                        ideal:"environment"
+                    },
+                    width:{
+                        ideal:1280
+                    },
+                    height:{
+                        ideal:960
+                    }
+                },
+                audio:false
+            });
+        document.getElementById("video")
+            .srcObject=state.camera;
+    }catch(error){
+        console.error(error);
+        toast(
+            "Impossible d'ouvrir la caméra. Vérifie les permissions."
+        );
+    }
+}
+function stopCamera(){
+    if(state.camera){
+        state.camera
+            .getTracks()
+            .forEach(track=>track.stop());
+        state.camera=null;
+    }
+}
+/* =========================
+   COLORS
+========================= */
+function randomColor(){
+    return {
+        r:Math.floor(Math.random()*256),
+        g:Math.floor(Math.random()*256),
+        b:Math.floor(Math.random()*256)
+    };
+}
+function rgbHex(c){
+    return "#"+
+        [c.r,c.g,c.b]
+        .map(x=>
+            x.toString(16)
+             .padStart(2,"0")
+        )
+        .join("")
+        .toUpperCase();
+}
+function cssRGB(c){
+    return `rgb(${c.r},${c.g},${c.b})`;
+}
+/* =========================
+   ROUND
+========================= */
+async function startRound(){
+    clearTimer();
+    state.round++;
+    state.photoTaken=false;
+    document.getElementById("currentRound")
+        .textContent=state.round;
+    document.getElementById("progressBar")
+        .style.width=
+        (
+            (state.round-1)/
+            state.rounds*
+            100
+        )+"%";
+    document.getElementById("cameraCard")
+        .classList.remove("hidden");
+    document.getElementById("previewCard")
+        .classList.add("hidden");
+    document.getElementById("resultCard")
+        .classList.add("hidden");
+    document.getElementById("targetCard")
+        .classList.remove("hidden");
+    state.target=randomColor();
+    displayTarget();
+    if(
+        state.type==="multi" &&
+        state.host
+    ){
+        broadcast({
+            type:"newRound",
+            round:state.round,
+            target:state.target
+        });
+    }
+    prepareMode();
+    startRoundTimer();
+}
+function displayTarget(){
+    const target=
+        document.getElementById("target");
+    target.style.background=
+        cssRGB(state.target);
+    document.getElementById("targetHex")
+        .textContent=
+        rgbHex(state.target);
+    document.getElementById("resultTarget")
+        .textContent=
+        rgbHex(state.target);
+}
+/* =========================
+   MODE BEHAVIOR
+========================= */
+function prepareMode(){
+    const message=
+        document.getElementById("modeMessage");
+    message.textContent="";
+    document.getElementById("targetCard")
+        .classList.remove("hidden");
+    if(state.mode==="blind"){
+        message.textContent=
+            "Mémorise la couleur...";
+        setTimeout(()=>{
+            if(state.photoTaken)
+                return;
+            document.getElementById("targetCard")
+                .classList.add("hidden");
+        },3000);
+    }
+    else if(state.mode==="memory"){
+        message.textContent=
+            "Mémorise la couleur avant de chercher.";
+        setTimeout(()=>{
+            if(state.photoTaken)
+                return;
+            document.getElementById("targetCard")
+                .classList.add("hidden");
+        },5000);
+    }
+    else if(state.mode==="rapid"){
+        message.textContent=
+            "Trouve-la le plus rapidement possible.";
+    }
+    else if(state.mode==="challenge"){
+        const challenges=[
+            "Cherche une couleur proche dans un objet.",
+            "Évite les écrans.",
+            "Trouve une surface mate.",
+            "Trouve quelque chose à l'extérieur.",
+            "Évite les objets blancs.",
+            "Trouve un objet plus petit que ta main."
+        ];
+        message.textContent=
+            challenges[
+                Math.floor(
+                    Math.random()*challenges.length
+                )
+            ];
+    }
+}
+/* =========================
+   TIMER
+========================= */
+function startRoundTimer(){
+    clearTimer();
+    const timer=
+        document.getElementById("timer");
+    if(state.infinite){
+        timer.textContent="∞";
+        return;
+    }
+    state.timeLeft=
+        Number(
+            document.getElementById(
+                state.type==="solo"
+                ?"soloTime"
+                :"multiTime"
+            ).value
+        );
+    if(!Number.isFinite(state.timeLeft))
+        return;
+    updateTimer();
+    state.timer=
+        setInterval(()=>{
+            state.timeLeft--;
+            updateTimer();
+            if(state.timeLeft<=0){
+                clearTimer();
+                timeExpired();
+            }
+        },1000);
+}
+function updateTimer(){
+    const timer=
+        document.getElementById("timer");
+    if(state.infinite){
+        timer.textContent="∞";
+        timer.classList.remove("warning");
+        return;
+    }
+    timer.textContent=
+        "TEMPS  "+
+        formatTime(state.timeLeft);
+    timer.classList.toggle(
+        "warning",
+        state.timeLeft<=5
+    );
+}
+function formatTime(seconds){
+    if(seconds<60)
+        return seconds+"s";
+    const m=Math.floor(seconds/60);
+    const s=seconds%60;
+    return m+
+        ":"+
+        String(s).padStart(2,"0");
+}
+function clearTimer(){
+    if(state.timer){
+        clearInterval(state.timer);
+        state.timer=null;
+    }
+}
+function timeExpired(){
+    if(state.photoTaken)
+        return;
+    if(state.autoPhoto){
+        takePhoto(true);
+    }else{
+        noPhoto();
+    }
+}
+/* =========================
+   PHOTO
+========================= */
+function takePhoto(auto){
+    if(state.photoTaken)
+        return;
+    const video=
+        document.getElementById("video");
+    if(!video.videoWidth){
+        toast("Caméra pas encore prête.");
+        return;
+    }
+    const canvas=
+        document.getElementById("photo");
+    canvas.width=video.videoWidth;
+    canvas.height=video.videoHeight;
+    const ctx=
+        canvas.getContext("2d");
+    ctx.drawImage(
+        video,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+    state.photoTaken=true;
+    clearTimer();
+    document.getElementById("cameraCard")
+        .classList.add("hidden");
+    document.getElementById("previewCard")
+        .classList.remove("hidden");
+    if(auto){
+        toast("Photo automatique capturée.");
+        setTimeout(()=>{
+            analyze();
+        },500);
+    }
+}
+function retake(){
+    state.photoTaken=false;
+    document.getElementById("previewCard")
+        .classList.add("hidden");
+    document.getElementById("cameraCard")
+        .classList.remove("hidden");
+    startRoundTimer();
+}
+function noPhoto(){
+    state.photoTaken=true;
+    state.scores.push(0);
+    state.photos.push(null);
+    document.getElementById("cameraCard")
+        .classList.add("hidden");
+    document.getElementById("previewCard")
+        .classList.add("hidden");
+    document.getElementById("resultCard")
+        .classList.remove("hidden");
+    document.getElementById("resultScore")
+        .textContent="0 %";
+    document.getElementById("resultPixel")
+        .textContent="AUCUNE PHOTO";
+    document.getElementById("resultMessage")
+        .textContent=
+        "Aucune photo prise.";
+    prepareContinue();
+    if(state.type==="multi")
+        submitMultiScore(0,null);
+}
+/* =========================
+   PIXEL ANALYSIS
+========================= */
+function analyze(){
+    if(!state.photoTaken)
+        return;
+    const canvas=
+        document.getElementById("photo");
+    const ctx=
+        canvas.getContext(
+            "2d",
+            {willReadFrequently:true}
+        );
+    const image=
+        ctx.getImageData(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+    const data=image.data;
+    let bestDistance=Infinity;
+    let bestIndex=-1;
+    const target=state.target;
+    /*
+       Chaque pixel de la photo est comparé
+       individuellement à la couleur cible.
+       Il n'y a AUCUNE moyenne de l'image.
+    */
+    for(let i=0;i<data.length;i+=4){
+        const alpha=data[i+3];
+        if(alpha<20)
+            continue;
+        const r=data[i];
+        const g=data[i+1];
+        const b=data[i+2];
+        const dr=r-target.r;
+        const dg=g-target.g;
+        const db=b-target.b;
+        /*
+          Distance euclidienne RGB.
+        */
+        const distance=
+            dr*dr+
+            dg*dg+
+            db*db;
+        if(distance<bestDistance){
+            bestDistance=distance;
+            bestIndex=i;
+        }
+    }
+    if(bestIndex<0){
+        noPhoto();
+        return;
+    }
+    const pixelNumber=bestIndex/4;
+    const x=
+        pixelNumber%canvas.width;
+    const y=
+        Math.floor(
+            pixelNumber/canvas.width
+        );
+    const best={
+        r:data[bestIndex],
+        g:data[bestIndex+1],
+        b:data[bestIndex+2]
+    };
+    /*
+       Distance maximale au carré :
+       255² + 255² + 255².
+    */
+    const maxDistance=255*255*3;
+    let score=
+        100*
+        (1-Math.sqrt(bestDistance)/
+        Math.sqrt(maxDistance));
+    score=Math.max(
+        0,
+        Math.min(100,score)
+    );
+    score=
+        Math.round(score*10)/10;
+    showResult(
+        x,
+        y,
+        best,
+        score
+    );
+}
+/* =========================
+   RESULT
+========================= */
+function showResult(
+    x,
+    y,
+    color,
+    score
+){
+    const source=
+        document.getElementById("photo");
+    const result=
+        document.getElementById("resultPhoto");
+    result.width=source.width;
+    result.height=source.height;
+    const ctx=
+        result.getContext("2d");
+    ctx.drawImage(
+        source,
+        0,
+        0
+    );
+    const radius=
+        Math.max(
+            15,
+            Math.min(
+                42,
+                source.width/35
+            )
+        );
+    ctx.beginPath();
+    ctx.arc(
+        x,
+        y,
+        radius,
+        0,
+        Math.PI*2
+    );
+    ctx.strokeStyle="white";
+    ctx.lineWidth=5;
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(
+        x,
+        y,
+        radius+6,
+        0,
+        Math.PI*2
+    );
+    ctx.strokeStyle="#ff3b86";
+    ctx.lineWidth=3;
+    ctx.stroke();
+    document.getElementById("resultPixel")
+        .textContent=
+        rgbHex(color);
+    document.getElementById("resultTarget")
+        .textContent=
+        rgbHex(state.target);
+    document.getElementById("resultScore")
+        .textContent=
+        score.toFixed(1)
+            .replace(".",",")+
+        " %";
+    let message="";
+    if(score>=99){
+        message="PERFECT";
+    }else if(score>=95){
+        message="Excellent";
+    }else if(score>=85){
+        message="Très bon";
+    }else if(score>=70){
+        message="Bon résultat";
+    }else if(score>=50){
+        message="Pas mal";
+    }else{
+        message="À améliorer";
+    }
+    document.getElementById("resultMessage")
+        .textContent=message;
+    state.scores.push(score);
+    state.photos.push(
+        result.toDataURL(
+            "image/jpeg",
+            .55
+        )
+    );
+    document.getElementById("previewCard")
+        .classList.add("hidden");
+    document.getElementById("resultCard")
+        .classList.remove("hidden");
+    prepareContinue();
+    if(state.type==="multi"){
+        submitMultiScore(
+            score,
+            result.toDataURL(
+                "image/jpeg",
+                .35
+            )
+        );
+    }
+}
+function prepareContinue(){
+    const button=
+        document.getElementById(
+            "continueButton"
+        );
+    if(state.type==="multi"){
+        button.textContent=
+            "VALIDER";
+        button.onclick=()=>{
+            showScreen("waiting");
+        };
+    }else{
+        button.textContent=
+            state.round>=state.rounds
+            ?"VOIR LES RÉSULTATS"
+            :"MANCHE SUIVANTE";
+        button.onclick=continueGame;
+    }
+}
+function continueGame(){
+    if(
+        state.type==="multi"
+    ){
+        showScreen("waiting");
+        return;
+    }
+    if(state.round>=state.rounds){
+        finishSolo();
+        return;
+    }
+    startRound();
+}
+/* =========================
+   SOLO FINAL
+========================= */
+function finishSolo(){
+    clearTimer();
+    stopCamera();
+    const average=
+        state.scores.length
+        ?state.scores.reduce((a,b)=>a+b,0)/
+         state.scores.length
+        :0;
+    document.getElementById("finalWinner")
+        .textContent="TON SCORE";
+    document.getElementById("finalLocalScore")
+        .textContent=
+        average.toFixed(1)
+        .replace(".",",")+
+        " %";
+    document.getElementById("finalPodiumCard")
+        .classList.add("hidden");
+    const container=
+        document.getElementById("finalResults");
+    container.innerHTML="";
+    state.scores.forEach((score,index)=>{
+        const div=
+            document.createElement("div");
+        div.className="resultPlayer";
+        div.innerHTML=`
+            <div class="resultHeader">
+                <strong>
+                    Manche ${index+1}
+                </strong>
+                <strong>
+                    ${score.toFixed(1).replace(".",",")} %
+                </strong>
+            </div>
+            ${
+                state.photos[index]
+                ?`
+                <img
+                    class="finalPhoto"
+                    src="${state.photos[index]}"
+                >
+                `
+                :""
+            }
+        `;
+        container.appendChild(div);
+    });
+    showScreen("final");
+}
+/* =========================================================
+   MULTIPLAYER
+========================================================= */
+/* =========================
+   NAME
+========================= */
+function getName(){
+    let name=
+        document.getElementById("multiName")
+            ?.value
+            .trim();
+    if(!name)
+        name=playerName.trim();
+    if(!name){
+        name=prompt(
+            "Choisis ton pseudo :"
+        )?.trim()||"";
+    }
+    name=name.replace(/\s+/g," ");
+    if(name.length<2){
+        toast(
+            "Le pseudo doit contenir au moins 2 caractères."
+        );
+        return null;
+    }
+    if(name.length>18){
+        toast(
+            "Pseudo trop long."
+        );
+        return null;
+    }
+    playerName=name;
+    localStorage.setItem(
+        "ch_player_name",
+        playerName
+    );
+    return name;
+}
+/* =========================
+   OPEN MULTI
+========================= */
+function openMulti(){
+    showScreen("multiMenu");
+    const input=
+        document.getElementById("multiName");
+    input.value=playerName;
+    updateTimeUI("multi");
+    updateMode("multi");
+}
+/* =========================
+   ROOM CODE
+========================= */
+function generateRoomCode(){
+    const chars=
+        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    let result="";
+    for(let i=0;i<6;i++){
+        result+=
+            chars[
+                Math.floor(
+                    Math.random()*chars.length
+                )
+            ];
+    }
+    return result;
+}
+/* =========================
+   CREATE ROOM
+========================= */
+function createRoom(){
+    const name=getName();
+    if(!name)
+        return;
+    state.type="multi";
+    state.host=true;
+    state.room=generateRoomCode();
+    state.players={};
+    state.players[playerId]={
+        id:playerId,
+        name:name,
+        score:0,
+        avatar:character,
+        host:true,
+        total:0,
+        scores:[]
+    };
+    const peerId=
+        "colorhunt-"+state.room;
+    state.peer=
+        new Peer(peerId);
+    state.peer.on("open",()=>{
+        document.getElementById("roomCode")
+            .textContent=state.room;
+        showScreen("lobby");
+        updatePlayers();
+    });
+    state.peer.on("connection",connection=>{
+        setupConnection(connection);
+    });
+    state.peer.on("error",error=>{
+        console.error(error);
+        toast(
+            "Erreur réseau."
+        );
+    });
+}
+/* =========================
+   JOIN ROOM
+========================= */
+function joinRoom(){
+    const name=getName();
+    if(!name)
+        return;
+    const code=
+        document.getElementById("joinCode")
+            .value
+            .trim()
+            .toUpperCase();
+    if(!/^[A-Z0-9]{6}$/.test(code)){
+        toast(
+            "Code de room invalide."
+        );
+        return;
+    }
+    state.type="multi";
+    state.host=false;
+    state.room=code;
+    state.peer=new Peer();
+    state.peer.on("open",()=>{
+        const connection=
+            state.peer.connect(
+                "colorhunt-"+code,
+                {
+                    reliable:true
+                }
+            );
+        setupConnection(connection);
+    });
+    state.peer.on("error",error=>{
+        console.error(error);
+        toast(
+            "Impossible de rejoindre la room."
+        );
+    });
+}
+/* =========================
+   CONNECTION
+========================= */
+function setupConnection(connection){
+    state.connections[
+        connection.peer
+    ]=connection;
+    connection.on("open",()=>{
+        connection.send({
+            type:"hello",
+            player:{
+                id:playerId,
+                name:playerName,
+                avatar:character
+            }
+        });
+    });
+    connection.on("data",data=>{
+        handleNetwork(data);
+    });
+    connection.on("close",()=>{
+        delete state.connections[
+            connection.peer
+        ];
+        updatePlayers();
+    });
+    connection.on("error",error=>{
+        console.error(error);
+    });
+}
+/* =========================
+   NETWORK
+========================= */
+function broadcast(data){
+    Object.values(
+        state.connections
+    ).forEach(connection=>{
+        if(connection.open){
+            connection.send(data);
+        }
+    });
+}
+function sendHost(data){
+    const connection=
+        state.peer.connect(
+            "colorhunt-"+state.room,
+            {
+                reliable:true
+            }
+        );
+    connection.on("open",()=>{
+        connection.send(data);
+    });
+}
+/* =========================
+   NETWORK HANDLER
+========================= */
+function handleNetwork(data){
+    if(data.type==="hello"){
+        if(!state.host)
+            return;
+        /*
+          PSEUDO UNIQUE :
+          comparaison insensible aux majuscules
+          et aux espaces.
+        */
+        const wanted=
+            normalizeName(data.player.name);
+        const collision=
+            Object.values(
+                state.players
+            ).some(player=>
+                normalizeName(player.name)===wanted
+            );
+        if(collision){
+            const connection=
+                Object.values(
+                    state.connections
+                ).find(c=>
+                    c.peer
+                    .includes(data.player.id)
+                    ||
+                    c.open
+                );
+            /*
+              La connexion qui vient d'arriver
+              reçoit le refus.
+            */
+            if(connection && connection.open){
+                connection.send({
+                    type:"nameRejected"
+                });
+                setTimeout(()=>{
+                    connection.close();
+                },300);
+            }
+            return;
+        }
+        state.players[
+            data.player.id
+        ]={
+            id:data.player.id,
+            name:data.player.name,
+            avatar:data.player.avatar,
+            host:false,
+            score:0,
+            total:0,
+            scores:[]
+        };
+        broadcast({
+            type:"players",
+            players:state.players
+        });
+        updatePlayers();
+        return;
+    }
+    if(data.type==="nameRejected"){
+        toast(
+            "Ce pseudo est déjà utilisé dans cette room."
+        );
+        setTimeout(()=>{
+            leaveRoom();
+        },700);
+        return;
+    }
+    if(data.type==="players"){
+        state.players=data.players;
+        updatePlayers();
+        return;
+    }
+    if(data.type==="config"){
+        state.mode=data.mode;
+        state.rounds=data.rounds;
+        state.infinite=data.infinite;
+        state.timeLeft=data.time;
+        state.autoPhoto=data.autoPhoto;
+        state.round=0;
+        state.scores=[];
+        state.photos=[];
+        document.getElementById("gameType")
+            .textContent="MULTI";
+        document.getElementById("totalRounds")
+            .textContent=state.rounds;
+        startCamera().then(()=>{
+            showScreen("game");
+        });
+        return;
+    }
+    if(data.type==="newRound"){
+        state.round=data.round;
+        state.target=data.target;
+        state.photoTaken=false;
+        prepareNetworkRound();
+        return;
+    }
+    if(data.type==="playerFinished"){
+        if(!state.host)
+            return;
+        state.finished[data.id]={
+            score:data.score,
+            photo:data.photo,
+            target:data.target,
+            pixel:data.pixel
+        };
+        updateWaiting();
+        checkAllFinished();
+        return;
+    }
+    if(data.type==="nextRound"){
+        if(data.results){
+            state.roundResults=
+                data.results;
+        }
+        if(state.round>=state.rounds){
+            showMultiFinal(
+                data.finalResults ||
+                []
+            );
+        }else{
+            prepareNetworkRound();
+        }
+        return;
+    }
+    if(data.type==="final"){
+        showMultiFinal(
+            data.results
+        );
+        return;
+    }
+}
+/* =========================
+   LOBBY UI
+========================= */
+function updatePlayers(){
+    const list=
+        document.getElementById("players");
+    if(!list)
+        return;
+    list.innerHTML="";
+    Object.values(
+        state.players
+    ).forEach(player=>{
+        const div=
+            document.createElement("div");
+        div.className="player";
+        div.innerHTML=`
+            <span>
+                ${player.host?"◆ ":""}
+                ${escapeHTML(player.name)}
+            </span>
+            <span class="ready">
+                ${player.id===playerId?"TOI":"PRÊT"}
+            </span>
+        `;
+        list.appendChild(div);
+    });
+}
+/* =========================
+   START MULTI
+========================= */
+function startMulti(){
+    if(!state.host)
+        return;
+    const mode=
+        document.getElementById("multiMode")
+            .value;
+    const rounds=
+        Number(
+            document.getElementById("multiRounds")
+                .value
+        );
+    const timeValue=
+        document.getElementById("multiTime")
+            .value;
+    const infinite=
+        timeValue==="inf";
+    const time=
+        infinite
+        ?null
+        :Number(timeValue);
+    const autoPhoto=
+        document.getElementById(
+            "multiAutoPhoto"
+        )?.checked ?? true;
+    state.mode=mode;
+    state.rounds=rounds;
+    state.infinite=infinite;
+    state.timeLeft=time;
+    state.autoPhoto=autoPhoto;
+    state.round=0;
+    state.finished={};
+    Object.values(
+        state.players
+    ).forEach(player=>{
+        player.score=0;
+        player.total=0;
+        player.scores=[];
+    });
+    broadcast({
+        type:"config",
+        mode,
+        rounds,
+        infinite,
+        time,
+        autoPhoto
+    });
+    startCamera().then(()=>{
+        showScreen("game");
+        setTimeout(()=>{
+            startRound();
+        },300);
+    });
+}
+/* =========================
+   NETWORK ROUND
+========================= */
+function prepareNetworkRound(){
+    clearTimer();
+    document.getElementById("currentRound")
+        .textContent=state.round;
+    document.getElementById("progressBar")
+        .style.width=
+        (
+            (state.round-1)/
+            state.rounds*
+            100
+        )+"%";
+    document.getElementById("cameraCard")
+        .classList.remove("hidden");
+    document.getElementById("previewCard")
+        .classList.add("hidden");
+    document.getElementById("resultCard")
+        .classList.add("hidden");
+    document.getElementById("targetCard")
+        .classList.remove("hidden");
+    displayTarget();
+    prepareMode();
+    startRoundTimer();
+}
+/* =========================
+   MULTI SCORE
+========================= */
+function submitMultiScore(score,photo){
+    if(state._submittedRound===state.round)
+        return;
+    state._submittedRound=state.round;
+    const target=
+        rgbHex(state.target);
+    const data={
+        type:"playerFinished",
+        id:playerId,
+        name:playerName,
+        score:Number(score||0),
+        photo:photo||null,
+        target
+    };
+    if(state.host){
+        state.finished[playerId]={
+            score:data.score,
+            photo:data.photo,
+            target:data.target
+        };
+        updateWaiting();
+        checkAllFinished();
+    }else{
+        sendHost(data);
+        showScreen("waiting");
+    }
+}
+/* =========================
+   WAITING
+========================= */
+function updateWaiting(){
+    const list=
+        document.getElementById(
+            "waitingPlayers"
+        );
+    list.innerHTML="";
+    Object.values(
+        state.players
+    ).forEach(player=>{
+        const finished=
+            state.finished[
+                player.id
+            ]!==undefined;
+        const div=
+            document.createElement("div");
+        div.className="player";
+        div.innerHTML=`
+            <span>
+                ${escapeHTML(player.name)}
+            </span>
+            <span class="${
+                finished
+                ?"ready"
+                :"waiting"
+            }">
+                ${
+                    finished
+                    ?"TERMINÉ"
+                    :"EN COURS"
+                }
+            </span>
+        `;
+        list.appendChild(div);
+    });
+}
+function checkAllFinished(){
+    if(!state.host)
+        return;
+    const ids=
+        Object.keys(state.players);
+    const allDone=
+        ids.every(
+            id=>
+                state.finished[id]!==undefined
+        );
+    updateWaiting();
+    if(!allDone){
+        showScreen("waiting");
+        return;
+    }
+    /*
+      On enregistre le score de cette manche
+      pour chaque joueur.
+    */
+    ids.forEach(id=>{
+        const result=
+            state.finished[id];
+        if(!state.players[id].scores)
+            state.players[id].scores=[];
+        state.players[id].scores.push(
+            result.score
+        );
+        state.players[id].total=
+            state.players[id].scores
+                .reduce((a,b)=>a+b,0);
+    });
+    const roundData=
+        {...state.finished};
+    state.roundResults[ state.round ]=
+        roundData;
+    broadcast({
+        type:"nextRound",
+        results:roundData
+    });
+    setTimeout(()=>{
+        if(state.round>=state.rounds){
+            createFinalResults();
+        }else{
+            state.finished={};
+            startRound();
+        }
+    },1300);
+}
+/* =========================
+   FINAL MULTI
+========================= */
+function createFinalResults(){
+    const results=
+        Object.values(
+            state.players
+        ).map(player=>{
+            const scores=
+                player.scores||[];
+            const average=
+                scores.length
+                ?scores.reduce(
+                    (a,b)=>a+b,
+                    0
+                 )/scores.length
+                :0;
+            return {
+                id:player.id,
+                name:player.name,
+                avatar:player.avatar,
+                scores,
+                score:
+                    Math.round(
+                        average*10
+                    )/10,
+                photos:getPlayerPhotos(player.id)
+            };
+        });
+    results.sort(
+        (a,b)=>b.score-a.score
+    );
+    broadcast({
+        type:"final",
+        results
+    });
+    showMultiFinal(results);
+}
+function getPlayerPhotos(id){
+    /*
+      Les photos envoyées sont conservées
+      temporairement uniquement dans l'état
+      de la partie.
+    */
+    const output=[];
+    Object.values(
+        state.roundResults
+    ).forEach(round=>{
+        if(round[id] &&
+           round[id].photo){
+            output.push(
+                round[id].photo
+            );
+        }
+    });
+    return output;
+}
+function showMultiFinal(results){
+    stopCamera();
+    clearTimer();
+    results=
+        Array.isArray(results)
+        ?results:[...Object.values(state.players)]
+            .map(player=>({
+                id:player.id,
+                name:player.name,
+                avatar:player.avatar,
+                score:
+                    player.scores?.length
+                    ?player.scores.reduce(
+                        (a,b)=>a+b,
+                        0
+                    )/player.scores.length
+                    :0,
+                scores:player.scores||[],
+                photos:[]
+            }))
+            .sort((a,b)=>b.score-a.score);
+    const local=
+        results.find(
+            x=>x.id===playerId
+        );
+    document.getElementById("finalLocalScore")
+        .textContent=
+        local
+        ?local.score.toFixed(1).replace(".",",")+" %"
+        :"—";
+    document.getElementById("finalWinner")
+        .textContent=
+        results[0]
+        ?results[0].name+" gagne"
+        :"RÉSULTATS";
+    buildPodium(results);
+    buildFinalResults(results);
+    showScreen("final");
+}
+function buildPodium(results){
+    const card=
+        document.getElementById(
+            "finalPodiumCard"
+        );
+    const podium=
+        document.getElementById(
+            "podium"
+        );
+    podium.innerHTML="";
+    if(!results.length){
+        card.classList.add("hidden");
+        return;
+    }
+    card.classList.remove("hidden");
+    const order=[];
+    if(results[1]) order.push({
+        player:results[1],
+        place:2,
+        cls:"second"
+    });
+    if(results[0]) order.push({
+        player:results[0],
+        place:1,
+        cls:"first"
+    });
+    if(results[2]) order.push({
+        player:results[2],
+        place:3,
+        cls:"third"
+    });
+    order.forEach(item=>{
+        const p=item.player;
+        const div=
+            document.createElement("div");
+        div.className=
+            "podiumPlace "+
+            item.cls;
+        div.innerHTML=`
+            <div class="podiumAvatar"
+                 style="
+                 background:${escapeAttr(
+                    p.avatar?.color ||
+                    "#55e8ff"
+                 )}">
+                ${
+                    item.place===1
+                    ?"◆"
+                    :item.place===2
+                    ?"◇"
+                    :"○"
+                }
+            </div>
+            <div class="podiumBar">
+                <div class="podiumName">
+                    ${escapeHTML(p.name)}
+                </div>
+                <div class="podiumScore">
+                    ${Number(p.score||0)
+                        .toFixed(1)
+                        .replace(".",",")} %
+                </div>
+            </div>
+        `;
+        podium.appendChild(div);
+    });
+}
+function buildFinalResults(results){
+    const container=
+        document.getElementById(
+            "finalResults"
+        );
+    container.innerHTML="";
+    results.forEach((p,index)=>{
+        const div=
+            document.createElement(
+                "div"
+            );
+        div.className="resultPlayer";
+        const avatarColor=
+            p.avatar?.color ||
+            "#55e8ff";
+        div.innerHTML=`
+            <div class="resultHeader">
+                <strong>
+                    ${index+1}.
+                    ${escapeHTML(p.name)}
+                </strong>
+                <strong>
+                    ${Number(p.score||0)
+                        .toFixed(1)
+                        .replace(".",",")} %
+                </strong>
+            </div>
+            <div class="tiny">
+                ${(
+                    p.scores||[]
+                ).map(
+                    (x,i)=>
+                    "M"+(i+1)+" "+
+                    Number(x).toFixed(1)+"%"
+                ).join(" · ")}
+            </div>
+            ${
+                (p.photos||[]).map(
+                    photo=>`
+                        <img
+                            class="finalPhoto"
+                            src="${escapeAttr(photo)}">
+                    `
+                ).join("")
+            }
+            <div style="
+                width:100%;
+                height:4px;
+                border-radius:10px;
+                margin-top:9px;
+                background:${avatarColor}">
+            </div>
+        `;
+        container.appendChild(div);
+    });
+}
+/* =========================
+   SHARE
+========================= */
+async function shareRoom(){
+    const url=
+        location.href.split("?")[0]+
+        "?room="+
+        encodeURIComponent(
+            state.room
+        );
+    try{
+        if(navigator.share){
+            await navigator.share({
+                title:"Color Hunt",
+                text:
+                    "Rejoins ma partie Color Hunt",
+                url
+            });
+        }else{
+            await navigator.clipboard.writeText(url);
+            toast("Lien copié.");
+        }
+    }catch(e){}
+}
+/* =========================
+   LEAVE
+========================= */
+function leaveRoom(){
+    stopCamera();
+    clearTimer();
+    if(state.peer){
+        try{
+            state.peer.destroy();
+        }catch(e){}
+        state.peer=null;
+    }
+    state.room=null;
+    state.host=false;
+    state.connections={};
+    state.players={};
+    state.finished={};
+    state.roundResults={};
+    showScreen("home");
+}
+/* =========================
+   REPLAY
+========================= */
+function replay(){
+    if(state.type==="solo"){
+        startSolo();
+    }else{
+        showScreen("lobby");
+    }
+}
+/* =========================
+   UTILS
+========================= */
+function normalizeName(name){
+    return String(name)
+        .trim()
+        .replace(/\s+/g," ")
+        .toLowerCase();
+}
+function escapeHTML(value){
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+}
+function escapeAttr(value){
+    return escapeHTML(value)
+        .replaceAll("`","&#096;");
+}
+/* =========================
+   URL ROOM
+========================= */
+function checkRoomURL(){
+    const params=
+        new URLSearchParams(
+            location.search
+        );
+    const roomCode=
+        params.get("room");
+    if(roomCode){
+        showScreen("multiMenu");
+        document.getElementById(
+            "joinCode"
+        ).value=
+            roomCode.toUpperCase();
+        toast(
+            "Room détectée."
+        );
+    }
+}
+/* =========================
+   INIT
+========================= */
+updateMode("solo");
+updateTimeUI("solo");
+checkRoomURL();
+updateAvatar();
+/*
+  Le nom est demandé seulement
+  lorsqu'on utilise le multijoueur.
+*/
+</script>
+</body>
+</html>
